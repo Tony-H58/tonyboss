@@ -1,0 +1,265 @@
+warning: in the working copy of '.claude/settings.local.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/11_inspdata_monthly 筆記.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/Claude Skills 總表.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/INDEX.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/Skill使用指南.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/tony筆記本/.obsidian/core-plugins.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/tony筆記本/.obsidian/graph.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/tony筆記本/.obsidian/workspace.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/tony筆記本/歡迎.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_claude data/發票整理筆記.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/15_dashboard/品管儀表板_B.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/15_dashboard/品管儀表板_總頁.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/21_qc expense chart/MK出差报销单.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/GU驗布規程完全指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/INDEX.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/四點制與十點制評分系統.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/國際客戶規範對標.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/染色診斷與解決方案.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/機能性纖維知識完全指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/檢驗流程完整指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/物理測試標準完全解讀.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/23_textile knowledge/缺陷識別速查表.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/24_fabric inspsystem/fabric inspsystem.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/32_business trip report/5月訪廠簡報.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/32_business trip report/5月訪廠簡報_地圖版.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/32_business trip report/5月訪廠簡報_真實地圖版.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/32_business trip report/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '00_html file/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/check_monthly_download.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/check_weekly_download.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/process_pending_rawdata.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/send_weekly_email.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/setup_schedules.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '02_reminder/setup_schedules.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/AUTO_vs_MANUAL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/auto_download_http.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/convert_rawdata.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/run_download_and_convert.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/月報_完整.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/月報自動.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/週報_完整.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '03_download rawdata/週報自動.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/auto_check_and_import.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/auto_import.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/step4_fix_inspqty.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/step5_bl_br.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/step6_bs_cw.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '11_inspdata_monthly/step7_format.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '12_inspdata_weekly/calc_weekly_stats.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '12_inspdata_weekly/import_weekly.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '12_inspdata_weekly/run_weekly_full.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '12_inspdata_weekly/run_weekly_import.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '12_inspdata_weekly/step4to7_weekly.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '13_compare style inspquality/比對.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '14_qc performance/qc_kpi_final.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '15_dashboard/品管儀表板_B.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '15_dashboard/品管儀表板_總頁.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '21_qc expense chart/MK出差报销单.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/00_基礎知識/四點制與十點制評分系統.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/00_基礎知識/機能性纖維知識完全指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/00_基礎知識/物理測試標準完全解讀.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/01_瑕疵識別/瑕疵識別速查表.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/01_瑕疵識別/缺陷識別速查表.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/02_染整工藝/染色疵點診斷與解決方案.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/02_染整工藝/染色診斷與解決方案.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/03_客戶標準/GU驗布規程完全指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/03_客戶標準/國際客戶規範對標.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/03_測試標準/驗布標準與聚陽規定.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/04_檢驗清單/品管檢驗清單.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/04_檢驗清單/檢驗流程完整指南.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/07_參考資料/紡織專業術語速查表.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/INDEX.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '23_textile knowledge/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '24_fabric inspsystem/webapp/.claude/launch.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '24_fabric inspsystem/webapp/main.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '24_fabric inspsystem/webapp/static/fabric inspsystem.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '32_business trip report/5月訪廠簡報.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '32_business trip report/5月訪廠簡報_地圖版.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '32_business trip report/5月訪廠簡報_真實地圖版.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '32_business trip report/README.md', LF will be replaced by CRLF the next time Git touches it
+[master (root-commit) 4004057] Initial commit: Claude Code projects and configuration sync
+ 182 files changed, 27917 insertions(+)
+ create mode 100644 .claude/settings.local.json
+ create mode 100644 .gitignore
+ create mode 100644 "00_claude data/11_inspdata_monthly \347\255\206\350\250\230.md"
+ create mode 100644 "00_claude data/Claude Skills \347\270\275\350\241\250.md"
+ create mode 100644 00_claude data/INDEX.md
+ create mode 100644 "00_claude data/Skill\344\275\277\347\224\250\346\214\207\345\215\227.md"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/.obsidian/app.json"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/.obsidian/appearance.json"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/.obsidian/core-plugins.json"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/.obsidian/graph.json"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/.obsidian/workspace.json"
+ create mode 100644 "00_claude data/tony\347\255\206\350\250\230\346\234\254/\346\255\241\350\277\216.md"
+ create mode 100644 "00_claude data/\347\231\274\347\245\250\346\225\264\347\220\206\347\255\206\350\250\230.md"
+ create mode 100644 "00_html file/13_compare style inspquality/\346\257\224\345\260\215\347\265\220\346\236\234.html"
+ create mode 100644 00_html file/14_qc performance/qc_kpi_report.html
+ create mode 100644 "00_html file/15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_A.html"
+ create mode 100644 "00_html file/15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_B.html"
+ create mode 100644 "00_html file/15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_\347\270\275\351\240\201.html"
+ create mode 100644 "00_html file/21_qc expense chart/MK\345\207\272\345\267\256\346\212\245\351\224\200\345\215\225.html"
+ create mode 100644 "00_html file/23_textile knowledge/GU\351\251\227\345\270\203\350\246\217\347\250\213\345\256\214\345\205\250\346\214\207\345\215\227.html"
+ create mode 100644 00_html file/23_textile knowledge/INDEX.html
+ create mode 100644 "00_html file/23_textile knowledge/\345\233\233\351\273\236\345\210\266\350\210\207\345\215\201\351\273\236\345\210\266\350\251\225\345\210\206\347\263\273\347\265\261.html"
+ create mode 100644 "00_html file/23_textile knowledge/\345\234\213\351\232\233\345\256\242\346\210\266\350\246\217\347\257\204\345\260\215\346\250\231.html"
+ create mode 100644 "00_html file/23_textile knowledge/\346\237\223\350\211\262\350\250\272\346\226\267\350\210\207\350\247\243\346\261\272\346\226\271\346\241\210.html"
+ create mode 100644 "00_html file/23_textile knowledge/\346\251\237\350\203\275\346\200\247\347\272\226\347\266\255\347\237\245\350\255\230\345\256\214\345\205\250\346\214\207\345\215\227.html"
+ create mode 100644 "00_html file/23_textile knowledge/\346\252\242\351\251\227\346\265\201\347\250\213\345\256\214\346\225\264\346\214\207\345\215\227.html"
+ create mode 100644 "00_html file/23_textile knowledge/\347\211\251\347\220\206\346\270\254\350\251\246\346\250\231\346\272\226\345\256\214\345\205\250\350\247\243\350\256\200.html"
+ create mode 100644 "00_html file/23_textile knowledge/\347\274\272\351\231\267\350\255\230\345\210\245\351\200\237\346\237\245\350\241\250.html"
+ create mode 100644 00_html file/24_fabric inspsystem/fabric inspsystem.html
+ create mode 100644 "00_html file/32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261.html"
+ create mode 100644 "00_html file/32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261.pptx"
+ create mode 100644 "00_html file/32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261_\345\234\260\345\234\226\347\211\210.html"
+ create mode 100644 "00_html file/32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261_\347\234\237\345\257\246\345\234\260\345\234\226\347\211\210.html"
+ create mode 100644 00_html file/32_business trip report/README.md
+ create mode 100644 00_html file/README.md
+ create mode 100644 02_reminder/check_monthly_download.ps1
+ create mode 100644 02_reminder/check_weekly_download.ps1
+ create mode 100644 02_reminder/last_sent_week.txt
+ create mode 100644 02_reminder/process_pending_rawdata.ps1
+ create mode 100644 02_reminder/send_log.txt
+ create mode 100644 02_reminder/send_weekly_email.ps1
+ create mode 100644 02_reminder/setup_schedules.bat
+ create mode 100644 02_reminder/setup_schedules.ps1
+ create mode 100644 03_download rawdata/00_plan_download rawdata.xlsx
+ create mode 100644 03_download rawdata/AUTO_vs_MANUAL.md
+ create mode 100644 03_download rawdata/auto_download_http.py
+ create mode 100644 "03_download rawdata/completed rawdata/\345\276\214\347\253\257\351\251\227\345\270\203\345\240\261\350\241\250-\345\256\242\346\210\266\347\266\255\345\272\246_260618-260624.xls"
+ create mode 100644 "03_download rawdata/completed rawdata/\351\251\227\345\270\203\347\265\220\350\253\226\345\240\261\350\241\250_260618-260624.xls"
+ create mode 100644 03_download rawdata/convert_rawdata.ps1
+ create mode 100644 03_download rawdata/run_download_and_convert.ps1
+ create mode 100644 "03_download rawdata/\346\234\210\345\240\261_\345\256\214\346\225\264.ps1"
+ create mode 100644 "03_download rawdata/\346\234\210\345\240\261\350\207\252\345\213\225.ps1"
+ create mode 100644 "03_download rawdata/\351\200\261\345\240\261_\345\256\214\346\225\264.ps1"
+ create mode 100644 "03_download rawdata/\351\200\261\345\240\261\350\207\252\345\213\225.ps1"
+ create mode 100644 11_inspdata_monthly/00_plan_insprecord_QF_monthly.xlsx
+ create mode 100644 11_inspdata_monthly/auto_check_and_import.ps1
+ create mode 100644 11_inspdata_monthly/auto_import.bat
+ create mode 100644 11_inspdata_monthly/auto_import_log.txt
+ create mode 100644 11_inspdata_monthly/import_monthly.ps1
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260102-260131.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260201-260228.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260301-260331.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260401-260430.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260504-260531.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260102-260131.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260202-260228.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260302-260331.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260401-260430.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260502-260530.xlsx"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260601-260603.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260604-260610.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260611-260617.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260618-260624.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260601-260603.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260604-260610.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260611-260617.xls"
+ create mode 100644 "11_inspdata_monthly/insprawdata_monthly/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260618-260624.xls"
+ create mode 100644 11_inspdata_monthly/insprecord_QF/insprecord_QF_250102-251231.xlsx
+ create mode 100644 11_inspdata_monthly/insprecord_QF/insprecord_QF_260102-260531.xlsx
+ create mode 100644 11_inspdata_monthly/insprecord_QF/~$InspRecord_QF_260101-260430.xlsx
+ create mode 100644 11_inspdata_monthly/insprecord_QF/~$insprecord_QF_260102-260531.xlsx
+ create mode 100644 11_inspdata_monthly/run_monthly_full.ps1
+ create mode 100644 11_inspdata_monthly/step4_fix_inspqty.ps1
+ create mode 100644 11_inspdata_monthly/step5_bl_br.ps1
+ create mode 100644 11_inspdata_monthly/step6_bs_cw.ps1
+ create mode 100644 11_inspdata_monthly/step7_format.ps1
+ create mode 100644 12_inspdata_weekly/00_plan_insprecord_QF_weekly.xlsx
+ create mode 100644 12_inspdata_weekly/analysis chart_weekly/analysis chart_weekly.xlsx
+ create mode 100644 12_inspdata_weekly/analysis chart_weekly/analysis chart_weekly_260611-260617.xlsx
+ create mode 100644 12_inspdata_weekly/analysis chart_weekly/analysis chart_weekly_260618-260624.xlsx
+ create mode 100644 12_inspdata_weekly/calc_weekly_stats.ps1
+ create mode 100644 12_inspdata_weekly/import_weekly.ps1
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260528-260603.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260604-260610.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260611-260617.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\223\201\347\256\241\351\251\227\345\270\203\345\240\261\350\241\250_260618-260624.xls"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260528-260603.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260604-260610.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260611-260617.xlsx"
+ create mode 100644 "12_inspdata_weekly/insprawdata_weekly/completed rawdata/\345\267\245\345\273\240\351\251\227\345\270\203\345\240\261\350\241\250_260618-260624.xls"
+ create mode 100644 12_inspdata_weekly/insprecord_QF/insprecord_QF.xlsx
+ create mode 100644 12_inspdata_weekly/insprecord_QF/insprecord_QF_260611-260617.xlsx
+ create mode 100644 12_inspdata_weekly/insprecord_QF/insprecord_QF_260618-260624.xlsx
+ create mode 100644 12_inspdata_weekly/insprecord_QF/~$InspRecord_QF_260101-260430.xlsx
+ create mode 100644 12_inspdata_weekly/run_weekly_full.ps1
+ create mode 100644 12_inspdata_weekly/run_weekly_import.ps1
+ create mode 100644 12_inspdata_weekly/step4to7_weekly.ps1
+ create mode 100644 13_compare style inspquality/00_analysis data.xlsx
+ create mode 100644 "13_compare style inspquality/\346\257\224\345\260\215.py"
+ create mode 100644 "13_compare style inspquality/\346\257\224\345\260\215\347\265\220\346\236\234.html"
+ create mode 100644 14_qc performance/qc_kpi_final.py
+ create mode 100644 14_qc performance/qc_kpi_report.html
+ create mode 100644 15_dashboard/MAKALOT GROUP.png
+ create mode 100644 "15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_A.html"
+ create mode 100644 "15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_B.html"
+ create mode 100644 "15_dashboard/\345\223\201\347\256\241\345\204\200\350\241\250\346\235\277_\347\270\275\351\240\201.html"
+ create mode 100644 "21_qc expense chart/MK\345\207\272\345\267\256\346\212\245\351\224\200\345\215\225.html"
+ create mode 100644 22_import qc expense/00_plan_qc expense.xlsx
+ create mode 100644 "22_import qc expense/QC\345\267\256\346\227\205\350\262\273_260622.xlsx"
+ create mode 100644 22_import qc expense/expense rawdata/completed rawdata/7ff3eb22b2c11f645c44b43a4fde2439.jpg
+ create mode 100644 22_import qc expense/expense rawdata/completed rawdata/888ef23eb8435948b5254da34b5a85bf.png
+ create mode 100644 22_import qc expense/expense rawdata/completed rawdata/c75a0a58daba9748ef59529bc8280504.jpg
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260601135246_738_1.jpg"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260601163827_739_1.jpg"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260620213256_802_1.jpg"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260621151518_782_1.jpg"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260621151846_783_1.jpg"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260621184943_786_1.png"
+ create mode 100644 "22_import qc expense/expense rawdata/completed rawdata/\345\276\256\344\277\241\345\234\226\347\211\207_20260622130037_804_1.jpg"
+ create mode 100644 "23_textile knowledge/00_\345\237\272\347\244\216\347\237\245\350\255\230/\345\233\233\351\273\236\345\210\266\350\210\207\345\215\201\351\273\236\345\210\266\350\251\225\345\210\206\347\263\273\347\265\261.html"
+ create mode 100644 "23_textile knowledge/00_\345\237\272\347\244\216\347\237\245\350\255\230/\346\251\237\350\203\275\346\200\247\347\272\226\347\266\255\347\237\245\350\255\230\345\256\214\345\205\250\346\214\207\345\215\227.html"
+ create mode 100644 "23_textile knowledge/00_\345\237\272\347\244\216\347\237\245\350\255\230/\347\211\251\347\220\206\346\270\254\350\251\246\346\250\231\346\272\226\345\256\214\345\205\250\350\247\243\350\256\200.html"
+ create mode 100644 "23_textile knowledge/01_\347\221\225\347\226\265\350\255\230\345\210\245/\347\221\225\347\226\265\350\255\230\345\210\245\351\200\237\346\237\245\350\241\250.md"
+ create mode 100644 "23_textile knowledge/01_\347\221\225\347\226\265\350\255\230\345\210\245/\347\274\272\351\231\267\350\255\230\345\210\245\351\200\237\346\237\245\350\241\250.html"
+ create mode 100644 "23_textile knowledge/02_\346\237\223\346\225\264\345\267\245\350\227\235/\346\237\223\350\211\262\347\226\265\351\273\236\350\250\272\346\226\267\350\210\207\350\247\243\346\261\272\346\226\271\346\241\210.md"
+ create mode 100644 "23_textile knowledge/02_\346\237\223\346\225\264\345\267\245\350\227\235/\346\237\223\350\211\262\350\250\272\346\226\267\350\210\207\350\247\243\346\261\272\346\226\271\346\241\210.html"
+ create mode 100644 "23_textile knowledge/03_\345\256\242\346\210\266\346\250\231\346\272\226/GU\351\251\227\345\270\203\350\246\217\347\250\213\345\256\214\345\205\250\346\214\207\345\215\227.html"
+ create mode 100644 "23_textile knowledge/03_\345\256\242\346\210\266\346\250\231\346\272\226/\345\234\213\351\232\233\345\256\242\346\210\266\350\246\217\347\257\204\345\260\215\346\250\231.html"
+ create mode 100644 "23_textile knowledge/03_\346\270\254\350\251\246\346\250\231\346\272\226/\351\251\227\345\270\203\346\250\231\346\272\226\350\210\207\350\201\232\351\231\275\350\246\217\345\256\232.md"
+ create mode 100644 "23_textile knowledge/04_\346\252\242\351\251\227\346\270\205\345\226\256/\345\223\201\347\256\241\346\252\242\351\251\227\346\270\205\345\226\256.md"
+ create mode 100644 "23_textile knowledge/04_\346\252\242\351\251\227\346\270\205\345\226\256/\346\252\242\351\251\227\346\265\201\347\250\213\345\256\214\346\225\264\346\214\207\345\215\227.html"
+ create mode 100644 "23_textile knowledge/07_\345\217\203\350\200\203\350\263\207\346\226\231/\347\264\241\347\271\224\345\260\210\346\245\255\350\241\223\350\252\236\351\200\237\346\237\245\350\241\250.md"
+ create mode 100644 23_textile knowledge/INDEX.html
+ create mode 100644 23_textile knowledge/README.md
+ create mode 100644 24_fabric inspsystem/insprecord_QF.xlsx
+ create mode 100644 24_fabric inspsystem/ppt_content.txt
+ create mode 100644 24_fabric inspsystem/ppt_images/slide2_img0.wmf
+ create mode 100644 24_fabric inspsystem/ppt_images/slide2_img1.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide2_img2.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide2_img3.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide3_img0.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide3_img3.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide4_img0.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide4_img3.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide5_img0.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide5_img1.png
+ create mode 100644 24_fabric inspsystem/ppt_images/slide6_img0.png
+ create mode 100644 24_fabric inspsystem/webapp/.claude/launch.json
+ create mode 100644 24_fabric inspsystem/webapp/main.py
+ create mode 100644 24_fabric inspsystem/webapp/static/fabric inspsystem.html
+ create mode 100644 24_fabric inspsystem/webapp/submitted_records.json
+ create mode 100644 24_fabric inspsystem/~$insprecord_QF.xlsx
+ create mode 100644 "24_fabric inspsystem/~$\351\251\227\345\270\203\347\263\273\347\265\261\345\212\237\350\203\275.pptx"
+ create mode 100644 "24_fabric inspsystem/~$\351\251\227\345\270\203\347\263\273\347\265\261\345\212\237\350\203\275.xlsx"
+ create mode 100644 "24_fabric inspsystem/\345\276\214\347\253\257\351\251\227\345\270\203\345\240\261\350\241\250.xls"
+ create mode 100644 "24_fabric inspsystem/\347\225\253\351\235\242\346\210\252\345\234\226/672ca7d01c8d58b83ca766e340460a94.png"
+ create mode 100644 "24_fabric inspsystem/\347\225\253\351\235\242\346\210\252\345\234\226/b3fd679088f2a7ea85c5fbe0cfc21064.png"
+ create mode 100644 "24_fabric inspsystem/\347\225\253\351\235\242\346\210\252\345\234\226/style1.png"
+ create mode 100644 "24_fabric inspsystem/\351\251\227\345\270\203\347\263\273\347\265\261\345\212\237\350\203\275.pptx"
+ create mode 100644 "24_fabric inspsystem/\351\251\227\345\270\203\347\263\273\347\265\261\345\212\237\350\203\275.xlsx"
+ create mode 100644 "24_fabric inspsystem/\351\251\227\345\270\203\347\265\220\350\253\226\345\240\261\350\241\250.xls"
+ create mode 100644 31_electronic invoice/00_plan_electronic invoice.xlsx
+ create mode 100644 "31_electronic invoice/invoice rawdata/completed rawdata/\345\271\263\345\217\260\347\231\274\347\245\250-114-1.xlsx"
+ create mode 100644 "31_electronic invoice/invoice rawdata/\345\271\263\345\217\260\347\231\274\347\245\250-114-2.xlsx"
+ create mode 100644 "31_electronic invoice/invoice rawdata/\345\271\263\345\217\260\347\231\274\347\245\250-114-3.xlsx"
+ create mode 100644 "31_electronic invoice/\347\231\274\347\245\250\346\225\264\347\220\206\350\250\230\351\214\204_260604.xlsx"
+ create mode 100644 "32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261.html"
+ create mode 100644 "32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261.pptx"
+ create mode 100644 "32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261_\345\234\260\345\234\226\347\211\210.html"
+ create mode 100644 "32_business trip report/5\346\234\210\350\250\252\345\273\240\347\260\241\345\240\261_\347\234\237\345\257\246\345\234\260\345\234\226\347\211\210.html"
+ create mode 100644 32_business trip report/README.md
+ create mode 100644 Claude Setup.exe
