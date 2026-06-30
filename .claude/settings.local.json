@@ -5,7 +5,13 @@
       "PowerShell(gh auth status)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(ls -la ~/.claude/ 2>/dev/null | head -20)",
+      "Bash(mkdir -p .claude_sync)",
+      "Bash(cp -r ~/.claude/projects \"C:\\\\88. Claude\\\\.claude_sync/\")"
     ]
   }
 }
