@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>染色診斷與解決方案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .diagnosis-box {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .diagnosis-header {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .diagnosis-content {
+            padding: 20px;
+        }
+        .diagnosis-content h4 {
+            color: #764ba2;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .solution-list {
+            background: #f0f7f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .solution-list strong {
+            color: #2E7D32;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .solution-list ol {
+            margin-left: 20px;
+        }
+        .solution-list li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.95em;
+        }
+        th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .parameter-table {
+            margin-bottom: 30px;
+        }
+        .parameter-table td:first-child {
+            font-weight: 600;
+            color: #667eea;
+        }
+        .cause-list {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .cause-list strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .cause-list ol {
+            margin-left: 20px;
+        }
+        .cause-list li {
+            margin-bottom: 8px;
+        }
+        .quick-ref {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 染色診斷與解決方案</h1>
+            <p>13大疵點 + 根本原因分析 + 工藝參數調整指南</p>
+        </header>
+
+        <div class="content">
+            <!-- 診斷流程 -->
+            <div class="section">
+                <h2>🔍 快速診斷流程（5步）</h2>
+
+                <div class="quick-ref">
+                    <strong>第1步：觀察</strong> → 對缺陷進行視覺判定<br>
+                    <strong>第2步：分類</strong> → 確認屬於哪大類疵點<br>
+                    <strong>第3步：分析</strong> → 找出可能的根本原因（工藝/材料/設備）<br>
+                    <strong>第4步：假設</strong> → 提出改善假說<br>
+                    <strong>第5步：驗證</strong> → 試驗並驗證效果
+                </div>
+            </div>
+
+            <!-- 13大疵點 -->
+            <div class="section">
+                <h2>📋 13大疵點詳解與解決方案</h2>
+
+                <!-- 1. 染色不勻 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">1️⃣ 染色不勻</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>整塊布的顏色深淺不一致，呈斑駁狀</p>
+
+                        <h4>根本原因</h4>
+                        <div class="cause-list">
+                            <strong>可能原因：</strong>
+                            <ol>
+                                <li><strong>前處理不充分</strong> — 去油、去漿不完全</li>
+                                <li><strong>浴比不合理</strong> — 布料堆積過多</li>
+                                <li><strong>加料時機不對</strong> — 溫度不穩定時加料</li>
+                                <li><strong>攪拌不足</strong> — 布料接觸不均</li>
+                                <li><strong>染料溶解差</strong> — 染料顆粒未完全溶解</li>
+                            </ol>
+                        </div>
+
+                        <h4>解決方案</h4>
+                        <div class="solution-list">
+                            <strong>改善步驟：</strong>
+                            <ol>
+                                <li>增加前處理時間和溫度，確保纖維充分打開</li>
+                                <li>調整浴比，建議 1:8-1:10（布：水）</li>
+                                <li>等溫度穩定在 40°C，再開始加染料</li>
+                                <li>加強攪拌，確保布料均勻受液</li>
+                                <li>預先溶解染料，過篩後再加入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. 泳移 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">2️⃣ 泳移</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>布的邊部與中間顏色不同，邊部通常較淺或較深</p>
+
+                        <h4>根本原因</h4>
+                        <div class="cause-list">
+                            <strong>浸染泳移：</strong>
+                            <ol>
+                                <li>布邊接觸染液不充分</li>
+                                <li>溫度不均勻</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>軋染泳移：</strong>
+                            <ol>
+                                <li>上軋輥軋力不均</li>
+                                <li>布邊翹起</li>
+                            </ol>
+                        </div>
+
+                        <h4>解決方案</h4>
+                        <div class="solution-list">
+                            <strong>浸染改善：</strong>
+                            <ol>
+                                <li>提高浴比至 1:12 以上</li>
+                                <li>加強攪拌，特別是邊部</li>
+                                <li>使用均溫機，確保溫度均勻</li>
+                            </ol>
+                        </div>
+                        <div class="solution-list">
+                            <strong>軋染改善：</strong>
+                            <ol>
+                                <li>調整軋輥軋力，使其均勻</li>
+                                <li>檢查布邊，確保平整</li>
+                                <li>適當降低軋輥速度</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 色斑 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">3️⃣ 色斑（顏色不均勻點狀）</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>布面出現局部深色或淺色斑點</p>
+
+                        <h4>根本原因分類</h4>
+                        <div class="cause-list">
+                            <strong>加料原因：</strong>
+                            <ol>
+                                <li>染料加入時布尚未均勻</li>
+                                <li>染料溶解不完全</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>溶解原因：</strong>
+                            <ol>
+                                <li>加料溫度過低</li>
+                                <li>加料速度過快</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>固色原因：</strong>
+                            <ol>
+                                <li>固色劑加入不當</li>
+                                <li>溫度跳動</li>
+                            </ol>
+                        </div>
+
+                        <h4>解決方案</h4>
+                        <div class="solution-list">
+                            <strong>改善步驟：</strong>
+                            <ol>
+                                <li>40°C 時先開始攪拌 10 分鐘</li>
+                                <li>預先溶解染料，過篩後慢速加入</li>
+                                <li>加料用時不少於 20 分鐘</li>
+                                <li>升溫速度控制在 1-2°C/分鐘</li>
+                                <li>固色劑分次加入，邊加邊攪</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 色條 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">4️⃣ 色條（線性條紋）</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>布上出現平行的深淺條紋</p>
+
+                        <h4>根本原因（多因素）</h4>
+                        <div class="cause-list">
+                            <strong>前處理原因：</strong>
+                            <ol>
+                                <li>前處理液未充分清洗</li>
+                                <li>pH 偏高</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>染色原因：</strong>
+                            <ol>
+                                <li>浴比不均</li>
+                                <li>溫度分布不均</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>機械原因：</strong>
+                            <ol>
+                                <li>布邊翹起</li>
+                                <li>軋輥不平</li>
+                            </ol>
+                        </div>
+
+                        <h4>解決方案</h4>
+                        <div class="solution-list">
+                            <strong>全方位改善：</strong>
+                            <ol>
+                                <li>前處理：增加漂白+皂洗次數，確保 pH ≤ 7</li>
+                                <li>染色：提高浴比，加強攪拌</li>
+                                <li>機械：檢查軋輥、布邊張力</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. 筒子紗內外色差 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">5️⃣ 筒子紗內外色差</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>同一筒紗外層深，內層淺（或相反）</p>
+
+                        <h4>根本原因</h4>
+                        <div class="cause-list">
+                            <strong>可能原因：</strong>
+                            <ol>
+                                <li>筒子通透性差，內部液體流通不足</li>
+                                <li>浴比不合理，濃度不均</li>
+                                <li>升溫速度過快</li>
+                                <li>加料時機不對</li>
+                            </ol>
+                        </div>
+
+                        <h4>解決方案</h4>
+                        <div class="solution-list">
+                            <strong>改善步驟：</strong>
+                            <ol>
+                                <li>選用透氣性好的筒子</li>
+                                <li>提高浴比，建議 1:10-1:12</li>
+                                <li>升溫速度控制在 1°C/分鐘以內</li>
+                                <li>增加泵流量，確保液體流通</li>
+                                <li>定時掀筒，確保上下層均勻接觸</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. 缸差 -->
+                <div class="diagnosis-box">
+                    <div class="diagnosis-header">6️⃣ 缸差（不同批次顏色不同）</div>
+                    <div class="diagnosis-content">
+                        <h4>現象</h4>
+                        <p>同樣的工藝，不同批次或不同缸的色澤明顯不同</p>
+
+                        <h4>根本原因（5大類）</h4>
+                        <div class="cause-list">
+                            <strong>原料原因：</strong>
+                            <ol>
+                                <li>纖維批次不同</li>
+                                <li>纖維含油量差異</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>工藝原因：</strong>
+                            <ol>
+                                <li>前處理不一致</li>
+                                <li>加料量偏差</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>設備原因：</strong>
+                            <ol>
+                                <li>不同缸溫度不同</li>
+                                <li>攪拌效果不同</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>染料原因：</strong>
+                            <ol>
+                                <li>染料批號不同</li>
+                                <li>染料溶解狀態不同</li>
+                            </ol>
+                        </div>
+                        <div class="cause-list">
+                            <strong>水質原因：</strong>
+                            <ol>
+                                <li>水的硬度不同</li>
+                                <li>pH 值偏差</li>
+                            </ol>
+                        </div>
+
+                        <h4>預防優先順序</h4>
+                        <div class="solution-list">
+                            <strong>最優先改善：</strong>
+                            <ol>
+                                <li>標準化前處理工藝</li>
+                                <li>建立水質監測制度</li>
+                                <li>定期校驗溫度計</li>
+                                <li>統一加料稱量工具</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工藝參數表 -->
+                <h2>⚙️ 標準工藝參數速查表</h2>
+
+                <h3>活性染料工藝參數</h3>
+                <table class="parameter-table">
+                    <tr>
+                        <td>浴比</td>
+                        <td>1:8 ~ 1:12</td>
+                        <td>布浸透為主時用 1:12</td>
+                    </tr>
+                    <tr>
+                        <td>加料時機</td>
+                        <td>40°C 時開始加</td>
+                        <td>分次加入，總用時≥20分鐘</td>
+                    </tr>
+                    <tr>
+                        <td>升溫速度</td>
+                        <td>1-2°C/分鐘</td>
+                        <td>不宜過快，防止色斑</td>
+                    </tr>
+                    <tr>
+                        <td>保溫溫度</td>
+                        <td>60°C (30分鐘) → 80°C (60分鐘)</td>
+                        <td>根據染料種類調整</td>
+                    </tr>
+                    <tr>
+                        <td>固色溫度</td>
+                        <td>60°C 加鹼，升至 85°C 保溫</td>
+                        <td>鹼劑分次加，邊加邊攪</td>
+                    </tr>
+                    <tr>
+                        <td>冷卻速度</td>
+                        <td>50°C 以下時方可停泵</td>
+                        <td>防止色花</td>
+                    </tr>
+                </table>
+
+                <h3>分散染料工藝參數</h3>
+                <table class="parameter-table">
+                    <tr>
+                        <td>浴比</td>
+                        <td>1:10 ~ 1:15</td>
+                        <td>滌綸通常用 1:12</td>
+                    </tr>
+                    <tr>
+                        <td>起始溫度</td>
+                        <td>60°C</td>
+                        <td>分散染料不溶解，直接升溫</td>
+                    </tr>
+                    <tr>
+                        <td>升溫速度</td>
+                        <td>2-3°C/分鐘</td>
+                        <td>可略快於活性染料</td>
+                    </tr>
+                    <tr>
+                        <td>保溫溫度</td>
+                        <td>130°C (60分鐘)</td>
+                        <td>分散染料需高溫上色</td>
+                    </tr>
+                    <tr>
+                        <td>冷卻</td>
+                        <td>常溫冷卻</td>
+                        <td>勿快速冷卻</td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <!-- 其他疵點簡表 -->
+            <div class="section">
+                <h2>📋 其他8大疵點簡表</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>疵點</th>
+                            <th>主要原因</th>
+                            <th>快速改善</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>7. 色光不對</strong></td>
+                            <td>配方不合理、混纖比例、前處理</td>
+                            <td>調整三原色比例、優化前處理</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8. 白芯</strong></td>
+                            <td>芯部未充分上色、加料時機晚</td>
+                            <td>提前加料、延長保溫時間</td>
+                        </tr>
+                        <tr>
+                            <td><strong>9. 色淺</strong></td>
+                            <td>加料不足、上色率低、溫度不足</td>
+                            <td>增加加料量、提高保溫溫度</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10. 顏色牢度差</strong></td>
+                            <td>固色不充分、pH 不合理</td>
+                            <td>增加固色時間、調整 pH 至 8-9</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11. 高溫沾色</strong></td>
+                            <td>昇華牢度不足、固色不完全</td>
+                            <td>提高昇華牢度、優化固色工藝</td>
+                        </tr>
+                        <tr>
+                            <td><strong>12. 紗硬</strong></td>
+                            <td>染料沉澱、柔軟劑不足</td>
+                            <td>增加柔軟劑、清洗充分</td>
+                        </tr>
+                        <tr>
+                            <td><strong>13. 紗線強力差</strong></td>
+                            <td>前處理過度、水質硬度高</td>
+                            <td>調整前處理溫度、軟化水質</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>📚 品管教材系列 | 染色診斷與解決方案 | 最後更新：2026-06-24</p>
+            <p>13大疵點 + 根本原因分析 + 工藝參數指導</p>
+            <div class="nav-links">
+                <a href="../INDEX.html" style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white;">← 返回總頁</a>
+                <a href="../03_客戶標準/GU驗布規程完全指南.html">GU驗布 →</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

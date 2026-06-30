@@ -1,0 +1,42 @@
+# System files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Sensitive files - DO NOT COMMIT
+*.env
+*.env.local
+.env*
+credentials.json
+token.json
+secrets.json
+
+# Large files
+*.log
+*.zip
+*.tar.gz
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Node/Python
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.Spotlight-V100
+.Trashes
+
+# Git itself
+.git/
+
+# Temp files
+tmp/
+temp/
+*.bak

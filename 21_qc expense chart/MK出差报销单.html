@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚阳品管出差费报销单</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-weight: bold;
+        }
+
+        .info-value {
+            flex: 1;
+            border-bottom: 1px solid #000;
+            padding: 0;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-value input {
+            border: none;
+            width: 100%;
+            padding: 0;
+            font-family: inherit;
+            font-size: 16px;
+            line-height: 1.2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        th {
+            background: #fafafa;
+            font-weight: bold;
+            height: 50px;
+        }
+
+        tr.data-row td {
+            height: 32px;
+        }
+
+        .col-date {
+            width: 100px;
+        }
+
+        .col-date input {
+            text-align: center !important;
+        }
+
+        .col-location {
+            width: 230px;
+            text-align: left;
+        }
+
+        .col-transport-main {
+            width: 80px;
+        }
+
+        .col-transport-local {
+            width: 80px;
+        }
+
+        .col-accommodation {
+            width: 65px;
+        }
+
+        .col-accommodation-amount {
+            width: 80px;
+        }
+
+        .col-meal {
+            width: 65px;
+        }
+
+        .col-meal-amount {
+            width: 80px;
+        }
+
+        .col-other {
+            width: 80px;
+        }
+
+        .col-other-desc {
+            width: 200px;
+        }
+
+        tr.data-row input {
+            border: none;
+            width: 100%;
+            height: 100%;
+            padding: 4px;
+            padding: 2px 4px;
+            text-align: right;
+            font-family: inherit;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        tr.data-row input.text-left {
+            text-align: left;
+        }
+
+        .other-desc {
+            width: 100%;
+            border: none;
+            padding: 4px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .subtotal-row {
+            background: #fafafa;
+            font-weight: bold;
+        }
+
+        .subtotal-row td {
+            border: 1px solid #000;
+            text-align: right;
+            padding: 8px;
+            height: 32px;
+        }
+
+        .subtotal-row input {
+            border: none;
+            width: 100%;
+            padding: 4px;
+            text-align: right;
+            font-family: inherit;
+        }
+
+        .total-section {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .subtotal-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .subtotal-label {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .subtotal-input {
+            border: 1px solid #000;
+            width: 80px;
+            padding: 4px;
+            text-align: right;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .total-line {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-left: 40px;
+        }
+
+        .total-label {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .total-input {
+            border: 1px solid #000;
+            width: 100px;
+            padding: 4px;
+            text-align: right;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .currency-input {
+            border: 1px solid #000;
+            width: 150px;
+            padding: 4px;
+            text-align: left;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .chn-box {
+            width: 30px;
+            height: 30px;
+            padding: 2px;
+            text-align: center;
+            font-family: inherit;
+            font-size: 18px;
+            line-height: 26px;
+            border: 1px solid #fff;
+        }
+
+        .chn-label {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+
+        .currency-text {
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            font-size: 13px;
+            margin-left: 40px;
+        }
+
+        .signature-box {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .signature-label {
+            font-weight: bold;
+            text-align: left;
+            padding-left: 0;
+        }
+
+        .signature-line {
+            display: none;
+        }
+
+        .signature-text {
+            text-align: right;
+            font-size: 16px;
+            padding-bottom: 0;
+            min-width: auto;
+            height: 16px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-save {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #45a049;
+        }
+
+        .btn-export {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #0b7dda;
+        }
+
+        .btn-clear {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #da190b;
+        }
+
+        .btn-print {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #F57C00;
+        }
+
+        @media (max-width: 1000px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header-info {
+                grid-template-columns: 1fr;
+            }
+
+            th, td {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            .signature-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10px;
+                width: 100%;
+                margin: 0;
+                height: 48mm;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container > * {
+                flex-shrink: 1;
+            }
+
+            .buttons {
+                display: none;
+            }
+
+            @page {
+                margin: 0;
+                size: A4;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #856404;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="printable">
+        <div class="title">聚阳品管出差费报销单</div>
+
+        <div class="header-info">
+            <div class="info-row">
+                <span class="info-label">部门：</span>
+                <span class="info-value"><input type="text" id="department" placeholder="工务处中国供应链"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">出差人员：</span>
+                <span class="info-value"><input type="text" id="person" required oninput="updateReportPerson()" onchange="updateReportPerson()"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">报销日期：</span>
+                <span class="info-value"><input type="date" id="reportDate" required></span>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-date">日期</th>
+                    <th class="col-location">出差行程</th>
+                    <th>长途交通<br/><span style="font-size: 11px;">飞机/<br/>火车/巴士</span></th>
+                    <th>市内交通<br/><span style="font-size: 11px;">出租车/<br/>公交/地铁</span></th>
+                    <th colspan="2">住宿费</th>
+                    <th colspan="2">误餐费</th>
+                    <th colspan="2">其他费用</th>
+                </tr>
+                <tr>
+                    <th>月/日</th>
+                    <th style="text-align: left;">各段交通费用说明</th>
+                    <th>金额</th>
+                    <th>金额</th>
+                    <th>天数</th>
+                    <th>金额</th>
+                    <th>天数</th>
+                    <th>金额</th>
+                    <th>摘要</th>
+                    <th>金额</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+            <tfoot>
+                <tr class="subtotal-row">
+                    <td class="col-date"></td>
+                    <td class="col-location">各项金额小计：</td>
+                    <td class="col-transport-main"><input type="text" id="sum1" readonly></td>
+                    <td class="col-transport-local"><input type="text" id="sum2" readonly></td>
+                    <td class="col-accommodation"></td>
+                    <td class="col-accommodation-amount"><input type="text" id="sum3" readonly></td>
+                    <td class="col-meal"></td>
+                    <td class="col-meal-amount"><input type="text" id="sum4" readonly></td>
+                    <td class="col-other-desc"></td>
+                    <td class="col-other"><input type="text" id="sum5" readonly></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="total-section">
+            <div class="total-line">
+                <span class="total-label">合计金额：</span>
+                <input type="text" id="totalAmount" readonly class="total-input">
+                <span class="total-label">共计人民币（大写）：</span>
+                <input type="text" id="chn-qian" readonly class="chn-box">
+                <span class="chn-label">仟</span>
+                <input type="text" id="chn-bai" readonly class="chn-box">
+                <span class="chn-label">佰</span>
+                <input type="text" id="chn-shi" readonly class="chn-box">
+                <span class="chn-label">拾</span>
+                <input type="text" id="chn-yuan" readonly class="chn-box">
+                <span class="chn-label">元</span>
+            </div>
+        </div>
+
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <span class="signature-label">人资主管：</span>
+                <div class="signature-line"></div>
+            </div>
+            <div class="signature-box">
+                <span class="signature-label">部门主管：</span>
+                <div class="signature-line"></div>
+                <div class="signature-text" id="deptManagerLine">黄天佑</div>
+            </div>
+            <div class="signature-box">
+                <span class="signature-label">报销人员：</span>
+                <div class="signature-line"></div>
+                <div class="signature-text" id="reportPersonLine"></div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-clear" onclick="clearData()">🗑️ 清除资料</button>
+            <button class="btn-save" onclick="saveData()">💾 保存资料</button>
+            <button class="btn-export" onclick="exportImage()">🖼️ 汇出图片</button>
+            <button class="btn-print" onclick="printForm()">🖨️ 列印</button>
+        </div>
+    </div>
+
+    <!-- 确认對話框 -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h2 id="confirmTitle">确认</h2>
+            <p id="confirmMsg"></p>
+            <div class="modal-buttons">
+                <button onclick="closeModal()" style="background: #999; color: white;">取消</button>
+                <button id="confirmBtn" onclick="executeAction()" style="background: #4CAF50; color: white;">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 完成提示 -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h2>✅ 完成</h2>
+            <p id="successMsg"></p>
+            <div class="modal-buttons">
+                <button onclick="closeModal()" style="background: #4CAF50; color: white; flex: 1;">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ROWS = 7;
+        let pendingAction = null;
+
+        // 初始化表格行
+        function initTable() {
+            const tbody = document.getElementById('tableBody');
+            for (let i = 0; i < ROWS; i++) {
+                const row = document.createElement('tr');
+                row.className = 'data-row';
+                row.innerHTML = `
+                    <td class="col-date"><input type="text" class="date text-left"></td>
+                    <td class="col-location"><input type="text" class="location text-left"></td>
+                    <td class="col-transport-main"><input type="number" class="transport-amount" min="0" step="1"></td>
+                    <td class="col-transport-local"><input type="number" class="local-amount" min="0" step="1"></td>
+                    <td class="col-accommodation"><input type="number" class="accommodation-days" min="0" step="1"></td>
+                    <td class="col-accommodation-amount"><input type="number" class="accommodation-amount" min="0" step="1"></td>
+                    <td class="col-meal"><input type="number" class="meal-days" min="0" step="1"></td>
+                    <td class="col-meal-amount"><input type="number" class="meal-amount" min="0" step="1"></td>
+                    <td class="col-other-desc">
+                        <button class="other-select-btn" type="button" style="width: 25px; padding: 2px; margin-right: 5%;">...</button>
+                        <input type="text" class="other-desc text-left" style="width: 65%; display: inline-block;">
+                    </td>
+                    <td class="col-other"><input type="number" class="other-amount" min="0" step="1"></td>
+                `;
+                tbody.appendChild(row);
+
+                // 添加计算事件
+                const row_elem = row;
+                const accAmountField = row_elem.querySelector('.accommodation-amount');
+                const mealAmountField = row_elem.querySelector('.meal-amount');
+
+                // 监听天数改变事件
+                row_elem.querySelector('.accommodation-days').addEventListener('input', calculateRow);
+                row_elem.querySelector('.meal-days').addEventListener('input', calculateRow);
+
+                // 监听金额栏位手动修改事件
+                accAmountField.addEventListener('input', function() {
+                    if (this.value) {
+                        this.dataset.manual = 'true';
+                    }
+                    calculateTotal();
+                });
+                mealAmountField.addEventListener('input', function() {
+                    if (this.value) {
+                        this.dataset.manual = 'true';
+                    }
+                    calculateTotal();
+                });
+
+                // 监听快速选择下拉式选单变化
+                const selectBtn = row_elem.querySelector('.other-select-btn');
+                const otherDescInput = row_elem.querySelector('input.other-desc.text-left');
+                const otherAmountInput = row_elem.querySelector('.other-amount');
+
+                if (selectBtn && otherDescInput && otherAmountInput) {
+                    const amountsData = {
+                        "1家": 30,
+                        "2家": 60,
+                        "长途": 20,
+                        "1家+水费": 35,
+                        "2家+水费": 65
+                    };
+
+                    selectBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showSummarySelector(otherDescInput, otherAmountInput, amountsData);
+                    });
+                }
+
+                // 监听所有其他输入变化进行合计计算
+                row_elem.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('input', calculateTotal);
+                });
+            }
+        }
+
+        // 计算单行
+        function calculateRow() {
+            const rows = document.querySelectorAll('tr.data-row');
+            rows.forEach((row, index) => {
+                const accDays = parseInt(row.querySelector('.accommodation-days').value) || 0;
+                const mealDays = parseInt(row.querySelector('.meal-days').value) || 0;
+                const accAmountField = row.querySelector('.accommodation-amount');
+                const mealAmountField = row.querySelector('.meal-amount');
+
+                // 只有在天数改变时且金额没有被手动修改过才自动计算
+                if (accDays > 0 && !accAmountField.dataset.manual) {
+                    accAmountField.value = accDays * 160;
+                }
+                if (mealDays > 0 && !mealAmountField.dataset.manual) {
+                    mealAmountField.value = mealDays * 30;
+                }
+            });
+            calculateTotal();
+        }
+
+        // 计算合计
+        function calculateTotal() {
+            const rows = document.querySelectorAll('tr.data-row');
+            const sums = [0, 0, 0, 0, 0];
+
+            rows.forEach(row => {
+                sums[0] += parseInt(row.querySelector('.transport-amount').value) || 0;
+                sums[1] += parseInt(row.querySelector('.local-amount').value) || 0;
+                sums[2] += parseInt(row.querySelector('.accommodation-amount').value) || 0;
+                sums[3] += parseInt(row.querySelector('.meal-amount').value) || 0;
+                sums[4] += parseInt(row.querySelector('.other-amount').value) || 0;
+            });
+
+            document.getElementById('sum1').value = sums[0];
+            document.getElementById('sum2').value = sums[1];
+            document.getElementById('sum3').value = sums[2];
+            document.getElementById('sum4').value = sums[3];
+            document.getElementById('sum5').value = sums[4];
+
+            const total = sums.reduce((a, b) => a + b, 0);
+            document.getElementById('totalAmount').value = total;
+
+            // 拆分金额为五个框：仟、佰、拾、元、角（使用大写数字）
+            const chnDigits = ['零', '壹', '貳', '叁', '肆', '伍', '陸', '柒', '捌', '玖'];
+            const qianDigit = Math.floor(total / 1000);
+            const baiDigit = Math.floor((total / 100) % 10);
+            const shiDigit = Math.floor((total / 10) % 10);
+            const yuanDigit = total % 10;
+            const jiaoDigit = 0; // 现在都是整数，没有角
+
+            document.getElementById('chn-qian').value = chnDigits[qianDigit];
+            document.getElementById('chn-bai').value = chnDigits[baiDigit];
+            document.getElementById('chn-shi').value = chnDigits[shiDigit];
+            document.getElementById('chn-yuan').value = chnDigits[yuanDigit];
+            document.getElementById('chn-jiao').value = chnDigits[jiaoDigit];
+        }
+
+        // 数字转中文大写
+        function numberToChinese(num) {
+            const chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+            const chnUnitSection = ["", "萬", "億", "兆"];
+            const chnUnitChar = ["", "十", "百", "千"];
+
+            if (!num || num === 0 || isNaN(num)) return "零元";
+
+            let numStr = Math.floor(num).toString();
+            let result = "";
+            let len = numStr.length;
+
+            for (let i = 0; i < len; i++) {
+                let digit = parseInt(numStr[i]);
+                let pos = len - i - 1;
+                let sectionPos = Math.floor(pos / 4);
+                let unitPos = pos % 4;
+
+                if (digit === 0) {
+                    // 跳过零，但需要在不同的千位数级别时添加一个零
+                    if (unitPos === 0 && sectionPos > 0 && result[result.length - 1] !== "零") {
+                        result += "零";
+                    }
+                } else {
+                    // 移除末尾的多餘零
+                    if (result[result.length - 1] === "零") {
+                        result = result.substring(0, result.length - 1);
+                    }
+                    result += chnNumChar[digit];
+                    if (unitPos > 0) {
+                        result += chnUnitChar[unitPos];
+                    }
+                    if (sectionPos > 0 && unitPos === 0) {
+                        result += chnUnitSection[sectionPos];
+                    }
+                }
+            }
+
+            result = result.replace(/零+/g, "零");
+            if (result[result.length - 1] === "零") {
+                result = result.substring(0, result.length - 1);
+            }
+            result += "元";
+
+            return result;
+        }
+
+        // 保存资料
+        function saveData() {
+            showConfirm('保存資料', '确定要保存此报销单吗？', function() {
+                const data = {
+                    department: document.getElementById('department').value,
+                    person: document.getElementById('person').value,
+                    reportDate: document.getElementById('reportDate').value,
+                    total: document.getElementById('totalAmount').value,
+                    rows: []
+                };
+
+                document.querySelectorAll('tr.data-row').forEach(row => {
+                    data.rows.push({
+                        date: row.querySelector('.date').value,
+                        location: row.querySelector('.location').value,
+                        transportAmount: row.querySelector('.transport-amount').value,
+                        localAmount: row.querySelector('.local-amount').value,
+                        accommodationAmount: row.querySelector('.accommodation-amount').value,
+                        mealAmount: row.querySelector('.meal-amount').value,
+                        otherAmount: row.querySelector('.other-amount').value
+                    });
+                });
+
+                localStorage.setItem('expenseForm_' + new Date().getTime(), JSON.stringify(data));
+                showSuccess('保存完成', '报销单已成功保存');
+            });
+        }
+
+        // 摘要選擇彈窗
+        function showSummarySelector(descInput, amountInput, amountsData) {
+            const options = Object.keys(amountsData);
+            const html = `<div style="display: flex; flex-direction: column; gap: 5px;">
+                ${options.map(opt => `<button type="button" onclick="this.closest('div').parentElement.closeSummaryDialog('${opt}')" style="padding: 5px; text-align: left;">${opt}</button>`).join('')}
+            </div>`;
+
+            const dialog = document.createElement('div');
+            dialog.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border: 1px solid #999; padding: 10px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2);';
+            dialog.innerHTML = html;
+            dialog.closeSummaryDialog = function(value) {
+                descInput.value = value;
+                amountInput.value = amountsData[value] || 0;
+                calculateTotal();
+                document.body.removeChild(dialog);
+                if (overlay) document.body.removeChild(overlay);
+            };
+
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 999;';
+            overlay.onclick = () => {
+                document.body.removeChild(dialog);
+                document.body.removeChild(overlay);
+            };
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(dialog);
+        }
+
+        // 列印报销单
+        function printForm() {
+            const printBtn = document.querySelector('.btn-print');
+            printBtn.disabled = true;
+            printBtn.textContent = '🕐 处理中...';
+
+            // 臨時隱藏按鈕和快速選擇下拉式選單
+            const buttonsDiv = document.querySelector('.buttons');
+            const originalDisplay = buttonsDiv.style.display;
+            buttonsDiv.style.display = 'none';
+
+            const selectBtns = document.querySelectorAll('.other-select-btn');
+            const originalSelectBtnDisplays = [];
+            selectBtns.forEach((btn, index) => {
+                originalSelectBtnDisplays[index] = btn.style.display;
+                btn.style.display = 'none';
+            });
+
+            html2canvas(document.getElementById('printable'), {
+                backgroundColor: '#ffffff',
+                scale: 3,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                // 恢復按鈕
+                buttonsDiv.style.display = originalDisplay;
+                selectBtns.forEach((btn, index) => {
+                    btn.style.display = originalSelectBtnDisplays[index];
+                });
+
+                // 建立新窗口
+                const printWindow = window.open('', '', 'width=800,height=600');
+                const img = canvas.toDataURL('image/png');
+
+                printWindow.document.write(`
+                    <html>
+                    <head>
+                        <title>報銷單列印</title>
+                        <style>
+                            * { margin: 0; padding: 0; }
+                            body {
+                                width: 210mm;
+                                height: 297mm;
+                                background: white;
+                            }
+                            .page-top {
+                                width: 100%;
+                                height: 148.5mm;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                box-sizing: border-box;
+                                border-bottom: 2px dashed #999;
+                            }
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: contain;
+                                padding: 10px;
+                                box-sizing: border-box;
+                            }
+                            .page-bottom {
+                                width: 100%;
+                                height: 148.5mm;
+                            }
+                            @media print {
+                                @page {
+                                    margin: 0;
+                                    size: A4;
+                                }
+                                body {
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="page-top">
+                            <img src="${img}" />
+                        </div>
+                        <div class="page-bottom"></div>
+                        <script>
+                            setTimeout(() => {
+                                window.print();
+                                setTimeout(() => window.close(), 500);
+                            }, 500);
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+
+                printBtn.disabled = false;
+                printBtn.textContent = '🖨️ 列印';
+            }).catch(err => {
+                buttonsDiv.style.display = originalDisplay;
+                console.error('列印失败:', err);
+                alert('列印失敗：' + err.message);
+                printBtn.disabled = false;
+                printBtn.textContent = '🖨️ 列印';
+            });
+        }
+
+        // 汇出图片
+        function exportImage() {
+            const personName = document.getElementById('person').value;
+
+            if (!personName) {
+                alert('请输入出差人员');
+                return;
+            }
+
+            if (!confirm('确定要汇出此报销单为图片吗？')) {
+                return;
+            }
+
+            const exportBtn = document.querySelector('.btn-export');
+            exportBtn.disabled = true;
+            exportBtn.textContent = '🕐 处理中...';
+
+            setTimeout(() => {
+                try {
+                    // 臨時隱藏按鈕
+                    const buttonsDiv = document.querySelector('.buttons');
+                    const originalDisplay = buttonsDiv.style.display;
+                    buttonsDiv.style.display = 'none';
+
+                    const selectBtns = document.querySelectorAll('.other-select-btn');
+                    const originalSelectBtnDisplays = [];
+                    selectBtns.forEach((btn, index) => {
+                        originalSelectBtnDisplays[index] = btn.style.display;
+                        btn.style.display = 'none';
+                    });
+
+                    html2canvas(document.getElementById('printable'), {
+                        backgroundColor: '#ffffff',
+                        scale: 2.5,
+                        logging: false,
+                        useCORS: true,
+                        allowTaint: true,
+                        windowHeight: 1200
+                    }).then(canvas => {
+                        // 恢復按鈕
+                        buttonsDiv.style.display = originalDisplay;
+                        selectBtns.forEach((btn, index) => {
+                            btn.style.display = originalSelectBtnDisplays[index];
+                        });
+                        try {
+                            const link = document.createElement('a');
+                            const today = new Date();
+                            const dateStr = today.getFullYear() +
+                                           String(today.getMonth() + 1).padStart(2, '0') +
+                                           String(today.getDate()).padStart(2, '0');
+                            const fileName = `报销单_${personName}_${dateStr}.png`;
+
+                            link.href = canvas.toDataURL('image/png');
+                            link.download = fileName;
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
+                            link.click();
+
+                            setTimeout(() => {
+                                document.body.removeChild(link);
+                                // 恢復按鈕和快速選擇下拉式選單
+                                buttonsDiv.style.display = originalDisplay;
+                                quickSelects.forEach((select, index) => {
+                                    select.style.display = originalQuickSelectDisplays[index];
+                                });
+                                exportBtn.disabled = false;
+                                exportBtn.textContent = '🖼️ 汇出图片';
+                            }, 100);
+                        } catch (e) {
+                            console.error('下载错误:', e);
+                            alert('下载失败，请重试');
+                            exportBtn.disabled = false;
+                            exportBtn.textContent = '🖼️ 汇出图片';
+                        }
+                    }).catch(err => {
+                        console.error('转换失败:', err);
+                        alert('图片生成失败：' + err.message);
+                        exportBtn.disabled = false;
+                        exportBtn.textContent = '🖼️ 汇出图片';
+                    });
+                } catch (e) {
+                    console.error('错误:', e);
+                    alert('发生错误：' + e.message);
+                    exportBtn.disabled = false;
+                    exportBtn.textContent = '🖼️ 汇出图片';
+                }
+            }, 100);
+        }
+
+        // 清除资料
+        function clearData() {
+            if (confirm('确定要清除所有资料吗？此操作无法撤销。')) {
+                // 保留部门和出差人员
+                const savedDept = document.getElementById('department').value;
+                const savedPerson = document.getElementById('person').value;
+
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('reportDate').value = today;
+
+                // 清除所有行的資料
+                document.querySelectorAll('tr.data-row').forEach(row => {
+                    row.querySelectorAll('input').forEach(input => {
+                        input.value = '';
+                    });
+                    row.querySelectorAll('select').forEach(select => {
+                        select.value = '';
+                    });
+                });
+
+                // 恢復保留的信息
+                document.getElementById('department').value = savedDept;
+                document.getElementById('person').value = savedPerson;
+                updateReportPerson();
+
+                // 保存到 localStorage
+                localStorage.setItem('savedDept', savedDept);
+                localStorage.setItem('savedPerson', savedPerson);
+
+                calculateTotal();
+            }
+        }
+
+        // 顯示确认對話框
+        function showConfirm(title, msg, callback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMsg').textContent = msg;
+            document.getElementById('confirmModal').classList.add('show');
+            pendingAction = callback;
+        }
+
+        // 顯示成功對話框
+        function showSuccess(title, msg) {
+            document.querySelector('#successModal h2').textContent = title;
+            document.getElementById('successMsg').textContent = msg;
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        // 关闭對話框
+        function closeModal() {
+            document.getElementById('confirmModal').classList.remove('show');
+            document.getElementById('successModal').classList.remove('show');
+            pendingAction = null;
+        }
+
+        // 執行操作
+        function executeAction() {
+            closeModal();
+            if (pendingAction) {
+                pendingAction();
+            }
+        }
+
+        // 更新报销人员
+        function updateReportPerson() {
+            const personName = document.getElementById('person').value;
+            const reportPersonLine = document.getElementById('reportPersonLine');
+            reportPersonLine.textContent = personName;
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            initTable();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reportDate').value = today;
+
+            // 加载保存的部门和出差人员
+            const savedDept = localStorage.getItem('savedDept') || '';
+            const savedPerson = localStorage.getItem('savedPerson') || '';
+
+            if (savedDept) {
+                document.getElementById('department').value = savedDept;
+            }
+            if (savedPerson) {
+                document.getElementById('person').value = savedPerson;
+                updateReportPerson();
+            }
+
+            calculateTotal();
+
+            // 添加出差人名字改变事件（input + change）
+            const personInput = document.getElementById('person');
+            personInput.addEventListener('input', updateReportPerson);
+            personInput.addEventListener('change', function() {
+                localStorage.setItem('savedPerson', this.value);
+                updateReportPerson();
+            });
+
+            // 监听部门变化，自动保存
+            document.getElementById('department').addEventListener('change', function() {
+                localStorage.setItem('savedDept', this.value);
+            });
+        });
+    </script>
+</body>
+</html>

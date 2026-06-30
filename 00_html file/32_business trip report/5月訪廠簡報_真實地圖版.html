@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5月訪廠行程總結 - 真實地圖版</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet Arrow Plugin -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-curve@0.3.1/dist/leaflet-curve.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .presentation {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .slide {
+            background: white;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        /* 第1頁：標題頁 */
+        .slide-title {
+            background: linear-gradient(135deg, #1E3A5F 0%, #2c5282 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 56px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-title .subtitle {
+            font-size: 24px;
+            color: #0FA3B1;
+            margin: 20px 0;
+        }
+
+        .slide-title .date {
+            font-size: 14px;
+            color: #d0d0d0;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* 第2頁：真實地圖 */
+        .slide-map-container {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            padding: 40px;
+        }
+
+        .slide-map-container h2 {
+            color: #1E3A5F;
+            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            border-bottom: 3px solid #0FA3B1;
+            padding-bottom: 15px;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #0FA3B1;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #d4e7f3 0%, #e8f4f8 100%);
+        }
+
+        .map-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .info-card {
+            background: #F5F7FA;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0FA3B1;
+        }
+
+        .info-card h4 {
+            color: #1E3A5F;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .info-card .value {
+            color: #0FA3B1;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* 第3頁：問題與進度 */
+        .slide-content {
+            padding: 40px;
+        }
+
+        .slide-content h2 {
+            color: #1E3A5F;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: bold;
+            border-bottom: 3px solid #0FA3B1;
+            padding-bottom: 15px;
+        }
+
+        .progress-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .progress-item {
+            padding: 25px;
+            border-radius: 6px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .progress-item.green {
+            background: #27AE60;
+        }
+
+        .progress-item.orange {
+            background: #E67E22;
+        }
+
+        .progress-item.teal {
+            background: #0FA3B1;
+        }
+
+        .issues-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: auto;
+        }
+
+        .issues-table tr {
+            background: #F5F7FA;
+            border-bottom: 1px solid #D0D8E0;
+        }
+
+        .issues-table tr:hover {
+            background: #EEF3F7;
+        }
+
+        .issues-table th {
+            background: #1E3A5F;
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 15px;
+            border: 1px solid #154a6d;
+        }
+
+        .issues-table td {
+            padding: 18px 15px;
+            font-size: 16px;
+            line-height: 1.7;
+            border: 1px solid #D0D8E0;
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        .issues-table .factory {
+            font-weight: bold;
+            color: #1E3A5F;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .issues-table .problem {
+            color: #2C3E50;
+            font-size: 16px;
+            white-space: normal;
+        }
+
+        .issues-table .status {
+            font-weight: bold;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .issues-table .status.green {
+            color: #27AE60;
+        }
+
+        .issues-table .status.orange {
+            color: #E67E22;
+        }
+
+        .issues-table .status.teal {
+            color: #0FA3B1;
+        }
+
+        .issues-table .detail {
+            color: #444;
+            font-size: 16px;
+            white-space: normal;
+        }
+
+        .summary-note {
+            background: #F0F9FB;
+            border-left: 4px solid #0FA3B1;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+            color: #2C3E50;
+            font-size: 12px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .leaflet-popup-content {
+            font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+            font-size: 12px;
+        }
+
+        .leaflet-popup-content h3 {
+            margin: 0 0 8px 0;
+            color: #1E3A5F;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .leaflet-popup-content p {
+            margin: 4px 0;
+            color: #666;
+        }
+
+        .print-note {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .slide {
+                page-break-after: always;
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+
+            .print-note {
+                display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .map-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .progress-summary {
+                grid-template-columns: 1fr;
+            }
+
+            #map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- 第1頁：標題頁 -->
+        <div class="slide slide-title">
+            <h1>5月訪廠行程總結</h1>
+            <div class="subtitle">品質管理現場確認 & 問題改善跟進</div>
+            <div class="date">2026年5月18日 - 5月28日</div>
+        </div>
+
+        <!-- 第2頁：真實地圖 -->
+        <div class="slide slide-map-container">
+            <h2>訪廠路線地圖 (實時地圖)</h2>
+            <div id="map"></div>
+
+            <div class="map-info">
+                <div class="info-card">
+                    <h4>訪廠總次數</h4>
+                    <div class="value">8次</div>
+                </div>
+                <div class="info-card">
+                    <h4>涉及地點</h4>
+                    <div class="value">6個</div>
+                </div>
+                <div class="info-card">
+                    <h4>涉及廠商</h4>
+                    <div class="value">7家</div>
+                </div>
+                <div class="info-card">
+                    <h4>客戶品牌</h4>
+                    <div class="value">6個</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3頁：關鍵問題與改善進度 -->
+        <div class="slide slide-content">
+            <h2>關鍵問題與改善進度</h2>
+
+            <!-- 進度統計 -->
+            <div class="progress-summary">
+                <div class="progress-item green">✓ 完全改善: 5項</div>
+                <div class="progress-item orange">◐ 部分改善: 2項</div>
+                <div class="progress-item teal">● 確認標準: 1項</div>
+            </div>
+
+            <!-- 問題清單表格 -->
+            <table class="issues-table">
+                <thead>
+                    <tr>
+                        <th>廠商</th>
+                        <th>問題</th>
+                        <th>狀態</th>
+                        <th>進展說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="factory">帛冠</td>
+                        <td class="problem">克重偏輕</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">胚布克重已加重，成品重在訂單規格允收內，無回縮問題</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">金祥惠</td>
+                        <td class="problem">布邊布紋歪斜</td>
+                        <td class="status green">✓ 已改善方案</td>
+                        <td class="detail">布邊歪斜無法完全避免，問題大貨以窄幅方式補損</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">ARCH</td>
+                        <td class="problem">換片率高/色差</td>
+                        <td class="status green">✓ 已建立流程</td>
+                        <td class="detail">已建立正反面品檢流程，問題可控，與布廠討論Modal特性</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">賀順</td>
+                        <td class="problem">勾紗/孔洞</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">問題已改善</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">漢帛</td>
+                        <td class="problem">布頭壓痕</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">布廠已改善包裝方式，後續追蹤到廠情況</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">漢帛</td>
+                        <td class="problem">破洞/斷紗/皺褶</td>
+                        <td class="status orange">◐ 部分改善</td>
+                        <td class="detail">皺褶問題有改善，並請布廠跟客人討論接受標準</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">東奕盛</td>
+                        <td class="problem">緯斜</td>
+                        <td class="status teal">✓ 已確認</td>
+                        <td class="detail">布廠確認緯斜標準為3%，緯弧標準為1.5%，以全幅計算</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">PARADISE</td>
+                        <td class="problem">手感/絨感品質</td>
+                        <td class="status orange">◐ 確認穩定性</td>
+                        <td class="detail">確認目前大貨手感及絨度的穩定性</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 總結 -->
+            <div class="summary-note">
+                <strong>總結：</strong> 8次訪廠共確認8個品質議題，其中62.5%（5項）已完全改善，25%（2項）部分改善，確認標準流程1項（12.5%）。整體品質控制進度良好，後續需持續追蹤皺褶改善情況及客戶接受標準確認。
+            </div>
+
+            <div class="print-note">
+                💡 提示：按 Ctrl+P 可列印此簡報為PDF | 使用真實地圖背景展示訪廠路線 🗺️
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Curve for curved lines -->
+    <script src="https://unpkg.com/leaflet-curve@0.3.1/dist/leaflet-curve.umd.js"></script>
+
+    <script>
+        // 訪廠地點坐標（經度, 緯度）
+        const locations = [
+            {
+                name: "嘉興 - 帛冠",
+                lat: 30.7668,
+                lng: 120.7537,
+                date: "2026/5/18",
+                factory: "帛冠",
+                issue: "克重偏輕",
+                order: 1
+            },
+            {
+                name: "紹興 - 金祥惠",
+                lat: 30.2741,
+                lng: 120.5954,
+                date: "2026/5/19",
+                factory: "金祥惠",
+                issue: "布邊布紋歪斜",
+                order: 2
+            },
+            {
+                name: "蕭山 - ARCH",
+                lat: 30.1671,
+                lng: 120.2896,
+                date: "2026/5/20",
+                factory: "ARCH",
+                issue: "換片率高/色差",
+                order: 3
+            },
+            {
+                name: "紹興 - 賀順、漢帛",
+                lat: 30.2741,
+                lng: 120.5954,
+                date: "2026/5/21-22",
+                factory: "賀順、漢帛",
+                issue: "勾紗/孔洞/壓痕",
+                order: 4
+            },
+            {
+                name: "張家港 - 漢帛、PARADISE",
+                lat: 32.1809,
+                lng: 120.7272,
+                date: "2026/5/25-27",
+                factory: "漢帛、PARADISE",
+                issue: "品質跟進",
+                order: 5
+            },
+            {
+                name: "常熟 - 東奕盛",
+                lat: 31.6460,
+                lng: 120.7673,
+                date: "2026/5/26",
+                factory: "東奕盛",
+                issue: "緯斜",
+                order: 6
+            },
+            {
+                name: "上海 - 滬辦",
+                lat: 31.2304,
+                lng: 121.4737,
+                date: "2026/5/28",
+                factory: "滬辦",
+                issue: "行程安排確認",
+                order: 7
+            }
+        ];
+
+        // 訪廠路線順序
+        const routeSequence = [0, 1, 2, 1, 3, 4, 5, 4, 6]; // 訪廠順序的索引
+
+        // 初始化地圖 - 聚焦在訪廠區域，更大的縮放
+        const map = L.map('map').setView([30.8, 120.7], 10); // 聚焦在訪廠地點範圍，縮放級別提高到10
+
+        // 添加地圖圖層 (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+            minZoom: 7
+        }).addTo(map);
+
+        // 自定義圖標
+        const createIcon = (order) => {
+            return L.divIcon({
+                html: `<div style="
+                    background: linear-gradient(135deg, #1E3A5F, #0FA3B1);
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border: 3px solid white;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                ">${order}</div>`,
+                iconSize: [40, 40],
+                className: 'custom-marker'
+            });
+        };
+
+        // 添加標記
+        locations.forEach((location, idx) => {
+            const marker = L.marker([location.lat, location.lng], {
+                icon: createIcon(location.order)
+            }).addTo(map);
+
+            // 添加彈出框
+            const popupContent = `
+                <h3>${location.name}</h3>
+                <p><strong>日期：</strong> ${location.date}</p>
+                <p><strong>廠商：</strong> ${location.factory}</p>
+                <p><strong>議題：</strong> ${location.issue}</p>
+            `;
+
+            marker.bindPopup(popupContent, {
+                maxWidth: 250,
+                className: 'custom-popup'
+            });
+
+            // 點擊標記時打開彈出框
+            marker.on('click', function() {
+                this.openPopup();
+            });
+        });
+
+        // 繪製路線
+        const routeCoordinates = routeSequence.map(idx => [
+            locations[idx].lat,
+            locations[idx].lng
+        ]);
+
+        // 添加路線折線（帶顏色和箭頭）
+        const polyline = L.polyline(routeCoordinates, {
+            color: '#E74C3C',
+            weight: 3,
+            opacity: 0.8,
+            dashArray: '0',
+            lineCap: 'round',
+            lineJoin: 'round'
+        }).addTo(map);
+
+        // 為路線添加箭頭標記（在路線上，不遮擋標記點）
+        addArrowsToPolyline(polyline);
+
+        // 適配地圖視圖 - 聚焦訪廠區域，更大的縮放
+        map.fitBounds(polyline.getBounds(), {
+            padding: [100, 100],
+            maxZoom: 11  // 提高最大縮放級別
+        });
+
+        // 添加箭頭到路線函數 - 箭頭在路線中點，不遮擋標記
+        function addArrowsToPolyline(polyline) {
+            const points = polyline.getLatLngs();
+
+            // 在每段路線的中點添加箭頭
+            for (let i = 0; i < points.length - 1; i++) {
+                const from = points[i];
+                const to = points[i + 1];
+
+                // 計算中點
+                const midLat = (from.lat + to.lat) / 2;
+                const midLng = (from.lng + to.lng) / 2;
+                const midPoint = L.latLng(midLat, midLng);
+
+                // 計算箭頭方向角度
+                const fromPoint = map.latLngToContainerPoint(from);
+                const toPoint = map.latLngToContainerPoint(to);
+                const angle = Math.atan2(toPoint.y - fromPoint.y, toPoint.x - fromPoint.x) * 180 / Math.PI;
+
+                // 創建箭頭標記
+                const arrowMarker = L.marker(midPoint, {
+                    icon: L.divIcon({
+                        html: `<div style="
+                            width: 0;
+                            height: 0;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-top: 14px solid #E74C3C;
+                            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+                            z-index: 100;
+                        "
+                        class="arrow-on-line"></div>`,
+                        iconSize: [20, 14],
+                        className: 'arrow-marker',
+                        zIndexOffset: 100
+                    })
+                }).addTo(map);
+
+                // 保存原始樣式，稍後使用
+                const arrowEl = arrowMarker._icon;
+                if (arrowEl) {
+                    arrowEl.style.transform = `rotate(${angle}deg)`;
+                    arrowEl.style.filter = 'drop-shadow(0 1px 2px rgba(0,0,0,0.4))';
+                }
+            }
+        }
+
+        // 地圖加載完成
+        map.on('load', function() {
+            console.log('✓ 地圖加載完成，共標記了 ' + locations.length + ' 個訪廠地點');
+        });
+    </script>
+</body>
+</html>

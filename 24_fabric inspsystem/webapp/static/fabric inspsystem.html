@@ -1,0 +1,1825 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FabQC 驗布系統</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; font-size: 15px; background: #f0f0f0; }
+
+/* ── 頂部區 ── */
+.top-bar {
+  background: #fff;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid #ccc;
+}
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.search-row label { font-weight: bold; white-space: nowrap; font-size: 15px; }
+.search-row input {
+  background: #fffde7;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 150px;
+  font-size: 15px;
+  height: 48px;
+}
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 0;
+  width: 90px;
+  height: 48px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background: #2563eb;
+  white-space: nowrap;
+  text-align: center;
+  touch-action: manipulation;
+}
+.btn:hover { background: #1d4ed8; }
+.btn:active { background: #1e40af; transform: scale(.97); }
+.btn.active { background: #1e40af; box-shadow: inset 0 2px 4px rgba(0,0,0,.3); }
+.btn-sm {
+  width: 48px; height: 48px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37,99,235,.4);
+  touch-action: manipulation;
+  transition: background .15s, transform .1s;
+  padding: 0;
+  vertical-align: middle;
+}
+.btn-sm:hover { background: #1d4ed8; }
+.btn-sm:active { transform: scale(.93); }
+
+/* ── 狀態列 ── */
+.status-bar {
+  background: #e8f0fe;
+  border-bottom: 1px solid #c5d4f5;
+  padding: 4px 16px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.online { color: #16a34a; font-weight: bold; }
+.offline { color: #dc2626; font-weight: bold; }
+.pending-badge {
+  background: #dc2626; color: #fff;
+  border-radius: 99px; padding: 1px 8px;
+  font-size: 11px; font-weight: bold;
+}
+.upload-btn {
+  background: #16a34a; color: #fff;
+  border: none; border-radius: 4px;
+  padding: 2px 10px; cursor: pointer;
+  font-size: 12px; margin-left: 6px;
+}
+
+/* ── 分頁 ── */
+.pager {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #555;
+}
+
+/* ── 主表格 ── */
+.table-wrap {
+  overflow-x: auto;
+  padding: 0 8px 16px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 900px;
+  background: #fff;
+  border: 1px solid #888;
+}
+thead tr th {
+  background: #4a7cbf;
+  color: #fff;
+  text-align: center;
+  padding: 5px 6px;
+  border-left: 1px solid #3a6aaf;
+  border-right: 1px solid #3a6aaf;
+  border-top: none;
+  border-bottom: none;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid #ddd; }
+tbody tr:nth-child(even) { background: #f7f9ff; }
+tbody tr.merged-row { background: #e8f0fe; }
+tbody tr:hover { background: #fffde7; }
+td {
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+  font-size: 12px;
+}
+td.center { text-align: center; }
+.link-red { color: #dc2626; cursor: pointer; font-weight: bold; }
+.link-red:hover { text-decoration: underline; }
+.link-orange { color: #d97706; cursor: pointer; font-weight: bold; }
+.link-orange:hover { text-decoration: underline; }
+.text-muted { color: #777; }
+
+/* 狀態 badge */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.badge-signed  { color: #111; }
+.badge-unsent  { color: #dc2626; }
+.badge-pending { color: #2563eb; }
+.badge-sent    { color: #16a34a; }
+
+/* 操作按鈕 */
+.btn-play {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  background: #2563eb; color: #fff;
+  border: none; border-radius: 4px; cursor: pointer; font-size: 14px;
+}
+.btn-play:hover { background: #1d4ed8; }
+.btn-play-mapping {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  background: #1e40af; color: #fff;
+  border: none; border-radius: 4px; cursor: pointer; font-size: 14px;
+}
+.btn-play-mapping:hover { background: #1e3a8a; }
+.btn-del {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  background: #dc2626; color: #fff;
+  border: none; border-radius: 4px; cursor: pointer; font-size: 14px;
+}
+.btn-del:hover { background: #b91c1c; }
+.merge-tag { color: #dc2626; cursor: pointer; font-size: 12px; font-weight: bold; text-decoration: underline; }
+
+/* ── Modal（驗布輸入） ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 100;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: block; }
+.modal {
+  background: #fff;
+  margin: 30px auto;
+  max-width: 780px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+.modal-header {
+  background: #4a7cbf; color: #fff;
+  padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: bold; font-size: 14px;
+}
+.modal-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+.modal-body { padding: 16px; }
+.modal-footer { padding: 12px 16px; border-top: 1px solid #ddd; display: flex; gap: 8px; justify-content: flex-end; }
+
+/* 表單 */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin-bottom: 12px; }
+.form-group label { display: block; font-weight: bold; font-size: 12px; color: #374151; margin-bottom: 3px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 6px 8px;
+  border: 1px solid #bbb; border-radius: 4px;
+  font-size: 13px; background: #fffde7;
+}
+.form-group input[readonly] { background: #f3f4f6; color: #555; }
+.section-title {
+  background: #4a7cbf; color: #fff;
+  padding: 5px 10px; font-weight: bold; font-size: 12px;
+  margin: 12px -16px 10px; padding-left: 16px;
+}
+
+/* 顏色驗布表 */
+.color-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.color-table th {
+  background: #e2e8f0; padding: 5px 6px;
+  border: 1px solid #ccc; text-align: center; white-space: nowrap;
+}
+.color-table td { border: 1px solid #ddd; padding: 4px 6px; }
+.color-table input, .color-table select {
+  width: 100%; border: none; background: transparent;
+  font-size: 12px; padding: 2px;
+}
+.grade-A { color: #16a34a; font-weight: bold; }
+.grade-B { color: #d97706; font-weight: bold; }
+.grade-C { color: #dc2626; font-weight: bold; }
+
+/* 問題勾選 */
+.defect-grid { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+.defect-grid label { font-size: 12px; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; color: #fff; padding: 10px 24px;
+  border-radius: 8px; font-size: 13px; z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  display: none;
+}
+.toast.show { display: block; }
+
+/* 訂單資訊 Modal */
+.order-modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 200;
+  overflow-y: auto;
+}
+.order-modal-overlay.open { display: block; }
+.order-modal {
+  background: #fff;
+  margin: 16px auto;
+  width: 50vw;
+  min-width: 400px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+.order-modal-header {
+  background: #4a7cbf; color: #fff;
+  padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: bold; font-size: 15px;
+}
+.order-modal-body { padding: 16px; }
+.om-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+}
+.om-grid.two-col { grid-template-columns: 1fr 1fr; }
+.om-row { display: contents; }
+.om-label {
+  background: #f0f4f8;
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #374151;
+  text-align: right;
+  word-break: keep-all;
+}
+.om-value {
+  background: #fffde7;
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: #111;
+}
+.om-value.span2 { grid-column: span 2; }
+.om-section {
+  background: #4a7cbf; color: #fff;
+  padding: 6px 12px; font-weight: bold; font-size: 13px;
+  margin: 12px 0 6px;
+}
+.om-color-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.om-color-table th {
+  background: #4a7cbf; color: #fff;
+  padding: 8px 10px; border: 1px solid #3a6aaf; border-left: 2px solid #6a9cd0; text-align: center;
+}
+.om-color-table th:first-child { border-left: 1px solid #3a6aaf; }
+.om-color-table td {
+  border: 1px solid #ddd; border-left: 2px solid #ccc; padding: 8px 10px; text-align: center;
+}
+.om-color-table td:first-child { border-left: 1px solid #ddd; }
+.om-color-table tr:nth-child(even) td { background: #f7f9ff; }
+.om-color-table tr.selected td { background: #cfe2ff; }
+</style>
+</head>
+<body>
+
+<!-- 頂部搜尋區 -->
+<div class="top-bar">
+  <div class="search-row" style="margin-bottom:0">
+    <label>款號</label>
+    <input type="text" id="q_style" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <label>採購單號</label>
+    <input type="text" id="q_po" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div style="width:1px;height:28px;background:#ccc;margin:0 4px"></div>
+    <button class="btn" onclick="doSearch()">查詢採購單</button>
+    <button class="btn" onclick="openSampleModal()" style="background:#1e40af">查詢寄樣</button>
+    <button class="btn" onclick="openRecordModal()" style="background:#1e40af">查詢驗布記錄</button>
+    <button class="btn" onclick="openNoPOModal()" style="background:#1e40af">未開單驗布</button>
+    <button class="btn" onclick="openUnsentReport()" style="background:#1e40af">發送驗報</button>
+  </div>
+</div>
+
+<!-- 狀態列 -->
+<div class="status-bar">
+  <span id="conn-status"></span>
+  <span id="pending-area"></span>
+</div>
+
+<!-- 分頁 -->
+<div class="pager">
+  <button class="btn-sm" onclick="prevPage()">◁</button>
+  <button class="btn-sm" onclick="nextPage()">▷</button>
+  <span id="page-info" style="margin-left:8px"></span>
+  <span style="margin-left:16px;color:#555;font-weight:bold;font-size:14px">供應地：</span>
+  <span id="filter-china" onclick="setRegionFilter('CHINA')" style="color:#2563eb;text-decoration:underline;cursor:pointer;font-weight:bold;font-size:14px">中國</span>
+  <span id="filter-all" onclick="setRegionFilter('')" style="color:#555;cursor:pointer;font-size:14px;margin-left:8px">全部</span>
+</div>
+
+<!-- 主表格 -->
+<div class="table-wrap">
+  <table id="main-table">
+    <thead>
+      <tr>
+        <th rowspan="3" style="width:46px">合併採購單</th>
+        <th style="width:90px">實際驗布日</th>
+        <th style="width:130px">款號</th>
+        <th style="width:130px">客戶</th>
+        <th style="width:110px">供應商</th>
+        <th style="width:180px">布種</th>
+        <th rowspan="3" style="width:70px">C20顏色</th>
+        <th rowspan="3" style="width:70px">驗報狀態</th>
+        <th rowspan="3" style="width:46px">驗布輸入</th>
+        <th rowspan="3" style="width:46px">刪除</th>
+        <th rowspan="3" style="width:70px">檢視驗報</th>
+      </tr>
+      <tr>
+        <th>QC</th>
+        <th>採購單號</th>
+        <th>採購人員</th>
+        <th>供應地</th>
+        <th>成份</th>
+      </tr>
+      <tr>
+        <th>預計出貨日</th>
+        <th>訂單數量</th>
+        <th></th>
+        <th></th>
+        <th>規格</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr><td colspan="10" class="center text-muted" style="padding:20px">請輸入條件後點「查詢」</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══ 驗布輸入 Modal ══ -->
+<div class="modal-overlay" id="insp-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span>驗布輸入</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- 動態填入 -->
+    </div>
+    <div class="modal-footer" id="modal-footer">
+      <!-- 根據狀態動態填入按鈕 -->
+    </div>
+  </div>
+</div>
+
+<!-- 訂單資訊 Modal -->
+<div class="order-modal-overlay" id="order-modal">
+  <div class="order-modal">
+    <div class="order-modal-header">
+      <span id="om-title">訂單資料</span>
+      <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    </div>
+    <div class="order-modal-body" id="om-body"></div>
+  </div>
+</div>
+
+<!-- 未發送驗報列表 Modal -->
+<div class="modal-overlay" id="unsent-report-modal" style="display:none">
+  <div class="modal" style="max-width:1000px;">
+    <div class="modal-header">
+      <span>未發送驗報列表</span>
+      <button class="modal-close" onclick="closeUnsentReport()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:12px 16px 0 16px">
+      <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:12px">
+        <button class="btn" style="background:#dc2626" onclick="sendUnsent()">發送驗報</button>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #888">
+        <thead>
+          <tr style="background:#5b7a96;color:#fff">
+            <th style="padding:8px;text-align:left;width:100px;border:1px solid #888">實際驗布日<br>QC</th>
+            <th style="padding:8px;text-align:left;width:110px;border:1px solid #888">款號<br>採購單號</th>
+            <th style="padding:8px;text-align:left;width:110px;border:1px solid #888">客戶<br>採購人員</th>
+            <th style="padding:8px;text-align:left;width:110px;border:1px solid #888">供應商<br>供應地</th>
+            <th style="padding:8px;text-align:left;width:120px;border:1px solid #888">布種<br>顏色</th>
+            <th style="padding:8px;text-align:center;width:70px;border:1px solid #888">多選</th>
+            <th style="padding:8px;text-align:center;width:70px;border:1px solid #888">說明</th>
+          </tr>
+        </thead>
+        <tbody id="unsent-report-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- 未開單驗布 Modal -->
+<div class="modal-overlay" id="nopo-modal" style="display:none">
+  <div class="modal" style="max-width:1000px;">
+    <div class="modal-header">
+      <span>未開單驗布</span>
+      <button class="modal-close" onclick="closeNoPOModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:12px 16px">
+      <div style="display:flex;align-items:center;justify-content:flex-start;margin-bottom:12px">
+        <button class="btn" onclick="addNoPO()" style="width:80px;height:36px;font-size:13px;padding:0;background:#dc2626">新增驗布</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#5b7a96;color:#fff">
+              <th style="padding:8px;text-align:left;width:120px">實際驗布日<br>QC</th>
+              <th style="padding:8px;text-align:left;width:100px">款號<br>採購單號</th>
+              <th style="padding:8px;text-align:left;width:100px">客戶<br>採購人員</th>
+              <th style="padding:8px;text-align:left;width:100px">供應商<br>供應地</th>
+              <th style="padding:8px;text-align:left;width:140px">布種<br>顏色</th>
+              <th style="padding:8px;text-align:center;width:80px">驗報狀態</th>
+              <th style="padding:8px;text-align:center;width:80px">驗布輸入</th>
+              <th style="padding:8px;text-align:center;width:80px">刪除</th>
+              <th style="padding:8px;text-align:center;width:80px">發送驗報</th>
+            </tr>
+          </thead>
+          <tbody id="nopo-modal-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 新增驗布 Modal -->
+<div class="modal-overlay" id="add-nopo-modal" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <span>新增驗布</span>
+      <button class="modal-close" onclick="closeAddNoPO()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="form-group">
+          <label>款號</label>
+          <input type="text" id="add_style" inputmode="text">
+        </div>
+        <div class="form-group">
+          <label>採購單號</label>
+          <input type="text" id="add_po" inputmode="text">
+        </div>
+        <div class="form-group">
+          <label>客戶</label>
+          <input type="text" id="add_customer" inputmode="text">
+        </div>
+        <div class="form-group">
+          <label>供應商</label>
+          <input type="text" id="add_supplier" inputmode="text">
+        </div>
+        <div class="form-group">
+          <label>布種</label>
+          <input type="text" id="add_knit" inputmode="text">
+        </div>
+        <div class="form-group">
+          <label>顏色</label>
+          <textarea id="add_color" style="min-height:80px;resize:vertical;padding:6px;border:1px solid #ccc;border-radius:4px;font-family:inherit;font-size:13px"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#6b7280" onclick="closeAddNoPO()">取消</button>
+      <button class="btn" style="background:#16a34a" onclick="confirmAddNoPO()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 樣布寄送 Modal -->
+<div class="modal-overlay" id="sample-modal" style="display:none">
+  <div class="modal" style="max-width:900px;">
+    <div class="modal-header">
+      <span>查詢寄樣</span>
+      <button class="modal-close" onclick="closeSampleModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="padding:20px;text-align:center;color:#aaa">查詢寄樣</div>
+    </div>
+  </div>
+</div>
+
+<!-- 查詢驗布記錄 Modal -->
+<div class="modal-overlay" id="record-modal" style="display:none">
+  <div class="modal" style="max-width:900px;">
+    <div class="modal-header">
+      <span>查詢驗布記錄</span>
+      <button class="modal-close" onclick="closeRecordModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="padding:20px;text-align:center;color:#aaa">查詢驗布記錄</div>
+    </div>
+  </div>
+</div>
+
+<!-- 更新成功 Toast -->
+<div id="update-toast" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.25);padding:24px 36px;text-align:center;min-width:160px">
+  <div style="font-size:32px;margin-bottom:8px">✅</div>
+  <div style="font-size:15px;font-weight:bold;color:#16a34a">資訊已更新</div>
+</div>
+
+<!-- 採購單詳情 Modal -->
+<div class="modal-overlay" id="po-detail-modal" style="display:none">
+  <div class="modal" style="max-width:1000px">
+    <div class="modal-header">
+      <span id="po-detail-title">發送TMKF-26-04996</span>
+      <button class="modal-close" onclick="closePoDetail()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:12px 16px">
+      <div class="search-row">
+        <label>款號</label>
+        <input type="text" id="pd_style" inputmode="text" autocomplete="off" readonly>
+        <label>採購單號</label>
+        <input type="text" id="pd_po" inputmode="text" autocomplete="off" readonly>
+        <div style="width:1px;height:28px;background:#ccc;margin:0 4px"></div>
+        <button class="btn" onclick="doSearch()">查詢採購單</button>
+        <button class="btn" style="background:#dc2626;margin-left:auto" onclick="sendPoReport()">發送驗報</button>
+      </div>
+      <div style="margin-top:12px">
+        <div style="background:#f0f0f0;padding:8px 12px;margin-bottom:8px;border-radius:4px;font-weight:bold;font-size:13px;color:#333">採購單資訊</div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#5b7a96;color:#fff">
+              <th style="padding:8px;text-align:left;width:120px">款號<br>採購單號</th>
+              <th style="padding:8px;text-align:left;width:100px">客戶<br>採購人員</th>
+              <th style="padding:8px;text-align:left;width:100px">供應商<br>供應地</th>
+              <th style="padding:8px;text-align:left;width:140px">布種<br>顏色</th>
+              <th style="padding:8px;text-align:center;width:70px">多選</th>
+              <th style="padding:8px;text-align:center;width:70px">說明</th>
+            </tr>
+          </thead>
+          <tbody id="po-detail-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 合併採購單詳情 Modal -->
+<div class="modal-overlay" id="merge-po-detail-modal" style="display:none">
+  <div class="modal" style="max-width:1000px">
+    <div class="modal-header">
+      <span id="merge-po-detail-title">合併TMKF-26-04996</span>
+      <button class="modal-close" onclick="closeMergePODetail()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:12px 16px">
+      <div class="search-row">
+        <label>款號</label>
+        <input type="text" id="mpd_style" inputmode="text" autocomplete="off" readonly>
+        <label>採購單號</label>
+        <input type="text" id="mpd_po" inputmode="text" autocomplete="off" readonly>
+        <div style="width:1px;height:28px;background:#ccc;margin:0 4px"></div>
+        <button class="btn" onclick="doSearch()">查詢採購單</button>
+        <button class="btn" style="background:#dc2626" onclick="addToMerge()">加入合併</button>
+        <button class="btn" style="background:#dc2626" onclick="confirmMerge()">確定合併</button>
+      </div>
+      <div style="margin-top:12px">
+        <div style="background:#f0f0f0;padding:8px 12px;margin-bottom:8px;border-radius:4px;font-weight:bold;font-size:13px;color:#333">預計合併的採購單</div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#5b7a96;color:#fff">
+              <th style="padding:8px;text-align:left;width:120px">款號<br>採購單號</th>
+              <th style="padding:8px;text-align:left;width:100px">客戶<br>採購人員</th>
+              <th style="padding:8px;text-align:left;width:100px">供應商<br>供應地</th>
+              <th style="padding:8px;text-align:left;width:140px">布種<br>顏色</th>
+            </tr>
+          </thead>
+          <tbody id="merge-po-detail-tbody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px">
+        <div style="background:#f0f0f0;padding:8px 12px;margin-bottom:8px;border-radius:4px;font-weight:bold;font-size:13px;color:#333">採購單資訊</div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#5b7a96;color:#fff">
+              <th style="padding:8px;text-align:left;width:120px">款號<br>採購單號</th>
+              <th style="padding:8px;text-align:left;width:100px">客戶<br>採購人員</th>
+              <th style="padding:8px;text-align:left;width:100px">供應商<br>供應地</th>
+              <th style="padding:8px;text-align:left;width:140px">布種<br>顏色</th>
+              <th style="padding:8px;text-align:center;width:70px">多選</th>
+            </tr>
+          </thead>
+          <tbody id="merge-po-other-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping 圖 Modal -->
+<div id="mapping-img-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.4);width:320px">
+    <div style="background:#4a7cbf;color:#fff;padding:10px 14px;font-weight:bold;font-size:14px;display:flex;justify-content:space-between;align-items:center">
+      <span>Mapping 圖</span>
+      <button onclick="closeMappingImg()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:12px;text-align:center;background:#f9f9f9">
+      <img src="data:image/png;base64,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" alt="Mapping 圖" style="max-width:100%;max-height:320px;border:1px solid #ddd;background:#fff"
+           onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<!-- 款式圖 Modal -->
+<div id="style-img-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.4);width:320px">
+    <div style="background:#4a7cbf;color:#fff;padding:10px 14px;font-weight:bold;font-size:14px;display:flex;justify-content:space-between;align-items:center">
+      <span>款式圖</span>
+      <span style="font-size:13px;font-weight:normal">Dressy Pants</span>
+      <button onclick="closeStyleImg()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:12px;text-align:center;background:#f9f9f9">
+      <img src="data:image/png;base64,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" alt="款式圖" style="max-width:100%;max-height:320px;border:1px solid #ddd;background:#fff"
+           onerror="this.style.display='none';document.getElementById('style-img-fallback').style.display='block'">
+      <div id="style-img-fallback" style="display:none;color:#aaa;font-size:13px;padding:20px">（圖片載入失敗）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 驗報發送 Modal -->
+<div class="modal-overlay" id="send-report-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <span id="send-report-title">驗報發送</span>
+      <button class="modal-close" onclick="closeSendReport()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="grid-template-columns:1fr">
+        <div class="form-group"><label>採購單號</label><input id="sr_po" readonly></div>
+        <div class="form-group"><label>款號</label><input id="sr_style" readonly></div>
+        <div class="form-group"><label>發送對象</label>
+          <select id="sr_receiver">
+            <option>品管主管</option>
+            <option>採購人員</option>
+            <option>業務人員</option>
+            <option>客戶</option>
+          </select>
+        </div>
+        <div class="form-group"><label>備註</label>
+          <textarea id="sr_remark" rows="3" style="width:100%;padding:6px 8px;border:1px solid #bbb;border-radius:4px;font-size:13px;background:#fffde7"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#6b7280" onclick="closeSendReport()">取消</button>
+      <button class="btn" onclick="confirmSendReport()">確認發送</button>
+    </div>
+  </div>
+</div>
+
+<!-- 未開單驗布 Tab 頁面 -->
+<div id="tab-nopo" style="display:none;padding:12px 16px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <span style="font-weight:bold;font-size:15px">未開單驗布</span>
+    <button class="btn" onclick="addNoPO()" style="width:80px;height:36px;font-size:13px;padding:0;background:#dc2626">新增</button>
+  </div>
+  <div class="table-wrap">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:#5b7a96;color:#fff">
+          <th style="padding:8px;text-align:left;width:120px">實際驗布日<br>QC</th>
+          <th style="padding:8px;text-align:left;width:100px">款號<br>採購單號</th>
+          <th style="padding:8px;text-align:left;width:100px">客戶<br>採購人員</th>
+          <th style="padding:8px;text-align:left;width:100px">供應商<br>供應地</th>
+          <th style="padding:8px;text-align:left;width:140px">布種<br>顏色</th>
+          <th style="padding:8px;text-align:center;width:80px">驗報狀態</th>
+          <th style="padding:8px;text-align:center;width:80px">驗布輸入</th>
+          <th style="padding:8px;text-align:center;width:80px">刪除</th>
+          <th style="padding:8px;text-align:center;width:80px">mapping</th>
+        </tr>
+      </thead>
+      <tbody id="nopo-table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 合併採購單 popup -->
+<div id="merge-popup" style="display:none;position:fixed;inset:0;z-index:300">
+  <div id="merge-popup-box" style="position:fixed;background:#fff;border-radius:6px;min-width:200px;box-shadow:0 4px 16px rgba(0,0,0,.3);overflow:hidden">
+    <div style="background:#4a7cbf;color:#fff;padding:8px 12px;font-weight:bold;font-size:13px">合併採購單</div>
+    <div id="merge-popup-list" style="padding:8px 14px;background:#fffde7"></div>
+  </div>
+</div>
+
+<!-- 驗布功能選項 popup -->
+<div id="insp-options-popup" style="display:none;position:fixed;inset:0;z-index:300">
+  <div id="insp-options-box" style="position:fixed;background:#fff;border-radius:6px;min-width:180px;box-shadow:0 4px 16px rgba(0,0,0,.3);overflow:hidden">
+    <div id="insp-options-list" style="padding:8px;display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 狀態 ────────────────────────────────────────────
+let isOnline = navigator.onLine;
+let currentPage = 1;
+const PAGE_SIZE = 15;
+let currentOrder = null;
+let regionFilter = '';
+
+// 主頁DEMO資料
+const HOME_DEMO_ROWS = [
+  {
+    actual_insp_date: '2026/6/8', inspector: 'Yong Wang',
+    style_no: '60226F073D', po_no: 'TMKF-26-04996', plan_insp_date: '2026/5/22',
+    customer: 'GU', purchaser: 'Grace Hsu',
+    order_qty: '1,761kgs', order_unit: '(5283yds)',
+    supplier: '國華實業', insp_region: 'CHINA', garment_region: 'CAB-MH1',
+    knit_woven: 'Knit', fabric_type: 'Tricot', dyeing: 'Dyed',
+    composition: 'Polyester 100%', spec: '59,130', insp_spec: '61, 130, 184.4',
+    c20_color: 'BLACK,WHITE', result_sent: '已簽核', merged: false,
+  },
+  {
+    actual_insp_date: '2026/6/8', inspector: 'Leo Li',
+    style_no: '907914_HO26', po_no: 'TMKF-26-03719', plan_insp_date: '2026/3/19',
+    customer: 'OLD NAVY', purchaser: 'Michelle Lin',
+    order_qty: '5000yds', order_unit: '',
+    supplier: '潤泰', insp_region: 'CHINA',
+    knit_woven: 'Woven', fabric_type: 'Fleece', dyeing: 'Dyed',
+    composition: 'Cotton/Recycled Polyester 75/25%', spec: '62,220',
+    c20_color: 'GREEN,YELLOW', result_sent: '未發送', merged: true,
+  },
+  {
+    actual_insp_date: '2026/5/28', inspector: 'Leo Li',
+    style_no: '910047_HO26DIS', po_no: 'TMKF-26-03776', plan_insp_date: '2026/5/14',
+    customer: 'OLD NAVY', purchaser: 'Gloria Wang',
+    order_qty: '9,565lbs', order_unit: '(13016yds)',
+    supplier: 'KAM HING', insp_region: 'CHINA',
+    knit_woven: 'Knit', fabric_type: 'Velour', dyeing: 'PRT',
+    composition: 'Polyester 100%', spec: '58,145',
+    c20_color: 'GRAY', result_sent: '簽核中', merged: false,
+  },
+  {
+    actual_insp_date: '2026/3/28', inspector: 'Ken Kong',
+    style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', plan_insp_date: '2026/2/24',
+    customer: 'TARGET', purchaser: 'Freesia Fang',
+    order_qty: '125,718yds', order_unit: '',
+    supplier: '聚益', insp_region: 'CHINA', garment_region: '',
+    knit_woven: 'Woven', fabric_type: 'Twill', dyeing: 'Dyed',
+    composition: 'Nylon/Spandex 86/14%', spec: '57, 163', insp_spec: '57, 163',
+    c20_color: 'BLUE', result_sent: '未驗布', merged: false,
+  },
+];
+
+const DEMO_ROWS = [
+  {
+    actual_insp_date: '2026/6/8', inspector: 'Yong Wang',
+    style_no: '60226F073D', po_no: 'TMKF-26-04996', plan_insp_date: '2026/5/22',
+    customer: 'GU', purchaser: 'Grace Hsu',
+    order_qty: '1,761kgs', order_unit: '(5283yds)',
+    supplier: '國華實業', insp_region: 'CHINA', garment_region: 'CAB-MH1',
+    knit_woven: 'Knit', fabric_type: 'Tricot', dyeing: 'Dyed',
+    composition: 'Polyester 100%', spec: '59,130', insp_spec: '61, 130, 184.4',
+    c20_color: 'BLACK,WHITE', result_sent: '未發送', merged: false,
+  },
+  {
+    actual_insp_date: '2026/6/8', inspector: 'Leo Li',
+    style_no: '907914_HO26', po_no: 'TMKF-26-03719', plan_insp_date: '2026/3/19',
+    customer: 'OLD NAVY', purchaser: 'Michelle Lin',
+    order_qty: '5000yds', order_unit: '',
+    supplier: '潤泰', insp_region: 'CHINA',
+    knit_woven: 'Woven', fabric_type: 'Fleece', dyeing: 'Dyed',
+    composition: 'Cotton/Recycled Polyester 75/25%', spec: '62,220',
+    c20_color: 'GREEN,YELLOW', result_sent: '未發送', merged: true,
+  },
+  {
+    actual_insp_date: '2026/5/28', inspector: 'Leo Li',
+    style_no: '910047_HO26DIS', po_no: 'TMKF-26-03776', plan_insp_date: '2026/5/14',
+    customer: 'OLD NAVY', purchaser: 'Gloria Wang',
+    order_qty: '9,565lbs', order_unit: '(13016yds)',
+    supplier: 'KAM HING', insp_region: 'CHINA',
+    knit_woven: 'Knit', fabric_type: 'Velour', dyeing: 'PRT',
+    composition: 'Polyester 100%', spec: '58,145',
+    c20_color: 'GRAY', result_sent: '未驗布', merged: false,
+  },
+  {
+    actual_insp_date: '2026/3/28', inspector: 'Ken Kong',
+    style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', plan_insp_date: '2026/2/24',
+    customer: 'TARGET', purchaser: 'Freesia Fang',
+    order_qty: '125,718yds', order_unit: '',
+    supplier: '聚益', insp_region: 'CHINA', garment_region: '',
+    knit_woven: 'Woven', fabric_type: 'Twill', dyeing: 'Dyed',
+    composition: 'Nylon/Spandex 86/14%', spec: '57, 163', insp_spec: '57, 163',
+    c20_color: 'BLUE', result_sent: '未驗布', merged: false,
+  },
+];
+let allRows = [...HOME_DEMO_ROWS];  // 主頁初始資料
+let nopoDemoRows = [...DEMO_ROWS];  // 未開單驗布初始資料
+
+window.addEventListener('online',  () => { isOnline = true;  updateStatus(); toast('已恢復連線'); });
+window.addEventListener('offline', () => { isOnline = false; updateStatus(); toast('已切換離線模式'); });
+
+function updateStatus() {
+  const el = document.getElementById('conn-status');
+  el.innerHTML = isOnline
+    ? '<span class="online">● 已連線</span>'
+    : '<span class="offline">● 離線模式</span>';
+  const pending = getDrafts().length;
+  const pa = document.getElementById('pending-area');
+  pa.innerHTML = pending > 0
+    ? `待上傳 <span class="pending-badge">${pending}</span>` +
+      (isOnline ? `<button class="upload-btn" onclick="uploadDrafts()">立即上傳</button>` : '')
+    : '';
+}
+function updatePageInfo() {
+  const total = (regionFilter ? allRows.filter(r => (r.insp_region||'').toUpperCase() === regionFilter) : allRows).length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  document.getElementById('page-info').textContent =
+    `第 ${currentPage} / ${totalPages} 頁，共 ${total} 筆`;
+}
+updateStatus();
+renderTable();
+updatePageInfo();
+
+// ── 查詢 ────────────────────────────────────────────
+async function doSearch() {
+  const style   = document.getElementById('q_style').value.trim();
+  const po      = document.getElementById('q_po').value.trim();
+
+  if (!isOnline) { toast('離線中無法查詢，請連線後再試'); return; }
+  if (!style && !po) { toast('請至少輸入一個查詢條件'); return; }
+
+  try {
+    let url = '';
+    if (po)      url = `/api/search?q=${encodeURIComponent(po)}&field=po_no`;
+    else         url = `/api/search?q=${encodeURIComponent(style)}&field=style_no`;
+
+    const r = await fetch(url);
+    const data = await r.json();
+    allRows = data.results || [];
+    currentPage = 1;
+    renderTable();
+    updatePageInfo();
+  } catch(e) {
+    toast('查詢失敗：' + e.message);
+  }
+}
+
+// ── 表格渲染 ────────────────────────────────────────
+function setRegionFilter(val) {
+  regionFilter = val;
+  currentPage = 1;
+  document.getElementById('filter-china').style.fontWeight = val === 'CHINA' ? 'bold' : 'normal';
+  document.getElementById('filter-china').style.textDecoration = val === 'CHINA' ? 'underline' : 'none';
+  document.getElementById('filter-all').style.fontWeight = val === '' ? 'bold' : 'normal';
+  renderTable();
+  updatePageInfo();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  const filtered = regionFilter ? allRows.filter(r => (r.insp_region||'').toUpperCase() === regionFilter) : allRows;
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const rows  = filtered.slice(start, start + PAGE_SIZE);
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" class="center text-muted" style="padding:20px">查無資料</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map((r, i) => {
+    const hasMerge = r.merged || false;
+    const reportStatus = getReportStatus(r);
+    const c20color = r.c20_color || '';
+
+    return `
+    <tr class="${hasMerge ? 'merged-row' : ''}" style="background:${i%2===0?'#ffffff':'#f7f9ff'};border-bottom:1px solid #eee">
+      <!-- 合併 -->
+      <td class="center">
+        ${hasMerge ? `<span class="merge-tag" onclick="showMerge(event,'${r.po_no}')" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#16a34a;color:#fff;border-radius:4px;font-size:16px;text-decoration:none">✓</span>` : ''}
+      </td>
+      <!-- 驗布日/QC/出貨日 -->
+      <td>
+        <div class="text-muted">${r.actual_insp_date || '-'}</div>
+        <div class="text-muted">${r.qc || r.inspector || '-'}</div>
+        <div class="text-muted">${r.plan_insp_date || '-'}</div>
+      </td>
+      <!-- 款號/PO/訂單數量 -->
+      <td>
+        <div><span class="link-orange" onclick="showInfo(event,'${r.po_no}')">${r.style_no}</span></div>
+        <div><span class="link-red" onclick="showInfo(event,'${r.po_no}')" style="text-decoration:underline">${r.po_no}</span></div>
+        <div class="text-muted">${r.order_qty} ${r.order_unit}</div>
+      </td>
+      <!-- 客戶/採購人員 -->
+      <td>
+        <div class="link-red">${r.customer}</div>
+        <div class="text-muted">${r.purchaser}</div>
+      </td>
+      <!-- 供應商/供應地 -->
+      <td>
+        <div>${r.supplier}</div>
+        <div class="text-muted">${r.insp_region}</div>
+      </td>
+      <!-- 布種/成份/規格 -->
+      <td>
+        <div>${r.knit_woven},${r.fabric_type},${r.dyeing}</div>
+        <div class="text-muted">${r.composition}</div>
+        <div class="text-muted">${r.spec || ((r.weight_gm ? r.weight_gm+'gm/m²' : '') + (r.width_inch ? ' '+r.width_inch+'"' : ''))}</div>
+      </td>
+      <!-- C20顏色 -->
+      <td class="center" style="color:#dc2626;font-weight:bold">${c20color}</td>
+      <!-- 驗報發送 -->
+      <td class="center">${reportStatus}</td>
+      <!-- 驗布輸入 -->
+      <td class="center">
+        ${(r.result_sent||'') === '已簽核' ? '' : `<button class="btn-play" onclick="showInspOptions(event, '${r.po_no}', '${r.result_sent||'未驗布'}')">▶</button>`}
+      </td>
+      <!-- 刪除 -->
+      <td class="center">
+        ${((r.result_sent||'') === '未發送' || (r.result_sent||'') === '' || (r.result_sent||'') === '未驗布')
+          ? `<button class="btn-del" onclick="delRow('${r.po_no}','${r.style_no}')">✕</button>`
+          : ''}
+      </td>
+      <!-- 檢視驗報 -->
+      <td class="center">
+        <button class="btn-play" style="background:#999;color:#fff" onclick="viewReport('${r.po_no}')">👁</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function getReportStatus(r) {
+  const s = (r.result_sent || '').toString().trim();
+  if (s === '1' || s.toLowerCase() === 'true' || s === '已簽核') return '<span class="badge badge-signed">已簽核</span>';
+  if (s === '簽核中') return '<span class="badge badge-pending">簽核中</span>';
+  if (s === '未發送' || s === '') return `<span class="badge badge-unsent">未發送</span>`;
+  if (s === '未驗布') return `<span class="badge" style="color:#dc2626">未驗布</span>`;
+  return `<span class="badge">${s}</span>`;
+}
+
+function prevPage() { if (currentPage > 1) { currentPage--; renderTable(); updatePageInfo(); } }
+function nextPage() {
+  if (currentPage * PAGE_SIZE < allRows.length) { currentPage++; renderTable(); updatePageInfo(); }
+}
+
+// ── 訂單資訊 Modal ───────────────────────────────────
+async function showInfo(event, po_no) {
+  event.stopPropagation();
+  try {
+    let d;
+    // 先從 DEMO_ROWS 找
+    const demoRow = DEMO_ROWS.find(r => r.po_no === po_no);
+    if (demoRow) {
+      d = {
+        po_no: demoRow.po_no,
+        style_no: demoRow.style_no,
+        customer: demoRow.customer,
+        supplier: demoRow.supplier,
+        purchaser: demoRow.purchaser || '',
+        composition: demoRow.composition,
+        fabric_type: demoRow.fabric_type,
+        knit_woven: demoRow.knit_woven,
+        dyeing: demoRow.dyeing || '',
+        print: demoRow.print || '',
+        finishing: demoRow.finishing || '',
+        width_inch: demoRow.width_inch || '',
+        weight_gm: demoRow.weight_gm || '',
+        order_type: demoRow.order_type || '',
+        insp_region: demoRow.insp_region,
+        garment_region: demoRow.garment_region || '',
+        plan_insp_date: demoRow.plan_insp_date,
+        spec: demoRow.spec || '',
+        insp_spec: demoRow.insp_spec || '',
+        colors: [{ color: demoRow.c20_color || '', order_qty: demoRow.order_qty, order_unit: demoRow.order_unit }],
+      };
+    } else if (isOnline) {
+      const res = await fetch(`/api/order/${encodeURIComponent(po_no)}`);
+      if (!res.ok) { toast('找不到此PO資料'); return; }
+      d = await res.json();
+    } else {
+      const saved = localStorage.getItem('fabqc_order_' + po_no);
+      if (!saved) { toast('離線：此PO尚未下載'); return; }
+      d = JSON.parse(saved);
+    }
+    const fabricDesc = [d.knit_woven, d.fabric_type, d.dyeing, d.print, d.finishing].filter(Boolean).join('，');
+    const colorRows = (d.colors||[]).map((c,i) => `
+      <tr class="${i===0?'selected':''}">
+        <td style="text-align:left;padding-left:14px">${c.color}</td>
+        <td>${c.order_qty} ${c.order_unit||''}</td>
+        <td></td>
+      </tr>`).join('');
+
+    document.getElementById('om-title').textContent = `採購單資訊　${d.style_no}　${d.po_no}`;
+    document.getElementById('om-body').innerHTML = `
+      <div style="display:flex;margin-bottom:12px;overflow:hidden">
+        <div style="flex:0 0 50%;max-width:50%;box-sizing:border-box;overflow:hidden">
+          <table style="border-collapse:collapse;font-size:13px;width:100%;table-layout:fixed">
+            <colgroup><col style="width:90px"><col></colgroup>
+            <tr><td class="om-label">款號</td><td class="om-value">${d.style_no}</td></tr>
+            <tr><td class="om-label">採購單號</td><td class="om-value">${d.po_no}</td></tr>
+            <tr><td class="om-label">客戶</td><td class="om-value">${d.customer}</td></tr>
+            <tr><td class="om-label">採購人員</td><td class="om-value">${d.purchaser||''}</td></tr>
+            <tr><td class="om-label">供應商</td><td class="om-value">${d.supplier}</td></tr>
+            <tr><td class="om-label">供應地</td><td class="om-value">${d.insp_region||''}</td></tr>
+            <tr><td class="om-label">布種/成份/規格</td><td class="om-value">${fabricDesc}<br><span style="color:#555">${d.composition||''}</span><br><span style="color:#555">${d.insp_spec||''}</span></td></tr>
+            <tr><td class="om-label">成衣產區</td><td class="om-value">${d.garment_region||''}</td></tr>
+          </table>
+        </div>
+        <div style="flex:0 0 50%;max-width:50%;box-sizing:border-box;padding:8px;display:flex;flex-direction:column;gap:8px;border-left:1px solid #ccc;align-self:stretch">
+          <div style="display:flex;gap:8px">
+            <button onclick="showStyleImg()" style="flex:1;height:44px;background:#6b7280;color:#fff;border:none;border-radius:4px;font-size:13px;cursor:pointer;font-weight:bold">🖼 款式圖</button>
+            <button onclick="updateOrderInfo(this)" style="flex:1;height:44px;background:#5b7fa6;color:#fff;border:none;border-radius:4px;font-size:13px;cursor:pointer;font-weight:bold">🔄 更新採購單資訊</button>
+          </div>
+          <div id="style-img-box" style="display:none;background:#e8e8e8;border:1px solid #ccc;min-height:120px;align-items:center;justify-content:center;margin-top:4px">
+            <span style="color:#aaa;font-size:13px">（尚無款式圖）</span>
+          </div>
+          <div style="background:#4a7cbf;color:#fff;padding:6px 10px;font-weight:bold;font-size:13px">訂單要求</div>
+          <textarea id="om-remarks" readonly style="width:100%;flex:1;border:1px solid #ccc;padding:8px;font-size:12px;line-height:1.8;resize:none;background:#fffde7;color:#333"></textarea>
+        </div>
+      </div>
+      <!-- 顏色表 -->
+      <table class="om-color-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding-left:14px">顏色</th>
+            <th>訂單數量</th>
+            <th>各交期的出貨數量</th>
+          </tr>
+        </thead>
+        <tbody>${colorRows}</tbody>
+      </table>`;
+
+    document.getElementById('order-modal').classList.add('open');
+    const ta = document.getElementById('om-remarks');
+    if (ta) ta.value = '1. 供應鏈備註：\n2. HQ品管備註：\n3. 採購備註：\n4. 驗布寄樣需求：\n5. Remark：';
+  } catch(e) { toast('載入失敗：' + e.message); }
+}
+
+function closeOrderModal() {
+  document.getElementById('order-modal').classList.remove('open');
+}
+
+function showStyleImg() {
+  document.getElementById('style-img-modal').style.display = 'flex';
+}
+function closeStyleImg() {
+  document.getElementById('style-img-modal').style.display = 'none';
+}
+function openMappingImg() {
+  document.getElementById('mapping-img-modal').style.display = 'flex';
+}
+function closeMappingImg() {
+  document.getElementById('mapping-img-modal').style.display = 'none';
+}
+function updateOrderInfo() {
+  const toast = document.getElementById('update-toast');
+  if (!toast) return;
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 1000);
+}
+
+// ── 驗布輸入 Modal ───────────────────────────────────
+async function openInsp(po_no) {
+  // 取得該訂單的驗報狀態
+  const row = allRows.find(r => r.po_no === po_no);
+  const status = (row?.result_sent || '').toString().trim();
+
+  // 取得訂單資料
+  try {
+    let order;
+    if (isOnline) {
+      const r = await fetch(`/api/order/${encodeURIComponent(po_no)}`);
+      order = await r.json();
+      localStorage.setItem('fabqc_order_' + po_no, JSON.stringify(order));
+    } else {
+      const saved = localStorage.getItem('fabqc_order_' + po_no);
+      if (!saved) { toast('離線模式：此 PO 尚未下載，請先連線查詢'); return; }
+      order = JSON.parse(saved);
+    }
+    currentOrder = order;
+    currentInspStatus = status;  // 保存狀態供modal使用
+    buildModal(order, null);
+    document.getElementById('insp-modal').classList.add('open');
+  } catch(e) {
+    toast('載入訂單失敗：' + e.message);
+  }
+}
+
+function buildModal(order, isNew) {
+  const today = new Date().toISOString().split('T')[0];
+  const colorRows = (order.colors || []).map(c => `
+    <tr id="crow_${c.color.replace(/\s/g,'_')}">
+      <td>${c.color}</td>
+      <td><input type="number" placeholder="0" class="bulk_yds" data-color="${c.color}" oninput="calcRow(this)"></td>
+      <td><input type="number" placeholder="0" class="insp_yds" data-color="${c.color}" oninput="calcRow(this)"></td>
+      <td><input type="number" step="0.1" placeholder="0.0" class="avg_pts" data-color="${c.color}" oninput="calcGrade(this)"></td>
+      <td><input type="number" placeholder="0" class="a_qty" data-color="${c.color}" oninput="calcPct(this)"></td>
+      <td><input type="number" placeholder="0" class="b_qty" data-color="${c.color}" oninput="calcPct(this)"></td>
+      <td><input type="number" placeholder="0" class="c_qty" data-color="${c.color}" oninput="calcPct(this)"></td>
+      <td class="center grade-cell" id="grade_${c.color.replace(/\s/g,'_')}">—</td>
+      <td>
+        <select class="color_result" data-color="${c.color}">
+          <option value="">—</option>
+          <option>Pass</option><option>Discuss</option><option>Fail</option><option>C20</option>
+        </select>
+      </td>
+      <td>
+        <select class="disposition" data-color="${c.color}">
+          <option value="">—</option>
+          <option>同意出貨</option><option>不同意出貨</option>
+          <option>需再次驗布</option><option>待客戶確認</option>
+          <option>補損出貨</option>
+        </select>
+      </td>
+      <td><input type="text" placeholder="備註" class="color_remark" data-color="${c.color}"></td>
+    </tr>`).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <!-- 基本資訊 -->
+    <div class="section-title">訂單基本資訊</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>採購單號</label>
+        <input type="text" id="f_po" value="${order.po_no}" readonly>
+      </div>
+      <div class="form-group">
+        <label>款號</label>
+        <input type="text" id="f_style" value="${order.style_no}" readonly>
+      </div>
+      <div class="form-group">
+        <label>客戶</label>
+        <input type="text" id="f_cust" value="${order.customer}" readonly>
+      </div>
+      <div class="form-group">
+        <label>供應商</label>
+        <input type="text" id="f_sup" value="${order.supplier}" readonly>
+      </div>
+      <div class="form-group">
+        <label>布種 / 成份</label>
+        <input type="text" value="${order.fabric_type} / ${order.composition}" readonly>
+      </div>
+      <div class="form-group">
+        <label>驗貨地點</label>
+        <input type="text" id="f_region" value="${order.insp_region}">
+      </div>
+    </div>
+
+    <!-- 驗布資訊 -->
+    <div class="section-title">驗布資訊</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>實際驗布日</label>
+        <input type="date" id="f_date" value="${today}">
+      </div>
+      <div class="form-group">
+        <label>驗布員</label>
+        <input type="text" id="f_inspector" placeholder="姓名">
+      </div>
+    </div>
+
+    <!-- 問題類型 -->
+    <div class="section-title">問題類型</div>
+    <div class="defect-grid">
+      <label><input type="checkbox" value="布疵"> 布疵</label>
+      <label><input type="checkbox" value="外觀"> 外觀</label>
+      <label><input type="checkbox" value="手感"> 手感</label>
+      <label><input type="checkbox" value="緯斜"> 緯斜</label>
+      <label><input type="checkbox" value="顏色"> 顏色</label>
+      <label><input type="checkbox" value="規格"> 規格</label>
+      <label><input type="checkbox" value="其他"> 其他</label>
+    </div>
+
+    <!-- 各色驗布 -->
+    <div class="section-title">各色驗布記錄</div>
+    <div style="overflow-x:auto">
+      <table class="color-table">
+        <thead>
+          <tr>
+            <th>顏色</th>
+            <th>完成碼數<br>(Yds)</th>
+            <th>抽驗數量<br>(Yds)</th>
+            <th>平均扣點<br>(pts/100yds)</th>
+            <th>A級(Yds)</th>
+            <th>B級(Yds)</th>
+            <th>C級(Yds)</th>
+            <th>等級</th>
+            <th>單色結論</th>
+            <th>處置方法</th>
+            <th>備註</th>
+          </tr>
+        </thead>
+        <tbody>${colorRows}</tbody>
+      </table>
+    </div>
+
+    <!-- 整體備註 -->
+    <div class="section-title">整體備註</div>
+    <div class="form-group" style="margin-top:8px">
+      <textarea id="f_remark" rows="3" style="width:100%;padding:6px 8px;border:1px solid #bbb;border-radius:4px;font-size:13px;background:#fffde7"></textarea>
+    </div>`;
+
+  // 根據狀態設置modal-footer按鈕
+  setModalFooterByStatus();
+}
+
+function setModalFooterByStatus() {
+  const footer = document.getElementById('modal-footer');
+  const status = currentInspStatus || '';
+
+  let footerHTML = '';
+  if (status === '未驗布') {
+    footerHTML = `
+      <button class="btn" style="background:#1e40af" onclick="inspectSingle()">單一驗布</button>
+      <button class="btn" style="background:#16a34a" onclick="inspectMerge()">合併驗布</button>
+    `;
+  } else if (status === '未發送' || status === '') {
+    footerHTML = `
+      <button class="btn" style="background:#1e40af" onclick="editInspData()">修改驗報</button>
+      <button class="btn" style="background:#16a34a" onclick="inspectMerge()">合併驗布</button>
+    `;
+  } else if (status === '簽核中') {
+    footerHTML = `
+      <button class="btn" style="background:#1e40af" onclick="editInspData()">修改驗報</button>
+    `;
+  } else {
+    footerHTML = `
+      <button class="btn" style="background:#6b7280" onclick="closeModal()">關閉</button>
+    `;
+  }
+
+  footer.innerHTML = footerHTML;
+}
+
+// 等級計算
+function calcRow(input) { calcGrade(input); }
+function calcGrade(input) {
+  const row = input.closest('tr');
+  const pts = parseFloat(row.querySelector('.avg_pts')?.value) || 0;
+  const c_qty = parseFloat(row.querySelector('.c_qty')?.value) || 0;
+  const color = input.dataset.color.replace(/\s/g,'_');
+  const cell = document.getElementById('grade_' + color);
+  if (!cell) return;
+  let g = '';
+  if (c_qty > 0)    { g = 'C'; }
+  else if (pts > 40) { g = 'B'; }
+  else if (pts > 0)  { g = 'A'; }
+  cell.textContent = g || '—';
+  cell.className = 'center grade-cell ' + (g ? 'grade-' + g : '');
+}
+function calcPct(input) { calcGrade(input); }
+
+// ── 儲存草稿 ────────────────────────────────────────
+function getDrafts() { return JSON.parse(localStorage.getItem('fabqc_drafts') || '[]'); }
+function saveDraft() {
+  const payload = collectForm();
+  if (!payload) return;
+  const drafts = getDrafts();
+  drafts.push({ ...payload, saved_at: new Date().toLocaleString('zh-TW'), status: 'draft' });
+  localStorage.setItem('fabqc_drafts', JSON.stringify(drafts));
+  updateStatus();
+  toast('已儲存草稿，連線後可上傳');
+}
+
+function collectForm() {
+  if (!currentOrder) return null;
+  const inspector = document.getElementById('f_inspector')?.value.trim();
+  if (!inspector) { toast('請填寫驗布員'); return null; }
+  const defects = [...document.querySelectorAll('.defect-grid input:checked')].map(x => x.value);
+  const colors = (currentOrder.colors || []).map(c => {
+    const key = c.color;
+    const row = document.querySelector(`.bulk_yds[data-color="${key}"]`)?.closest('tr');
+    return {
+      color: key,
+      bulk_yds:    row?.querySelector('.bulk_yds')?.value || '',
+      insp_qty_yds:row?.querySelector('.insp_yds')?.value || '',
+      avg_pts:     row?.querySelector('.avg_pts')?.value || '',
+      a_qty:       row?.querySelector('.a_qty')?.value || '',
+      b_qty:       row?.querySelector('.b_qty')?.value || '',
+      c_qty:       row?.querySelector('.c_qty')?.value || '',
+      grade:       row?.querySelector('.grade-cell')?.textContent?.replace('—','') || '',
+      color_result:row?.querySelector('.color_result')?.value || '',
+      disposition: row?.querySelector('.disposition')?.value || '',
+      remark:      row?.querySelector('.color_remark')?.value || '',
+    };
+  });
+  return {
+    po_no:            currentOrder.po_no,
+    style_no:         currentOrder.style_no,
+    customer:         currentOrder.customer,
+    supplier:         currentOrder.supplier,
+    inspector,
+    actual_insp_date: document.getElementById('f_date')?.value || '',
+    insp_region:      document.getElementById('f_region')?.value || '',
+    defects,
+    colors,
+    remark:           document.getElementById('f_remark')?.value || '',
+  };
+}
+
+// ── 回傳系統 ────────────────────────────────────────
+async function submitInsp() {
+  const payload = collectForm();
+  if (!payload) return;
+  if (!isOnline) { saveDraft(); return; }
+  try {
+    const r = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const d = await r.json();
+    toast(d.message || '回傳成功！');
+    closeModal();
+  } catch(e) {
+    toast('回傳失敗，已儲存草稿');
+    saveDraft();
+  }
+}
+
+// ── 上傳草稿 ────────────────────────────────────────
+async function uploadDrafts() {
+  const drafts = getDrafts();
+  let ok = 0;
+  for (const d of drafts) {
+    try {
+      await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d),
+      });
+      ok++;
+    } catch(e) {}
+  }
+  localStorage.removeItem('fabqc_drafts');
+  updateStatus();
+  toast(`已上傳 ${ok} 筆記錄`);
+}
+
+// ── 其他功能占位 ────────────────────────────────────
+function openSendReport(po, style) {
+  document.getElementById('sr_po').value = po;
+  document.getElementById('sr_style').value = style;
+  document.getElementById('sr_remark').value = '';
+  document.getElementById('send-report-modal').classList.add('open');
+}
+function closeSendReport() {
+  document.getElementById('send-report-modal').classList.remove('open');
+}
+function confirmSendReport() {
+  toast('驗報已發送');
+  closeSendReport();
+}
+
+function openUnsentReport() {
+  const modal = document.getElementById('unsent-report-modal');
+  modal.style.display = 'flex';
+  renderUnsentReport();
+}
+
+function closeUnsentReport() {
+  document.getElementById('unsent-report-modal').style.display = 'none';
+}
+
+function renderUnsentReport() {
+  const tbody = document.getElementById('unsent-report-tbody');
+  const unsentRows = allRows.filter(r => (r.result_sent||'') === '未發送' || (r.result_sent||'') === '');
+
+  if (unsentRows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#aaa">無未發送資料</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = unsentRows.map((r, i) => `
+    <tr style="background:${i%2===0?'#fff':'#f9f9f9'}">
+      <td style="padding:8px;border:1px solid #ccc">${r.actual_insp_date||'-'}<br><span style="color:#777">${r.inspector||'-'}</span></td>
+      <td style="padding:8px;border:1px solid #ccc">${r.style_no||'-'}<br><span style="color:#d97706">${r.po_no||'-'}</span></td>
+      <td style="padding:8px;border:1px solid #ccc">${r.customer||'-'}<br><span style="color:#777">${r.purchaser||'-'}</span></td>
+      <td style="padding:8px;border:1px solid #ccc">${r.supplier||'-'}<br><span style="color:#777">${r.insp_region||'-'}</span></td>
+      <td style="padding:8px;border:1px solid #ccc">${r.knit_woven||'-'}<br><span style="color:#dc2626;font-weight:bold">${r.c20_color||'-'}</span></td>
+      <td style="padding:8px;text-align:center;border:1px solid #ccc"><input type="checkbox" style="width:18px;height:18px;cursor:pointer"></td>
+      <td style="padding:8px;text-align:center;border:1px solid #ccc">-</td>
+    </tr>
+  `).join('');
+}
+
+function sendUnsent() {
+  toast('驗報已簽送');
+  closeUnsentReport();
+}
+
+function openNoPOModal() {
+  const modal = document.getElementById('nopo-modal');
+  modal.style.display = 'flex';
+  renderNoPOReport();
+}
+
+function closeNoPOModal() {
+  document.getElementById('nopo-modal').style.display = 'none';
+}
+
+function renderNoPOReport() {
+  const tbody = document.getElementById('nopo-modal-tbody');
+  if (nopoDemoRows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#aaa">無資料</td></tr>';
+    return;
+  }
+  tbody.innerHTML = nopoDemoRows.map((r, i) => {
+    const s = (r.result_sent || '').toString().trim();
+    const status = s === '1' || s.toLowerCase() === 'true' || s === '已簽核' ? '已簽核'
+               : s === '簽核中' ? '簽核中'
+               : s === '未發送' || s === '' ? '未發送' : '未驗布';
+    const statusColor = status === '已簽核' ? '#111'
+                      : status === '簽核中' ? '#2563eb'
+                      : status === '未發送' ? '#dc2626' : '#dc2626';
+    return `<tr style="border-bottom:1px solid #eee;background:${i%2===0?'#ffffff':'#f7f9ff'}">
+      <td style="padding:8px">${r.actual_insp_date||'-'}<br><span style="color:#777">${r.inspector||'-'}</span></td>
+      <td style="padding:8px">${r.style_no||'-'}<br><span style="color:#777">${r.po_no||'-'}</span></td>
+      <td style="padding:8px">${r.customer||'-'}<br><span style="color:#777">${r.purchaser||'-'}</span></td>
+      <td style="padding:8px">${r.supplier||'-'}<br><span style="color:#777">${r.insp_region||'-'}</span></td>
+      <td style="padding:8px">${r.knit_woven||'-'}<br><span style="color:#777">${r.c20_color||'-'}</span></td>
+      <td style="padding:8px;text-align:center"><span style="color:${statusColor}">${status}</span></td>
+      <td style="padding:8px;text-align:center"><button class="btn-play" onclick="toast('功能開發中...')">▶</button></td>
+      <td style="padding:8px;text-align:center"><button class="btn-del" onclick="delRow('${r.po_no}','${r.style_no}')">✕</button></td>
+      <td style="padding:8px;text-align:center">${status === '未發送' ? `<button class="btn-play-mapping" onclick="openPoDetail('${r.po_no}')">▶</button>` : ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function openSampleModal() {
+  const modal = document.getElementById('sample-modal');
+  modal.style.display = 'flex';
+}
+
+function closeSampleModal() {
+  document.getElementById('sample-modal').style.display = 'none';
+}
+
+function openRecordModal() {
+  const modal = document.getElementById('record-modal');
+  modal.style.display = 'flex';
+}
+
+function closeRecordModal() {
+  document.getElementById('record-modal').style.display = 'none';
+}
+
+function openPoDetail(po_no) {
+  const modal = document.getElementById('po-detail-modal');
+  const row = nopoDemoRows.find(r => r.po_no === po_no);
+  if (!row) return;
+
+  document.getElementById('po-detail-title').textContent = `發送${po_no}`;
+  document.getElementById('pd_style').value = row.style_no || '';
+  document.getElementById('pd_po').value = row.po_no || '';
+
+  const tbody = document.getElementById('po-detail-tbody');
+  const colors = (row.c20_color || 'BLACK,WHITE').split(',').map(c => c.trim());
+  const rowsHtml = colors.map((color, idx) => `
+    <tr style="border-bottom:1px solid #eee;background:${idx%2===0?'#ffffff':'#f0f0f0'}">
+      <td style="padding:8px">${row.style_no||'-'}<br><span style="color:#777">${row.po_no||'-'}</span></td>
+      <td style="padding:8px">${row.customer||'-'}<br><span style="color:#777">${row.purchaser||'-'}</span></td>
+      <td style="padding:8px">${row.supplier||'-'}<br><span style="color:#777">${row.insp_region||'-'}</span></td>
+      <td style="padding:8px">${row.knit_woven||'-'}<br><span style="color:#777">${color}</span></td>
+      <td style="padding:8px;text-align:center"><input type="checkbox" style="width:18px;height:18px;cursor:pointer"></td>
+      <td style="padding:8px;text-align:center">-</td>
+    </tr>
+  `).join('');
+  tbody.innerHTML = rowsHtml;
+
+  modal.style.display = 'flex';
+}
+
+function closePoDetail() {
+  document.getElementById('po-detail-modal').style.display = 'none';
+}
+
+function openMergePODetail(po_no) {
+  const modal = document.getElementById('merge-po-detail-modal');
+  // 模擬數據，實際應從後端獲取
+  const mergeData = {
+    'TMKF-26-04996': [
+      { style_no: '60226F073D', po_no: 'TMKF-26-04996', customer: 'GU', purchaser: 'Grace Hsu', supplier: '國華實業', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'BLACK,WHITE' },
+      { style_no: '90791_HO26', po_no: 'TMKF-26-03719', customer: 'OLD NAVY', purchaser: 'Michelle Lin', supplier: '滸泰', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'GREEN,YELLOW' },
+      { style_no: '91004_HO26DIS', po_no: 'TMKF-26-03776', customer: 'OLD NAVY', purchaser: 'Gloria Wang', supplier: 'KAM HING', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'GRAY' },
+      { style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', customer: 'TARGET', purchaser: 'Freesia Fang', supplier: '蒙益', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'BLUE' },
+    ],
+    'TMKF-26-03719': [
+      { style_no: '60226F073D', po_no: 'TMKF-26-04996', customer: 'GU', purchaser: 'Grace Hsu', supplier: '國華實業', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'BLACK,WHITE' },
+      { style_no: '90791_HO26', po_no: 'TMKF-26-03719', customer: 'OLD NAVY', purchaser: 'Michelle Lin', supplier: '滸泰', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'GREEN,YELLOW' },
+      { style_no: '91004_HO26DIS', po_no: 'TMKF-26-03776', customer: 'OLD NAVY', purchaser: 'Gloria Wang', supplier: 'KAM HING', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'GRAY' },
+      { style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', customer: 'TARGET', purchaser: 'Freesia Fang', supplier: '蒙益', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'BLUE' },
+    ],
+    'TMKF-26-03776': [
+      { style_no: '60226F073D', po_no: 'TMKF-26-04996', customer: 'GU', purchaser: 'Grace Hsu', supplier: '國華實業', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'BLACK,WHITE' },
+      { style_no: '90791_HO26', po_no: 'TMKF-26-03719', customer: 'OLD NAVY', purchaser: 'Michelle Lin', supplier: '滸泰', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'GREEN,YELLOW' },
+      { style_no: '91004_HO26DIS', po_no: 'TMKF-26-03776', customer: 'OLD NAVY', purchaser: 'Gloria Wang', supplier: 'KAM HING', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'GRAY' },
+      { style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', customer: 'TARGET', purchaser: 'Freesia Fang', supplier: '蒙益', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'BLUE' },
+    ],
+    'TMKF-26-00386': [
+      { style_no: '60226F073D', po_no: 'TMKF-26-04996', customer: 'GU', purchaser: 'Grace Hsu', supplier: '國華實業', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'BLACK,WHITE' },
+      { style_no: '90791_HO26', po_no: 'TMKF-26-03719', customer: 'OLD NAVY', purchaser: 'Michelle Lin', supplier: '滸泰', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'GREEN,YELLOW' },
+      { style_no: '91004_HO26DIS', po_no: 'TMKF-26-03776', customer: 'OLD NAVY', purchaser: 'Gloria Wang', supplier: 'KAM HING', insp_region: 'CHINA', knit_woven: 'Knit', c20_color: 'GRAY' },
+      { style_no: '1KWPM7_C326', po_no: 'TMKF-26-00386', customer: 'TARGET', purchaser: 'Freesia Fang', supplier: '蒙益', insp_region: 'CHINA', knit_woven: 'Woven', c20_color: 'BLUE' },
+    ]
+  };
+
+  document.getElementById('merge-po-detail-title').textContent = `合併${po_no}`;
+  document.getElementById('mpd_style').value = '60226F073D';
+  document.getElementById('mpd_po').value = po_no;
+
+  const rows = mergeData[po_no] || [];
+
+  // 預計合併的採購單：只顯示當前PO_NO的採購單
+  const mergeRows = rows.filter(r => r.po_no === po_no);
+  const tbody = document.getElementById('merge-po-detail-tbody');
+  tbody.innerHTML = mergeRows.map((r, i) => `
+    <tr style="border-bottom:1px solid #eee;background:${i%2===0?'#ffffff':'#f7f9ff'}">
+      <td style="padding:8px">${r.style_no||'-'}<br><span style="color:#777">${r.po_no||'-'}</span></td>
+      <td style="padding:8px">${r.customer||'-'}<br><span style="color:#777">${r.purchaser||'-'}</span></td>
+      <td style="padding:8px">${r.supplier||'-'}<br><span style="color:#777">${r.insp_region||'-'}</span></td>
+      <td style="padding:8px">${r.knit_woven||'-'}<br><span style="color:#dc2626;font-weight:bold">${r.c20_color||'-'}</span></td>
+    </tr>
+  `).join('');
+
+  // 採購單資訊：顯示其他採購單
+  const otherRows = rows.filter(r => r.po_no !== po_no);
+  const otherTbody = document.getElementById('merge-po-other-tbody');
+  otherTbody.innerHTML = otherRows.map((r, i) => `
+    <tr style="border-bottom:1px solid #eee;background:${i%2===0?'#ffffff':'#f7f9ff'}">
+      <td style="padding:8px">${r.style_no||'-'}<br><span style="color:#777">${r.po_no||'-'}</span></td>
+      <td style="padding:8px">${r.customer||'-'}<br><span style="color:#777">${r.purchaser||'-'}</span></td>
+      <td style="padding:8px">${r.supplier||'-'}<br><span style="color:#777">${r.insp_region||'-'}</span></td>
+      <td style="padding:8px">${r.knit_woven||'-'}<br><span style="color:#dc2626;font-weight:bold">${r.c20_color||'-'}</span></td>
+      <td style="padding:8px;text-align:center"><input type="checkbox" style="width:18px;height:18px;cursor:pointer"></td>
+    </tr>
+  `).join('');
+
+  modal.style.display = 'flex';
+}
+
+function closeMergePODetail() {
+  document.getElementById('merge-po-detail-modal').style.display = 'none';
+}
+
+function addToMerge() {
+  toast('已加入合併');
+}
+
+function confirmMerge() {
+  toast('確定合併完成');
+  closeMergePODetail();
+}
+
+function sendPoReport() {
+  toast('驗報已簽送');
+  closePoDetail();
+}
+
+function openAddNoPO() {
+  document.getElementById('add-nopo-modal').style.display = 'flex';
+}
+
+function closeAddNoPO() {
+  document.getElementById('add-nopo-modal').style.display = 'none';
+  document.getElementById('add_style').value = '';
+  document.getElementById('add_po').value = '';
+  document.getElementById('add_customer').value = '';
+  document.getElementById('add_supplier').value = '';
+  document.getElementById('add_knit').value = '';
+  document.getElementById('add_color').value = '';
+}
+
+function confirmAddNoPO() {
+  const style = document.getElementById('add_style').value;
+  const po = document.getElementById('add_po').value;
+
+  if (!style || !po) {
+    toast('請填入款號和採購單號');
+    return;
+  }
+
+  toast('新增驗布成功');
+  closeAddNoPO();
+}
+
+// ── 主頁功能選項 ────────────────────────────────────
+function addSingleInsp(po_no, style_no) {
+  toast('新增單一驗布');
+  openInsp(po_no);
+}
+
+function addMergeInsp(po_no, style_no) {
+  toast('新增合併驗布');
+  openInsp(po_no);
+}
+
+function editData(po_no, style_no) {
+  toast('修改驗報');
+  openInsp(po_no);
+}
+
+function addMergeData(po_no, style_no) {
+  toast('新增合併資料');
+  openInsp(po_no);
+}
+
+function showTab(tab) {
+  const mainArea = document.querySelector('.pager');
+  const tableWrap = document.querySelector('.table-wrap');
+  const tabNoPO = document.getElementById('tab-nopo');
+
+  if (tab === 'nopo') {
+    mainArea.style.display = 'none';
+    tableWrap.style.display = 'none';
+    tabNoPO.style.display = 'block';
+    renderNoPOTable();
+  } else {
+    mainArea.style.display = '';
+    tableWrap.style.display = '';
+    tabNoPO.style.display = 'none';
+    if (tab !== 'home') {
+      const names = { report:'驗報發送', sample:'樣布寄送', record:'驗布記錄' };
+      toast(`${names[tab]} 功能開發中`);
+    }
+  }
+}
+
+function renderNoPOTable() {
+  const tbody = document.getElementById('nopo-table-body');
+  if (DEMO_ROWS.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#aaa">無資料</td></tr>';
+    return;
+  }
+  tbody.innerHTML = DEMO_ROWS.map((r, i) => {
+    const s = (r.result_sent || '').toString().trim();
+    const status = s === '1' || s.toLowerCase() === 'true' || s === '已簽核' ? '已簽核'
+               : s === '簽核中' ? '簽核中'
+               : s === '未發送' || s === '' ? '未發送' : '未驗布';
+    const statusColor = status === '已簽核' ? '#111'
+                      : status === '簽核中' ? '#2563eb'
+                      : status === '未發送' ? '#dc2626' : '#dc2626';
+    return `<tr style="border-bottom:1px solid #eee;background:${i%2===0?'#fff':'#f9f9f9'}">
+      <td style="padding:8px">${r.actual_insp_date||'-'}<br><span style="color:#777">${r.inspector||'-'}</span></td>
+      <td style="padding:8px">${r.style_no||'-'}<br><span style="color:#777">${r.po_no||'-'}</span></td>
+      <td style="padding:8px">${r.customer||'-'}<br><span style="color:#777">${r.purchaser||'-'}</span></td>
+      <td style="padding:8px">${r.supplier||'-'}<br><span style="color:#777">${r.insp_region||'-'}</span></td>
+      <td style="padding:8px">${r.knit_woven||'-'}<br><span style="color:#777">${r.c20_color||'-'}</span></td>
+      <td style="padding:8px;text-align:center"><span style="color:${statusColor}">${status}</span></td>
+      <td style="padding:8px;text-align:center"><button class="btn-play" onclick="openInsp('${r.po_no}')">▶</button></td>
+      <td style="padding:8px;text-align:center"><button class="btn-del" onclick="delRow('${r.po_no}','${r.style_no}')">✕</button></td>
+      <td style="padding:8px;text-align:center">${status === '未發送' ? `<button class="btn-play-mapping" onclick="openInsp('${r.po_no}')">▶</button>` : ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function addNoPO() {
+  openAddNoPO();
+}
+const MERGE_DATA = {
+  'TMKF-26-03719': ['TMKF-26-12345','TMKF-26-12346','TMKF-26-12347'],
+};
+
+function showMerge(event, po) {
+  event.stopPropagation();
+  const list = MERGE_DATA[po] || [po];
+  const popup = document.getElementById('merge-popup');
+  const box = document.getElementById('merge-popup-box');
+  document.getElementById('merge-popup-list').innerHTML = list.map(p =>
+    `<div style="padding:6px 0;border-bottom:1px solid #eee;font-size:14px;color:#111">${p}</div>`
+  ).join('');
+  const rect = event.target.getBoundingClientRect();
+  box.style.position = 'fixed';
+  box.style.top = (rect.bottom + 4) + 'px';
+  box.style.left = rect.left + 'px';
+  popup.style.display = 'block';
+}
+
+document.addEventListener('click', e => {
+  if (!document.getElementById('merge-popup-box').contains(e.target)) {
+    document.getElementById('merge-popup').style.display = 'none';
+  }
+  if (!document.getElementById('insp-options-box').contains(e.target)) {
+    document.getElementById('insp-options-popup').style.display = 'none';
+  }
+});
+
+function closeMergePopup() {
+  document.getElementById('merge-popup').style.display = 'none';
+}
+function delRow(po, style) {
+  if (confirm(`確定刪除？\n${style} / ${po}`)) toast('已刪除（模擬）');
+}
+
+// ── 驗布功能選項 popup ────────────────────────────────────
+function showInspOptions(event, po_no, status) {
+  event.stopPropagation();
+  const box = document.getElementById('insp-options-box');
+  const list = document.getElementById('insp-options-list');
+
+  let buttons = '';
+  if (status === '未驗布') {
+    buttons = `
+      <button class="btn" style="width:100%;padding:8px;font-size:12px;background:#1e40af;color:#fff;border:none;border-radius:4px;cursor:pointer" onclick="inspectSingle('${po_no}')">單一驗布</button>
+      <button class="btn" style="width:100%;padding:8px;font-size:12px;background:#16a34a;color:#fff;border:none;border-radius:4px;cursor:pointer" onclick="inspectMerge('${po_no}')">合併驗布</button>
+    `;
+  } else if (status === '未發送' || status === '') {
+    buttons = `
+      <button class="btn" style="width:100%;padding:8px;font-size:12px;background:#1e40af;color:#fff;border:none;border-radius:4px;cursor:pointer" onclick="editInspData('${po_no}')">修改驗報</button>
+      <button class="btn" style="width:100%;padding:8px;font-size:12px;background:#16a34a;color:#fff;border:none;border-radius:4px;cursor:pointer" onclick="inspectMerge('${po_no}')">合併驗布</button>
+    `;
+  } else if (status === '簽核中') {
+    buttons = `
+      <button class="btn" style="width:100%;padding:8px;font-size:12px;background:#1e40af;color:#fff;border:none;border-radius:4px;cursor:pointer" onclick="editInspData('${po_no}')">修改驗報</button>
+    `;
+  }
+
+  list.innerHTML = buttons;
+
+  const rect = event.target.getBoundingClientRect();
+  box.style.top = (rect.bottom + 4) + 'px';
+  box.style.left = (rect.left - 150) + 'px';
+  document.getElementById('insp-options-popup').style.display = 'flex';
+}
+
+function closeInspOptions() {
+  document.getElementById('insp-options-popup').style.display = 'none';
+}
+
+// ── 驗布功能按鈕 ────────────────────────────────────
+function inspectSingle(po_no) {
+  toast('進行單一驗布');
+  closeInspOptions();
+  // 實現單一驗布邏輯
+}
+
+function inspectMerge(po_no) {
+  closeInspOptions();
+  openMergePODetail(po_no);
+}
+
+function editInspData(po_no) {
+  toast('修改驗布資料');
+  closeInspOptions();
+  // 實現修改驗報邏輯
+}
+
+function closeModal() {
+  document.getElementById('insp-modal').classList.remove('open');
+  currentOrder = null;
+  currentInspStatus = null;
+}
+
+// Toast
+function toast(msg, ms = 2800) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), ms);
+}
+
+// Enter 查詢
+['q_style','q_po'].forEach(id => {
+  document.getElementById(id).addEventListener('keyup', e => { if (e.key === 'Enter') doSearch(); });
+});
+</script>
+</body>
+</html>

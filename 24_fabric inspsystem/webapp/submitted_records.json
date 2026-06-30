@@ -1,0 +1,54 @@
+[
+  {
+    "po_no": "TMKF-25-12123",
+    "style_no": "903731_FA26",
+    "customer": "OLD NAVY",
+    "supplier": "C&T",
+    "inspector": "TestUser",
+    "actual_insp_date": "2026-06-10",
+    "insp_region": "VIETNAM",
+    "colors": [
+      {
+        "disposition": "同意出貨",
+        "defects": [
+          "defect_fabric"
+        ],
+        "grade": "A",
+        "color": "BLACK JACK",
+        "bulk_yds": "5000",
+        "b_pct": "6.7",
+        "insp_qty_yds": "4500",
+        "remark": "",
+        "avg_pts": "18.5",
+        "c_pct": "0",
+        "color_result": "Pass",
+        "c_qty": "0",
+        "a_qty": "4200",
+        "a_pct": "93.3",
+        "b_qty": "300"
+      },
+      {
+        "disposition": "待客戶確認",
+        "defects": [
+          "defect_color"
+        ],
+        "grade": "B",
+        "color": "NEBULA",
+        "bulk_yds": "450",
+        "b_pct": "25",
+        "insp_qty_yds": "400",
+        "remark": "色差稍大",
+        "avg_pts": "32",
+        "c_pct": "0",
+        "color_result": "Discuss",
+        "c_qty": "0",
+        "a_qty": "300",
+        "a_pct": "75",
+        "b_qty": "100"
+      }
+    ],
+    "remark": "測試回傳",
+    "submitted_at": "2026-06-10 09:35:16",
+    "status": "submitted"
+  }
+]

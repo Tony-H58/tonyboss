@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四點制與十點制評分系統</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .rule-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .example {
+            background: #f0f7f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 四點制與十點制評分系統</h1>
+            <p>ASTM D5430 vs GU 10-Point System 完整指南</p>
+        </header>
+
+        <div class="content">
+            <!-- 四點制部分 -->
+            <div class="section">
+                <h2>🎯 第一部分：美標四點制（4-Point System）</h2>
+
+                <h3>基本信息</h3>
+                <div class="rule-box">
+                    <strong>來源：</strong> ASTM（美國材料試驗協會）<br>
+                    <strong>標準：</strong> ASTM D5430, Option A<br>
+                    <strong>應用：</strong> MK（聚陽內部標準）、國際客戶檢驗<br>
+                    <strong>特點：</strong> 簡潔、國際通用、易於統計
+                </div>
+
+                <h3>📏 扣分標準（按瑕疵長度）</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>瑕疵大小</th>
+                            <th>長度（英寸）</th>
+                            <th>扣點</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>小</td>
+                            <td>≤ 3</td>
+                            <td><strong>1 點</strong></td>
+                            <td>微小缺陷</td>
+                        </tr>
+                        <tr>
+                            <td>中小</td>
+                            <td>3.1 ~ 6</td>
+                            <td><strong>2 點</strong></td>
+                            <td>可見缺陷</td>
+                        </tr>
+                        <tr>
+                            <td>中大</td>
+                            <td>6.1 ~ 9</td>
+                            <td><strong>3 點</strong></td>
+                            <td>嚴重缺陷</td>
+                        </tr>
+                        <tr>
+                            <td>大</td>
+                            <td>> 9</td>
+                            <td><strong>4 點</strong></td>
+                            <td>重度缺陷</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>長度換算參考</h3>
+                <div class="highlight">
+                    <strong>1 英寸（inch）= 2.54 厘米（cm）</strong><br><br>
+                    <strong>實例：</strong><br>
+                    • 5cm ≈ 2 吋 → 1 點<br>
+                    • 10cm ≈ 4 吋 → 2 點<br>
+                    • 15cm ≈ 6 吋 → 3 點<br>
+                    • 25cm ≈ 10 吋 → 4 點
+                </div>
+
+                <h3>🔑 核心規則</h3>
+
+                <div class="rule-box">
+                    <strong>Rule 1：長度測量為準</strong><br>
+                    ✅ 所有扣點是依據瑕疵長度度量而定<br>
+                    • 使用量尺/卷尺精確測量<br>
+                    • 長度判定→對應扣點等級<br>
+                    • 不考慮瑕疵位置或重要程度
+                </div>
+
+                <div class="rule-box">
+                    <strong>Rule 2：每碼最多4點</strong><br>
+                    ✅ 單碼（yard）最高扣分為 4 點<br>
+                    即使多個缺陷加總超過4點，也只扣4點
+                </div>
+
+                <div class="rule-box">
+                    <strong>Rule 3：破洞/斷裂特殊處理</strong><br>
+                    ✅ 大小破洞/斷裂一律扣 4 點<br>
+                    • 無論破洞大小<br>
+                    • 無論破洞位置<br>
+                    • 自動認定為最高級別
+                </div>
+
+                <h3>📊 計分示例</h3>
+                <div class="example">
+                    <strong>案例：優等品（0-1 點/碼）</strong><br>
+                    驗貨 100 碼，掃描結果：<br>
+                    • 總扣點：45 點<br>
+                    • 平均/碼：45 ÷ 100 = 0.45 點/碼<br>
+                    • 判定：✓ 優等品
+                </div>
+
+                <div class="example">
+                    <strong>案例：一等品（1-2 點/碼）</strong><br>
+                    驗貨 100 碼：<br>
+                    • 總扣點：180 點<br>
+                    • 平均/碼：180 ÷ 100 = 1.8 點/碼<br>
+                    • 判定：✓ 一等品
+                </div>
+            </div>
+
+            <!-- 十點制部分 -->
+            <div class="section">
+                <h2>📈 第二部分：日本十點制（10-Point System）</h2>
+
+                <h3>基本信息</h3>
+                <div class="rule-box">
+                    <strong>來源：</strong> GU（日本 UNIQLO 品牌）<br>
+                    <strong>應用：</strong> 日本客戶檢驗、高端商品<br>
+                    <strong>特點：</strong> 精細、區分度高、國際標準
+                </div>
+
+                <h3>🔢 缺陷嚴重度分級</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>等級</th>
+                            <th>描述</th>
+                            <th>扣點</th>
+                            <th>判定</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>無明顯缺陷</td>
+                            <td>0</td>
+                            <td>優秀</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>微小缺陷，視角不易察覺</td>
+                            <td>1-2</td>
+                            <td>良好</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>輕微缺陷，正常距離易察覺</td>
+                            <td>3-4</td>
+                            <td>合格</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>明顯缺陷，顏色/尺寸異常</td>
+                            <td>5-6</td>
+                            <td>可接受</td>
+                        </tr>
+                        <tr>
+                            <td>E</td>
+                            <td>嚴重缺陷，影響穿著</td>
+                            <td>7-8</td>
+                            <td>不可接受</td>
+                        </tr>
+                        <tr>
+                            <td>F</td>
+                            <td>重度缺陷/廢品</td>
+                            <td>9-10</td>
+                            <td>直接返回</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 對比部分 -->
+            <div class="section">
+                <h2>🔄 第三部分：四點制 vs 十點制對應關係</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>四點制</th>
+                            <th>等級</th>
+                            <th>十點制等價</th>
+                            <th>客戶接納</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0-1 點</td>
+                            <td>優等品</td>
+                            <td>A-B（0-2點）</td>
+                            <td>✅ 完全接受</td>
+                        </tr>
+                        <tr>
+                            <td>1-2 點</td>
+                            <td>一等品</td>
+                            <td>B-C（2-4點）</td>
+                            <td>✅ 接受</td>
+                        </tr>
+                        <tr>
+                            <td>2-4 點</td>
+                            <td>二等品</td>
+                            <td>C-D（4-6點）</td>
+                            <td>⚠️ 有條件接受</td>
+                        </tr>
+                        <tr>
+                            <td>> 4 點</td>
+                            <td>不合格</td>
+                            <td>E-F（6-10點）</td>
+                            <td>❌ 拒絕</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 常見誤區 -->
+            <div class="section">
+                <h2>💡 常見誤區與糾正</h2>
+
+                <div class="rule-box">
+                    <strong>❌ 誤區 1：扣點只看位置</strong><br>
+                    ✅ 正確：扣點按瑕疵長度判定，與位置無關
+                </div>
+
+                <div class="rule-box">
+                    <strong>❌ 誤區 2：破洞按長度扣分</strong><br>
+                    ✅ 正確：破洞一律 4 點（無論大小）
+                </div>
+
+                <div class="rule-box">
+                    <strong>❌ 誤區 3：可以超過 4 點/碼</strong><br>
+                    ✅ 正確：單碼最多 4 點，多缺陷需上限控制
+                </div>
+
+                <div class="rule-box">
+                    <strong>❌ 誤區 4：十點制就是 10 倍嚴格</strong><br>
+                    ✅ 正確：十點制是細分等級，不是更嚴格，是更精確
+                </div>
+            </div>
+
+            <!-- 快速查詢 -->
+            <div class="section">
+                <h2>🚀 快速查詢</h2>
+                <div class="comparison-table">
+                    <div class="card">
+                        <h4>🎯 我要判定四點制扣點</h4>
+                        <p>1. 用卷尺測量瑕疵長度<br>
+                        2. 對照長度表找出扣點<br>
+                        3. 特殊：破洞→4點<br>
+                        4. 記住：每碼最多4點</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 我要評估十點制等級</h4>
+                        <p>1. 評估缺陷嚴重度<br>
+                        2. 考慮位置（邊部×0.5）<br>
+                        3. 多缺陷時加總<br>
+                        4. 對應A-F等級</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 品管教材系列 | 四點制與十點制評分系統 | 最後更新：2026-06-24</p>
+            <p>參考標準：ASTM D5430 (Option A) / GU 檢驗規程</p>
+            <div class="nav-links">
+                <a href="INDEX.html" style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white;">← 返回總頁</a>
+                <a href="機能性纖維知識完全指南.html">機能纖維 →</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+

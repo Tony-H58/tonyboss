@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物理測試標準完全解讀</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.95em;
+        }
+        th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .test-box {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: #f9f9f9;
+        }
+        .test-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+        .formula {
+            background: #f0f7f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 物理測試標準完全解讀</h1>
+            <p>色牢度、縮率、強度 — 國際測試方法與標準解析</p>
+        </header>
+
+        <div class="content">
+            <!-- 強度相關 -->
+            <div class="section">
+                <h2>💪 A. 強度相關測試</h2>
+
+                <h3>1. 斷裂強度</h3>
+                <div class="test-box">
+                    <h4>定義</h4>
+                    <p>纖維/紗線/織物在拉伸至斷裂時的最大力</p>
+
+                    <h4>單位</h4>
+                    <p>N（牛頓）、cN（厘牛頓）</p>
+
+                    <h4>意義</h4>
+                    <p>直接反映材料抗撕裂能力。數值越大，抗撕裂性越強。</p>
+
+                    <h4>應用場景</h4>
+                    <p>運動服、工作服、承重製品檢驗</p>
+                </div>
+
+                <h3>2. 撕裂強度</h3>
+                <div class="test-box">
+                    <h4>定義</h4>
+                    <p>在預先割口的織物上施加拉力，使其繼續撕裂時的力</p>
+
+                    <h4>與斷裂強度的區別</h4>
+                    <p>✓ 斷裂強度：從完整起點拉扯至斷<br>
+                    ✓ 撕裂強度：從已有割口繼續撕裂</p>
+
+                    <h4>評估意義</h4>
+                    <p>評估已有損傷時的承力能力</p>
+                </div>
+
+                <h3>3. 接縫強度</h3>
+                <div class="test-box">
+                    <h4>定義</h4>
+                    <p>縫合部分在拉力下的最大抗力</p>
+
+                    <h4>為什麼重要</h4>
+                    <p>縫合通常是成衣最薄弱的環節，決定成衣實際承力</p>
+
+                    <h4>應用</h4>
+                    <p>成衣品質檢驗的關鍵指標</p>
+                </div>
+
+                <h3>4. 彈性恢復率</h3>
+                <div class="test-box">
+                    <h4>定義</h4>
+                    <p>拉伸後返回原長度的比例</p>
+
+                    <div class="formula">
+                        彈性恢復率(%) = (原長度 - 拉伸後長度) / 原長度 × 100%
+                    </div>
+
+                    <h4>評估對象</h4>
+                    <p>織物彈性、鬆緊度、耐穿性</p>
+                </div>
+
+                <h3>5. 初始拉伸</h3>
+                <div class="test-box">
+                    <h4>定義</h4>
+                    <p>開始拉伸時的柔性水平</p>
+
+                    <h4>分級</h4>
+                    <p>低 / 中 / 高</p>
+
+                    <h4>穿著影響</h4>
+                    <p>直接影響穿著舒適度。初始拉伸越小，越易有頂感。</p>
+                </div>
+            </div>
+
+            <!-- 尺寸穩定性 -->
+            <div class="section">
+                <h2>📏 B. 尺寸穩定性測試</h2>
+
+                <h3>縮率測量公式</h3>
+                <div class="formula">
+                    縮率(%) = (原始尺寸 - 測試後尺寸) / 原始尺寸 × 100%<br><br>
+                    例如：原始 100cm，測試後 97cm<br>
+                    縮率 = (100-97)/100 × 100% = 3%
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>測試類型</th>
+                            <th>定義</th>
+                            <th>測試方法</th>
+                            <th>容許值</th>
+                            <th>應用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>水洗縮率</strong></td>
+                            <td>水洗後尺寸變化</td>
+                            <td>ISO 6330 規定溫度/次數</td>
+                            <td>通常 ±3%</td>
+                            <td>日常穿著預測</td>
+                        </tr>
+                        <tr>
+                            <td><strong>乾洗縮率</strong></td>
+                            <td>乾洗後尺寸變化</td>
+                            <td>乾洗溶劑標準</td>
+                            <td>通常 ±3%</td>
+                            <td>高級成衣</td>
+                        </tr>
+                        <tr>
+                            <td><strong>汗液縮率</strong></td>
+                            <td>人工汗液浸泡後變化</td>
+                            <td>ISO 3160-2</td>
+                            <td>較寬鬆，±5%</td>
+                            <td>運動服檢驗</td>
+                        </tr>
+                        <tr>
+                            <td><strong>烘乾縮率</strong></td>
+                            <td>高溫烘乾後收縮</td>
+                            <td>時間/溫度規定</td>
+                            <td>根據纖維類型</td>
+                            <td>快乾特性評估</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>縮率控制技巧</h3>
+                <div class="highlight">
+                    <strong>降低縮率的方法：</strong><br>
+                    ✓ 前處理充分（去脂、去漿）<br>
+                    ✓ 採用防縮整理<br>
+                    ✓ 烘乾溫度不宜過高<br>
+                    ✓ 含化纖比例提高<br>
+                    ✓ 織造密度合理設計
+                </div>
+            </div>
+
+            <!-- 外觀與手感 -->
+            <div class="section">
+                <h2>👀 C. 外觀與手感評估</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>定義</th>
+                            <th>評估方式</th>
+                            <th>標準參考</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>起毬（Pilling）</strong></td>
+                            <td>織物表面形成小球體</td>
+                            <td>日本標準 (JIS)</td>
+                            <td>1-5級，5級最好</td>
+                        </tr>
+                        <tr>
+                            <td><strong>鉤絲（Snag）</strong></td>
+                            <td>織物表面被鉤出絲線</td>
+                            <td>目測+觸摸檢查</td>
+                            <td>越少越好</td>
+                        </tr>
+                        <tr>
+                            <td><strong>褪色/色牢度</strong></td>
+                            <td>顏色在光、洗、摩擦下的穩定性</td>
+                            <td>ISO 105 標準系列</td>
+                            <td>3-5級，5級最高</td>
+                        </tr>
+                        <tr>
+                            <td><strong>懸垂性</strong></td>
+                            <td>織物自然下垂的柔和度</td>
+                            <td>懸垂係數計算</td>
+                            <td>60-80%為優</td>
+                        </tr>
+                        <tr>
+                            <td><strong>光澤度</strong></td>
+                            <td>織物表面光線反射程度</td>
+                            <td>儀器測定</td>
+                            <td>根據設計要求</td>
+                        </tr>
+                        <tr>
+                            <td><strong>硬挺度</strong></td>
+                            <td>織物的抗彎剛度</td>
+                            <td>力學測定</td>
+                            <td>根據用途定</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 透濕透氣防水 -->
+            <div class="section">
+                <h2>💨 D. 透氣/透濕/防水性測試</h2>
+
+                <div class="grid-2">
+                    <div class="test-box">
+                        <h4>透氣量（Air Permeability）</h4>
+                        <p><strong>單位：</strong> cm³/(s·cm²)</p>
+                        <p><strong>含義：</strong> 單位時間內通過織物的空氣量</p>
+                        <p><strong>應用：</strong> 決定織物「呼吸性」</p>
+                        <p><strong>更高 =</strong> 更透氣</p>
+                    </div>
+
+                    <div class="test-box">
+                        <h4>透濕量（Moisture Vapor Transmission）</h4>
+                        <p><strong>單位：</strong> g/(m²·24h)</p>
+                        <p><strong>含義：</strong> 水蒸氣通過織物的速率</p>
+                        <p><strong>應用：</strong> 舒適性指標</p>
+                        <p><strong>更高 =</strong> 更舒適</p>
+                    </div>
+
+                    <div class="test-box">
+                        <h4>撥水性（Water Repellency）</h4>
+                        <p><strong>單位：</strong> 等級（JIS/ISO）</p>
+                        <p><strong>含義：</strong> 織物抵抗水分滲入的能力</p>
+                        <p><strong>應用：</strong> 防雨性能</p>
+                        <p><strong>更高 =</strong> 更防雨</p>
+                    </div>
+
+                    <div class="test-box">
+                        <h4>防水性（Waterproofness）</h4>
+                        <p><strong>單位：</strong> cm H₂O（靜水壓）</p>
+                        <p><strong>含義：</strong> 織物被穿透時所需的水柱高度</p>
+                        <p><strong>應用：</strong> 防水強度量化</p>
+                        <p><strong>更高 =</strong> 防水更強</p>
+                    </div>
+                </div>
+
+                <h3>防水等級參考</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>靜水壓（cm H₂O）</th>
+                            <th>防水級別</th>
+                            <th>應用場景</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>< 50</td>
+                            <td>撥水</td>
+                            <td>日常防汗</td>
+                        </tr>
+                        <tr>
+                            <td>50-500</td>
+                            <td>防水</td>
+                            <td>一般防雨</td>
+                        </tr>
+                        <tr>
+                            <td>500-10,000</td>
+                            <td>高防水</td>
+                            <td>戶外運動</td>
+                        </tr>
+                        <tr>
+                            <td>> 10,000</td>
+                            <td>專業防水</td>
+                            <td>水上作業</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 色彩相關 -->
+            <div class="section">
+                <h2>🎨 E. 色彩測試標準</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>測試項目</th>
+                            <th>定義</th>
+                            <th>標準</th>
+                            <th>評分等級</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>色差</strong><br>Color Difference</td>
+                            <td>標準樣與測試樣的顏色差異</td>
+                            <td>ISO 105-J02<br>ASTM D2244</td>
+                            <td>0-5級</td>
+                        </tr>
+                        <tr>
+                            <td><strong>日曬牢度</strong><br>Light Fastness</td>
+                            <td>在日光照射下顏色穩定性</td>
+                            <td>ISO 105-B02<br>（藍羊毛標度）</td>
+                            <td>1-8級，8級最高</td>
+                        </tr>
+                        <tr>
+                            <td><strong>水洗牢度</strong><br>Washing Fastness</td>
+                            <td>水洗後顏色穩定性</td>
+                            <td>ISO 105-C<br>AATCC 61</td>
+                            <td>1-5級，5級最高</td>
+                        </tr>
+                        <tr>
+                            <td><strong>摩擦牢度</strong><br>Rub Fastness</td>
+                            <td>乾/濕摩擦下的掉色程度</td>
+                            <td>ISO 105-X12<br>AATCC 165</td>
+                            <td>1-5級，5級最高</td>
+                        </tr>
+                        <tr>
+                            <td><strong>汗液牢度</strong><br>Perspiration Fastness</td>
+                            <td>人工汗液下的色牢度</td>
+                            <td>ISO 105-E04<br>AATCC 15</td>
+                            <td>1-5級，5級最高</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>色牢度等級說明</h3>
+                <div class="highlight">
+                    <strong>1級：</strong>嚴重褪色，完全不合格<br>
+                    <strong>2級：</strong>明顯褪色，品質差<br>
+                    <strong>3級：</strong>中等褪色，一般商品<br>
+                    <strong>4級：</strong>輕微褪色，優質商品<br>
+                    <strong>5級：</strong>基本無褪色，高級商品
+                </div>
+            </div>
+
+            <!-- 快速查詢 -->
+            <div class="section">
+                <h2>🚀 快速參考</h2>
+
+                <div class="test-box">
+                    <h4>❓ 我不知道該測什麼？</h4>
+                    <p><strong>按成品用途選擇：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>日常穿著：水洗縮率、色牢度、強度</li>
+                        <li>運動服：撕裂強度、汗液縮率、汗液牢度</li>
+                        <li>戶外服：防水性、透濕性、日曬牢度</li>
+                        <li>兒童服：強度、色牢度、縮率、皮膚友善</li>
+                        <li>高級服：全套測試 + 彈性恢復率</li>
+                    </ul>
+                </div>
+
+                <div class="test-box">
+                    <h4>💡 常見問題</h4>
+                    <p><strong>Q：色牢度 3 級能接受嗎？</strong><br>
+                    A：取決於客戶要求。一般商品 3 級可接受，高級商品需 4-5 級。</p>
+
+                    <p><strong>Q：縮率 ±5% 是否超標？</strong><br>
+                    A：通常 ±3% 為標準。±5% 需視客戶規範而定。</p>
+
+                    <p><strong>Q：防水靜水壓多少才算防水？</strong><br>
+                    A：≥50 cm H₂O 算撥水，≥1000 cm H₂O 才算真防水。</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 品管教材系列 | 物理測試標準完全解讀 | 最後更新：2026-06-24</p>
+            <p>參考標準：ISO 105 系列、ASTM、JIS 等國際標準</p>
+            <div class="nav-links">
+                <a href="../INDEX.html" style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white;">← 返回總頁</a>
+                <a href="../01_瑕疵識別/缺陷識別速查表.html">缺陷識別 →</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

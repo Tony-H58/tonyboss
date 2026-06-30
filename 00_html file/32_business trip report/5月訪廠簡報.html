@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5月訪廠行程總結簡報</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Arial', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .slide {
+            background: white;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        .slide h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 40px 0 20px 0;
+        }
+
+        .slide h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .slide h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        /* 第1頁：標題頁 */
+        .slide-title {
+            background: linear-gradient(135deg, #1E3A5F 0%, #2c5282 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 56px;
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-title .subtitle {
+            font-size: 24px;
+            color: #0FA3B1;
+            margin: 20px 0;
+        }
+
+        .slide-title .date {
+            font-size: 14px;
+            color: #d0d0d0;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* 第2頁：地圖與統計 */
+        .slide-content {
+            padding: 40px;
+        }
+
+        .slide-content h2 {
+            color: #1E3A5F;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #0FA3B1;
+            padding-bottom: 15px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .location-map {
+            background: #F5F7FA;
+            border: 2px solid #0FA3B1;
+            border-radius: 8px;
+            padding: 30px;
+        }
+
+        .location-map h3 {
+            color: #1E3A5F;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .location-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .location-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #0FA3B1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .location-info {
+            flex: 1;
+        }
+
+        .location-info .city {
+            font-weight: bold;
+            color: #1E3A5F;
+            font-size: 14px;
+        }
+
+        .location-info .visits {
+            color: #2C3E50;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #F5F7FA;
+            border-left: 4px solid;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-card.teal {
+            border-color: #0FA3B1;
+        }
+
+        .stat-card.green {
+            border-color: #27AE60;
+        }
+
+        .stat-card.coral {
+            border-color: #E74C3C;
+        }
+
+        .stat-card.orange {
+            border-color: #E67E22;
+        }
+
+        .stat-label {
+            color: #2C3E50;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .stat-card.teal .stat-value {
+            color: #0FA3B1;
+        }
+
+        .stat-card.green .stat-value {
+            color: #27AE60;
+        }
+
+        .stat-card.coral .stat-value {
+            color: #E74C3C;
+        }
+
+        .stat-card.orange .stat-value {
+            color: #E67E22;
+        }
+
+        /* 第3頁：問題與進度 */
+        .progress-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .progress-item {
+            padding: 20px;
+            border-radius: 6px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .progress-item.green {
+            background: #27AE60;
+        }
+
+        .progress-item.orange {
+            background: #E67E22;
+        }
+
+        .progress-item.teal {
+            background: #0FA3B1;
+        }
+
+        .issues-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .issues-table tr {
+            background: #F5F7FA;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .issues-table tr:hover {
+            background: #EEF3F7;
+        }
+
+        .issues-table th {
+            background: #1E3A5F;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .issues-table td {
+            padding: 12px 15px;
+            font-size: 12px;
+        }
+
+        .issues-table .factory {
+            font-weight: bold;
+            color: #1E3A5F;
+            width: 80px;
+        }
+
+        .issues-table .problem {
+            width: 130px;
+            color: #2C3E50;
+        }
+
+        .issues-table .status {
+            font-weight: bold;
+            width: 100px;
+        }
+
+        .issues-table .status.green {
+            color: #27AE60;
+        }
+
+        .issues-table .status.orange {
+            color: #E67E22;
+        }
+
+        .issues-table .status.teal {
+            color: #0FA3B1;
+        }
+
+        .issues-table .detail {
+            color: #555;
+            flex: 1;
+        }
+
+        .summary-note {
+            background: #F0F9FB;
+            border-left: 4px solid #0FA3B1;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+            color: #2C3E50;
+            font-size: 12px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .print-note {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .slide {
+                page-break-after: always;
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+
+            .print-note {
+                display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- 第1頁：標題頁 -->
+        <div class="slide slide-title">
+            <h1>5月訪廠行程總結</h1>
+            <div class="subtitle">品質管理現場確認 & 問題改善跟進</div>
+            <div class="date">2026年5月18日 - 5月28日</div>
+        </div>
+
+        <!-- 第2頁：地點分佈 & 統計概況 -->
+        <div class="slide slide-content">
+            <h2>訪廠地點分佈 & 統計概況</h2>
+
+            <div class="content-grid">
+                <!-- 左側：地點信息 -->
+                <div class="location-map">
+                    <h3>浙江訪廠地點</h3>
+
+                    <div class="location-item">
+                        <div class="location-marker">嘉</div>
+                        <div class="location-info">
+                            <div class="city">嘉興</div>
+                            <div class="visits">帛冠 (1次)</div>
+                        </div>
+                    </div>
+
+                    <div class="location-item">
+                        <div class="location-marker">紹</div>
+                        <div class="location-info">
+                            <div class="city">紹興</div>
+                            <div class="visits">金祥惠、賀順、漢帛 (3次)</div>
+                        </div>
+                    </div>
+
+                    <div class="location-item">
+                        <div class="location-marker">蕭</div>
+                        <div class="location-info">
+                            <div class="city">蕭山</div>
+                            <div class="visits">ARCH (1次)</div>
+                        </div>
+                    </div>
+
+                    <div class="location-item">
+                        <div class="location-marker">港</div>
+                        <div class="location-info">
+                            <div class="city">張家港</div>
+                            <div class="visits">漢帛、PARADISE (2次)</div>
+                        </div>
+                    </div>
+
+                    <div class="location-item">
+                        <div class="location-marker">熟</div>
+                        <div class="location-info">
+                            <div class="city">常熟</div>
+                            <div class="visits">東奕盛 (1次)</div>
+                        </div>
+                    </div>
+
+                    <div class="location-item">
+                        <div class="location-marker">滬</div>
+                        <div class="location-info">
+                            <div class="city">上海</div>
+                            <div class="visits">滬辦 (1次)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：統計卡片 -->
+                <div class="stats-grid">
+                    <div class="stat-card teal">
+                        <div class="stat-label">訪廠總次數</div>
+                        <div class="stat-value">8次</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-label">涉及地點</div>
+                        <div class="stat-value">6個</div>
+                    </div>
+                    <div class="stat-card coral">
+                        <div class="stat-label">涉及廠商</div>
+                        <div class="stat-value">7家</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <div class="stat-label">客戶品牌</div>
+                        <div class="stat-value">6個</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3頁：關鍵問題與改善進度 -->
+        <div class="slide slide-content">
+            <h2>關鍵問題與改善進度</h2>
+
+            <!-- 進度統計 -->
+            <div class="progress-summary">
+                <div class="progress-item green">✓ 完全改善: 5項</div>
+                <div class="progress-item orange">◐ 部分改善: 2項</div>
+                <div class="progress-item teal">● 確認標準: 1項</div>
+            </div>
+
+            <!-- 問題清單表格 -->
+            <table class="issues-table">
+                <thead>
+                    <tr>
+                        <th>廠商</th>
+                        <th>問題</th>
+                        <th>狀態</th>
+                        <th>進展說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="factory">帛冠</td>
+                        <td class="problem">克重偏輕</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">胚布克重已加重，成品重在訂單規格允收內，無回縮問題</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">金祥惠</td>
+                        <td class="problem">布邊布紋歪斜</td>
+                        <td class="status green">✓ 已改善方案</td>
+                        <td class="detail">布邊歪斜無法完全避免，問題大貨以窄幅方式補損</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">ARCH</td>
+                        <td class="problem">換片率高/色差</td>
+                        <td class="status green">✓ 已建立流程</td>
+                        <td class="detail">已建立正反面品檢流程，問題可控，與布廠討論Modal特性</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">賀順</td>
+                        <td class="problem">勾紗/孔洞</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">問題已改善</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">漢帛</td>
+                        <td class="problem">布頭壓痕</td>
+                        <td class="status green">✓ 已改善</td>
+                        <td class="detail">布廠已改善包裝方式，後續追蹤到廠情況</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">漢帛</td>
+                        <td class="problem">破洞/斷紗/皺褶</td>
+                        <td class="status orange">◐ 部分改善</td>
+                        <td class="detail">皺褶問題有改善，並請布廠跟客人討論接受標準</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">東奕盛</td>
+                        <td class="problem">緯斜</td>
+                        <td class="status teal">✓ 已確認</td>
+                        <td class="detail">布廠確認緯斜標準為3%，緯弧標準為1.5%，以全幅計算</td>
+                    </tr>
+                    <tr>
+                        <td class="factory">PARADISE</td>
+                        <td class="problem">手感/絨感品質</td>
+                        <td class="status orange">◐ 確認穩定性</td>
+                        <td class="detail">確認目前大貨手感及絨度的穩定性</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 總結 -->
+            <div class="summary-note">
+                <strong>總結：</strong> 8次訪廠共確認8個品質議題，其中62.5%（5項）已完全改善，25%（2項）部分改善，確認標準流程1項（12.5%）。整體品質控制進度良好，後續需持續追蹤皺褶改善情況及客戶接受標準確認。
+            </div>
+
+            <div class="print-note">
+                💡 提示：按 Ctrl+P 可列印此簡報為PDF | 使用不同瀏覽器開啟可預覽列印效果
+            </div>
+        </div>
+    </div>
+</body>
+</html>

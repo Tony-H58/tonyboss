@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缺陷識別速查表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        h2 {
+            color: #667eea;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+            margin: 30px 0 20px 0;
+            font-size: 1.5em;
+        }
+        .defect-category {
+            margin-bottom: 40px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .category-header {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            color: #667eea;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .severity-1 {
+            border-left: 4px solid #4CAF50;
+        }
+        .severity-2 {
+            border-left: 4px solid #FFC107;
+        }
+        .severity-3 {
+            border-left: 4px solid #FF9800;
+        }
+        .severity-4 {
+            border-left: 4px solid #F44336;
+        }
+        .severity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .sev-minor {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        .sev-medium {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+        .sev-major {
+            background: #FFCCBC;
+            color: #D84315;
+        }
+        .sev-critical {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        .quick-ref {
+            background: #f0f7f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .grid-cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 缺陷識別速查表</h1>
+            <p>24個常見缺陷快速判定指南 — 紗線、織造、染整、加工四大類</p>
+        </header>
+
+        <div class="content">
+            <!-- 紗線因素 -->
+            <div class="defect-category">
+                <div class="category-header">🧵 A. 紗線因素缺陷（7種）</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>缺陷名稱</th>
+                            <th>特徵描述</th>
+                            <th>嚴重度</th>
+                            <th>判定要點</th>
+                            <th>改善方向</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="severity-1">
+                            <td><strong>條幹</strong></td>
+                            <td>紗線粗細不均勻，呈週期性波浪</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>用手指滑過紗線，感受粗細變化</td>
+                            <td>改善紡紗工藝、降低加捻</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>死棉</strong></td>
+                            <td>紗線中混入未開鬆的棉纖維束</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>用放大鏡觀察，見有白色硬塊</td>
+                            <td>改善梳棉機、提升開鬆力度</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>異纖</strong></td>
+                            <td>混入不同成分的纖維（塑膠、金屬、毛髮等）</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>用肉眼或放大鏡，顏色/材質明顯不同</td>
+                            <td>加強進廠檢驗、密閉紡織環境</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>汙紗</strong></td>
+                            <td>紗線表面沾染油污、灰塵等雜質</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>手指摸起來黏膩或帶灰</td>
+                            <td>改善環境衛生、清潔主軸</td>
+                        </tr>
+                        <tr class="severity-3">
+                            <td><strong>紗橫</strong></td>
+                            <td>紗線橫向斷裂或嚴重弱點</td>
+                            <td><span class="severity-badge sev-major">嚴重</span></td>
+                            <td>輕輕拉扯即斷，有明顯弱點位</td>
+                            <td>提升紗線強度、改善上油</td>
+                        </tr>
+                        <tr class="severity-1">
+                            <td><strong>紗間</strong></td>
+                            <td>相鄰紗線空隙過大</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>透光看，紗線間有明顯縫隙</td>
+                            <td>調整織造密度、紗張力</td>
+                        </tr>
+                        <tr class="severity-1">
+                            <td><strong>粗節</strong></td>
+                            <td>紗線上出現毛粒或小結</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>用手指觸摸感受到凸起</td>
+                            <td>改善清紗機、調整紡紗速度</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 織造因素 -->
+            <div class="defect-category">
+                <div class="category-header">🏭 B. 織造因素缺陷（5種）</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>缺陷名稱</th>
+                            <th>特徵描述</th>
+                            <th>嚴重度</th>
+                            <th>判定要點</th>
+                            <th>改善方向</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="severity-2">
+                            <td><strong>針路</strong></td>
+                            <td>針織物線圈不規則，呈曲線</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>觀察線圈排列，應該整齊直線</td>
+                            <td>調整機針張力、檢查機件磨損</td>
+                        </tr>
+                        <tr class="severity-3">
+                            <td><strong>油針</strong></td>
+                            <td>針上積累油汙，導致線圈卡頓</td>
+                            <td><span class="severity-badge sev-major">嚴重</span></td>
+                            <td>線圈明顯緊繃，甚至斷線</td>
+                            <td>定期清潔機針、更新潤滑油</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>飛花</strong></td>
+                            <td>織造過程中飛散的短纖維附著在布面</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>布面有細小絨毛浮起</td>
+                            <td>加強廠房除塵、提升梳棉質量</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>橫條</strong></td>
+                            <td>布的橫向出現條紋狀缺陷</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>逆光觀察，橫向條紋明顯</td>
+                            <td>檢查主軸磨損、調整經紗張力</td>
+                        </tr>
+                        <tr class="severity-1">
+                            <td><strong>毛羽</strong></td>
+                            <td>布面有短纖維豎起</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>手指輕滑感受到細毛</td>
+                            <td>烘乾溫度提高、加強定型</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 染整因素 -->
+            <div class="defect-category">
+                <div class="category-header">🎨 C. 染整因素缺陷（7種）</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>缺陷名稱</th>
+                            <th>特徵描述</th>
+                            <th>嚴重度</th>
+                            <th>判定要點</th>
+                            <th>改善方向</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="severity-2">
+                            <td><strong>折痕</strong></td>
+                            <td>布料摺疊或折起留下的痕跡</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>視覺可見明顯折線，通常是褪色區域</td>
+                            <td>改善卷布方式、增加軟化劑</td>
+                        </tr>
+                        <tr class="severity-3">
+                            <td><strong>水折痕</strong></td>
+                            <td>水流沖擊留下的折痕和色差</td>
+                            <td><span class="severity-badge sev-major">嚴重</span></td>
+                            <td>折痕處顏色明顯變淺或變深</td>
+                            <td>改善噴水槍方向、降低水壓</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>刮痕</strong></td>
+                            <td>布面被機器或工具刮傷</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>線性刮傷痕跡，通常較淺</td>
+                            <td>檢查機械邊角、加軟墊</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>軟油污</strong></td>
+                            <td>布料表面沾染油性物質</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>反光看有油膩感，可能有斑點</td>
+                            <td>改善清洗、更換潤滑油</td>
+                        </tr>
+                        <tr class="severity-3">
+                            <td><strong>黃斑</strong></td>
+                            <td>布料出現黃色或褐色斑點</td>
+                            <td><span class="severity-badge sev-major">嚴重</span></td>
+                            <td>顏色明顯異常，難以掩蓋</td>
+                            <td>改善熱水品質、提升烘乾速度</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>色漬</strong></td>
+                            <td>布料出現不同色調的斑點或區域</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>色澤明顯不均勻</td>
+                            <td>改善染料溶解、檢查浴比</td>
+                        </tr>
+                        <tr class="severity-3">
+                            <td><strong>色花</strong></td>
+                            <td>布料染色極不均勻，呈花狀</td>
+                            <td><span class="severity-badge sev-major">嚴重</span></td>
+                            <td>整塊布花紋明顯，像花布設計但非故意</td>
+                            <td>改善前處理、調整染料配方</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 加工因素 -->
+            <div class="defect-category">
+                <div class="category-header">✂️ D. 加工因素缺陷（5種）</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>缺陷名稱</th>
+                            <th>特徵描述</th>
+                            <th>嚴重度</th>
+                            <th>判定要點</th>
+                            <th>改善方向</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="severity-2">
+                            <td><strong>跳刀痕</strong></td>
+                            <td>裁剪時刀具跳動留下的不規則割痕</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>邊緣呈鋸齒狀，不光滑</td>
+                            <td>檢查裁刀磨損、調整下料力度</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>墊刀痕</strong></td>
+                            <td>裁剪時墊板損傷導致布料摺傷</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>裁剪邊沿有褶皺或壓痕</td>
+                            <td>更換墊板、調整裁剪壓力</td>
+                        </tr>
+                        <tr class="severity-1">
+                            <td><strong>刷毛直條</strong></td>
+                            <td>刷毛機刷方向不當導致直線條紋</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>布面有規則的線性毛髮方向</td>
+                            <td>調整刷毛機角度、改善轉速</td>
+                        </tr>
+                        <tr class="severity-1">
+                            <td><strong>搖粒機壓痕</strong></td>
+                            <td>搖粒機滾筒壓迫導致壓痕</td>
+                            <td><span class="severity-badge sev-minor">輕微</span></td>
+                            <td>布面有輪形或條形凹陷</td>
+                            <td>調整滾筒壓力、檢查表面磨損</td>
+                        </tr>
+                        <tr class="severity-2">
+                            <td><strong>陰陽色</strong></td>
+                            <td>加工過程中摺疊或重疊導致的色差</td>
+                            <td><span class="severity-badge sev-medium">中等</span></td>
+                            <td>布料一側明顯比另一側深或淺</td>
+                            <td>改善平鋪方式、提升檢驗</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 缺陷分類樹狀圖 -->
+            <h2>🌳 24種缺陷分類樹狀圖</h2>
+            <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #ddd; border-radius: 8px; margin: 20px 0; background: #fafafa;">
+                <!-- 根節點 -->
+                <rect x="400" y="10" width="200" height="50" fill="#667eea" rx="5" stroke="#667eea" stroke-width="2"/>
+                <text x="500" y="42" text-anchor="middle" fill="white" font-weight="bold" font-size="14">24種紡織缺陷</text>
+
+                <!-- 四大分類 -->
+                <!-- 紗線因素 -->
+                <line x1="500" y1="60" x2="150" y2="120" stroke="#333" stroke-width="2"/>
+                <rect x="50" y="120" width="200" height="50" fill="#4CAF50" rx="5" stroke="#4CAF50" stroke-width="2"/>
+                <text x="150" y="152" text-anchor="middle" fill="white" font-weight="bold" font-size="13">🧵 紗線因素(7種)</text>
+
+                <!-- 織造因素 -->
+                <line x1="500" y1="60" x2="350" y2="120" stroke="#333" stroke-width="2"/>
+                <rect x="250" y="120" width="200" height="50" fill="#FFC107" rx="5" stroke="#FFC107" stroke-width="2"/>
+                <text x="350" y="152" text-anchor="middle" fill="white" font-weight="bold" font-size="13">🏭 織造因素(5種)</text>
+
+                <!-- 染整因素 -->
+                <line x1="500" y1="60" x2="650" y2="120" stroke="#333" stroke-width="2"/>
+                <rect x="550" y="120" width="200" height="50" fill="#2196F3" rx="5" stroke="#2196F3" stroke-width="2"/>
+                <text x="650" y="152" text-anchor="middle" fill="white" font-weight="bold" font-size="13">🎨 染整因素(7種)</text>
+
+                <!-- 加工因素 -->
+                <line x1="500" y1="60" x2="850" y2="120" stroke="#333" stroke-width="2"/>
+                <rect x="750" y="120" width="200" height="50" fill="#FF9800" rx="5" stroke="#FF9800" stroke-width="2"/>
+                <text x="850" y="152" text-anchor="middle" fill="white" font-weight="bold" font-size="13">✂️ 加工因素(5種)</text>
+
+                <!-- 詳細缺陷分類 -->
+                <!-- 紗線詳細 -->
+                <text x="150" y="200" text-anchor="middle" font-size="11" font-weight="bold">條幹 死棉 異纖</text>
+                <text x="150" y="220" text-anchor="middle" font-size="11" font-weight="bold">汙紗 紗橫 紗間 粗節</text>
+
+                <!-- 織造詳細 -->
+                <text x="350" y="200" text-anchor="middle" font-size="11" font-weight="bold">針路 油針 飛花</text>
+                <text x="350" y="220" text-anchor="middle" font-size="11" font-weight="bold">橫條 毛羽</text>
+
+                <!-- 染整詳細 -->
+                <text x="650" y="200" text-anchor="middle" font-size="11" font-weight="bold">折痕 水折痕 刮痕</text>
+                <text x="650" y="220" text-anchor="middle" font-size="11" font-weight="bold">軟油污 黃斑 色漬 色花</text>
+
+                <!-- 加工詳細 -->
+                <text x="850" y="200" text-anchor="middle" font-size="11" font-weight="bold">跳刀痕 墊刀痕</text>
+                <text x="850" y="220" text-anchor="middle" font-size="11" font-weight="bold">刷毛直條 搖粒機壓痕 陰陽色</text>
+
+                <!-- 嚴重度圖例 -->
+                <text x="50" y="310" font-size="12" font-weight="bold">嚴重度分級：</text>
+                <rect x="50" y="320" width="20" height="20" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1"/>
+                <text x="80" y="335" font-size="11">輕微（1點）</text>
+
+                <rect x="250" y="320" width="20" height="20" fill="#FFE0B2" stroke="#E65100" stroke-width="1"/>
+                <text x="280" y="335" font-size="11">中等（2-3點）</text>
+
+                <rect x="500" y="320" width="20" height="20" fill="#FFCCBC" stroke="#D84315" stroke-width="1"/>
+                <text x="530" y="335" font-size="11">嚴重（4-5點）</text>
+
+                <rect x="750" y="320" width="20" height="20" fill="#FFCDD2" stroke="#C62828" stroke-width="1"/>
+                <text x="780" y="335" font-size="11">重度（6+點）</text>
+            </svg>
+
+            <!-- 快速判定流程 -->
+            <h2>⚡ 快速判定流程</h2>
+
+            <div class="grid-cols">
+                <div class="card">
+                    <h4>🔍 第一步：初步觀察</h4>
+                    <p>1. 在充足光線下觀察<br>
+                    2. 用肉眼掃描全布<br>
+                    3. 記錄缺陷位置和數量</p>
+                </div>
+
+                <div class="card">
+                    <h4>🔎 第二步：詳細確認</h4>
+                    <p>1. 用手指觸摸判斷質感<br>
+                    2. 用放大鏡觀察細節<br>
+                    3. 逆光觀察顏色差異</p>
+                </div>
+
+                <div class="card">
+                    <h4>📋 第三步：分類判定</h4>
+                    <p>1. 對照本表24種缺陷<br>
+                    2. 確認缺陷類型<br>
+                    3. 評估嚴重程度</p>
+                </div>
+
+                <div class="card">
+                    <h4>✅ 第四步：記錄報告</h4>
+                    <p>1. 填寫檢驗記錄表<br>
+                    2. 標註缺陷位置<br>
+                    3. 提出改善建議</p>
+                </div>
+            </div>
+
+            <!-- 嚴重度說明 -->
+            <h2>⚠️ 嚴重度等級說明</h2>
+
+            <table style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th>等級</th>
+                        <th>含義</th>
+                        <th>客戶接納度</th>
+                        <th>處置方式</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #C8E6C9;">
+                        <td><strong>輕微</strong></td>
+                        <td>微小缺陷，正常穿著不影響</td>
+                        <td>✅ 一般接納</td>
+                        <td>可放行或修復</td>
+                    </tr>
+                    <tr style="background: #FFE0B2;">
+                        <td><strong>中等</strong></td>
+                        <td>明顯缺陷，可能影響穿著</td>
+                        <td>⚠️ 有條件接納</td>
+                        <td>需修復或議價</td>
+                    </tr>
+                    <tr style="background: #FFCCBC;">
+                        <td><strong>嚴重</strong></td>
+                        <td>重大缺陷，明顯影響使用</td>
+                        <td>❌ 一般拒收</td>
+                        <td>廢品或大幅降級</td>
+                    </tr>
+                    <tr style="background: #FFCDD2;">
+                        <td><strong>重度</strong></td>
+                        <td>極度缺陷，無法使用</td>
+                        <td>❌ 拒絕</td>
+                        <td>直接報廢</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 常見問題 -->
+            <h2>❓ 常見問題</h2>
+
+            <div class="warning-box">
+                <p><strong>Q：死棉和異纖有什麼區別？</strong><br>
+                A：死棉 = 同類纖維（棉）但未開鬆；異纖 = 完全不同的物質（塑膠、金屬等）。異纖更危險。</p>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Q：折痕和水折痕怎麼區分？</strong><br>
+                A：折痕 = 單純的線性褶皺；水折痕 = 有明顯色差和水印，說明被水流沖過。</p>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Q：缺陷能修復嗎？</strong><br>
+                A：輕微缺陷可修復（補色、重熨等）；嚴重缺陷無法修復，只能降級或報廢。</p>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>📚 品管教材系列 | 缺陷識別速查表 | 最後更新：2026-06-24</p>
+            <p>24個常見缺陷 + 判定方法 + 改善方向</p>
+            <div class="nav-links">
+                <a href="../INDEX.html" style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white;">← 返回總頁</a>
+                <a href="../04_檢驗清單/檢驗流程完整指南.html">檢驗流程 →</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機能性纖維知識完全指南</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.95em;
+        }
+        th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .fiber-card {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: #f9f9f9;
+        }
+        .fiber-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .performance-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .performance-bar label {
+            width: 150px;
+            font-weight: 600;
+        }
+        .bar {
+            flex-grow: 1;
+            height: 20px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            margin: 0 10px;
+        }
+        .percentage {
+            width: 50px;
+            text-align: right;
+            font-weight: 600;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #ddd;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #667eea;
+            color: white;
+        }
+        .star {
+            color: #ffc107;
+            margin-right: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧵 機能性纖維知識完全指南</h1>
+            <p>吸濕排汗、溫度調節、保健機能 — 20+國內主流纖維品牌詳解</p>
+        </header>
+
+        <div class="content">
+            <!-- 分類總覽 -->
+            <div class="section">
+                <h2>📚 機能性紡織品三大分類</h2>
+
+                <div class="fiber-card">
+                    <h4>1️⃣ 生理舒適機能性紡織物</h4>
+                    <p><strong>目標：</strong>提升穿著舒適感<br>
+                    <strong>機能：</strong>吸濕排汗、濕度調節、溫度調節<br>
+                    <strong>應用：</strong>運動服、內衣、休閒服</p>
+                </div>
+
+                <div class="fiber-card">
+                    <h4>2️⃣ 保健機能性紡織物</h4>
+                    <p><strong>目標：</strong>提升人體健康<br>
+                    <strong>機能：</strong>抗菌防臭、抗紫外線、遠紅外<br>
+                    <strong>應用：</strong>內衣、醫療服裝、保健產品</p>
+                </div>
+
+                <div class="fiber-card">
+                    <h4>3️⃣ 人體防護機能性紡織物</h4>
+                    <p><strong>目標：</strong>保護人體安全<br>
+                    <strong>機能：</strong>防火、防靜電、防輻射<br>
+                    <strong>應用：</strong>工作服、專業裝備</p>
+                </div>
+            </div>
+
+            <!-- 吸濕排汗機能 -->
+            <div class="section">
+                <h2>💧 A. 吸濕排汗機能（最常用）</h2>
+
+                <h3>原理</h3>
+                <div class="highlight">
+                    <strong>運用毛細管現象 + 纖維表面細溝槽</strong><br>
+                    → 水分快速吸收並擴散蒸發<br>
+                    → 保持肌膚乾爽，增加穿著舒適感
+                </div>
+
+                <h3>實現技術</h3>
+                <div class="fiber-card">
+                    <h4>🔹 纖維細度化/異型斷面化</h4>
+                    <p>通過改變纖維橫截面形狀，增加表面積和蕊吸點：</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>十字型（Coolmax）</strong> — 經典四道凹槽</li>
+                        <li><strong>W型（Technofine）</strong> — 超扁平細緻手感</li>
+                        <li><strong>三角型、多角型、H型、Y型、U型</strong> — 各有特色</li>
+                    </ul>
+                </div>
+
+                <h3>🇹🇼 國內主要吸濕排汗纖維品牌</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>品牌</th>
+                            <th>公司</th>
+                            <th>斷面形狀</th>
+                            <th>特色</th>
+                            <th>應用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="star">★★★</span>Coolplus</td>
+                            <td>中興紡織</td>
+                            <td>"+"型</td>
+                            <td>第三代，細微溝槽</td>
+                            <td>運動服、內衣</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★★</span>Coolmax</td>
+                            <td>DuPont</td>
+                            <td>四孔狀</td>
+                            <td>溫度低2-5℃</td>
+                            <td>高爾夫/網球服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★★</span>Technofine</td>
+                            <td>旭化成</td>
+                            <td>W型</td>
+                            <td>超扁平，細緻手感</td>
+                            <td>運動服/內衣</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★</span>Topcool</td>
+                            <td>遠東紡織</td>
+                            <td>十字型</td>
+                            <td>四道凹槽，蓬鬆感</td>
+                            <td>運動服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★</span>SecoTec</td>
+                            <td>力鵬企業</td>
+                            <td>十字型</td>
+                            <td>毛細現象強</td>
+                            <td>運動/登山服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★</span>Cool Tech</td>
+                            <td>新光合纖</td>
+                            <td>十字型</td>
+                            <td>快速傳導水分</td>
+                            <td>工作服/運動服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★★</span>Dri-Release</td>
+                            <td>Optimer（美國）</td>
+                            <td>-</td>
+                            <td>棉質手感，快乾</td>
+                            <td>運動服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★</span>Aerocool</td>
+                            <td>韓國曉星</td>
+                            <td>四葉草型</td>
+                            <td>仿苜蓿草設計</td>
+                            <td>運動服</td>
+                        </tr>
+                        <tr>
+                            <td><span class="star">★</span>I-COOL</td>
+                            <td>東國貿易（韓國）</td>
+                            <td>異型截面</td>
+                            <td>毛細管現象</td>
+                            <td>運動休閒</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📊 Coolplus 性能對比</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指標</th>
+                            <th>Coolplus</th>
+                            <th>棉</th>
+                            <th>聚酯</th>
+                            <th>尼龍</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>濕氣調節</td>
+                            <td><strong>⭐⭐⭐ 擴散力↑12-74%</strong></td>
+                            <td>⚠️ 黏貼濕冷</td>
+                            <td>✗ 不吸汗</td>
+                            <td>✗ 不吸汗</td>
+                        </tr>
+                        <tr>
+                            <td>透氣性</td>
+                            <td><strong>⭐⭐⭐ 優良</strong></td>
+                            <td>⚠️ 吸濕後降低</td>
+                            <td>⭐⭐ 易洗快乾</td>
+                            <td>⭐⭐ 易洗快乾</td>
+                        </tr>
+                        <tr>
+                            <td>易處理性</td>
+                            <td><strong>⭐⭐⭐ 快乾防縮</strong></td>
+                            <td>✗ 皺縮歪斜</td>
+                            <td>⭐⭐ 易洗快乾</td>
+                            <td>⭐⭐ 易洗快乾</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔄 Coolplus 使用特性</h3>
+                <div class="highlight">
+                    <strong>混紡比例：</strong>可純紡 100%，也可與棉、毛、絲、麻、其他化纖混紡<br>
+                    <strong>織造方式：</strong>既可梭織，也可針織<br>
+                    <strong>升級版本：</strong><br>
+                    • Coolplus II — 更柔軟輕盈<br>
+                    • SKINTECT — 抗紫外線<br>
+                    • FRESHPLUS — 抗菌防臭<br>
+                    • WHITEPLUS — 超白<br>
+                    • 細丹尼版 — 更細膩
+                </div>
+            </div>
+
+            <!-- 濕度調節機能 -->
+            <div class="section">
+                <h2>🌡️ B. 濕度調節機能</h2>
+
+                <h3>技術原理</h3>
+                <div class="highlight">
+                    <strong>親水化輻射接枝聚合技術</strong><br>
+                    用親水性單體 + 能源照射 → 與疏水性高分子纖維接枝聚合<br>
+                    使疏水性纖維本身具備親水基<br>
+                    實現優越的吸放濕 + 濕度調節功能
+                </div>
+
+                <h3>應用領域</h3>
+                <div class="fiber-card">
+                    <h4>主要應用：</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>內衣 — 貼身舒適</li>
+                        <li>運動服 — 快速蒸散</li>
+                        <li>寢具 — 保持乾爽</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 溫度調節機能 -->
+            <div class="section">
+                <h2>❄️ D. 溫度調節機能</h2>
+
+                <h3>方法 1：熱轉相材料（PCM）</h3>
+                <div class="fiber-card">
+                    <h4>原理</h4>
+                    <p>微膠囊內含相變化材料，吸收/釋放潛伏熱</p>
+
+                    <h4>作用機制（3步）</h4>
+                    <ol style="margin-left: 20px;">
+                        <li><strong>冷卻效應：</strong>吸收人體多餘熱量（溫度升至融點為止）</li>
+                        <li><strong>絕緣效應：</strong>相變化材料放熱形成熱障，防止人體熱能流失</li>
+                        <li><strong>調節效應：</strong>溫度變化 → PCM產生吸熱/放熱 → 體表溫度變化率接近常數</li>
+                    </ol>
+
+                    <h4>混入方式</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>纖維製程中直接混入微膠囊</li>
+                        <li>以 PU 為載體，塗佈於織物表面</li>
+                    </ul>
+                </div>
+
+                <h3>方法 2：五單糖纖維（Xylifresh）</h3>
+                <div class="fiber-card">
+                    <h4>特徵</h4>
+                    <table>
+                        <tr>
+                            <td><strong>品牌</strong></td>
+                            <td>Xylifresh（日本富士紡）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>成分</strong></td>
+                            <td>白樺樹、玉蜀黍芯、椰子殼提取的天然糖醇類（五單糖）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>原理</strong></td>
+                            <td>五單糖吸收水分時產生吸熱反應 → 涼感效果</td>
+                        </tr>
+                        <tr>
+                            <td><strong>效果</strong></td>
+                            <td>可降溫約 1℃</td>
+                        </tr>
+                        <tr>
+                            <td><strong>應用</strong></td>
+                            <td>T恤、內衣、涼感產品</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 快速查詢 -->
+            <div class="section">
+                <h2>🚀 快速參考</h2>
+
+                <div class="comparison-grid">
+                    <div class="fiber-card">
+                        <h4>🎯 我要選吸濕排汗纖維</h4>
+                        <p><strong>推薦順序：</strong><br>
+                        1. Coolplus（國產，性價比最高）<br>
+                        2. Coolmax（國際品牌，效能穩定）<br>
+                        3. Technofine（高端，手感細緻）</p>
+                    </div>
+                    <div class="fiber-card">
+                        <h4>❄️ 我要溫度調節功能</h4>
+                        <p><strong>可選方案：</strong><br>
+                        1. PCM 微膠囊（保暖優先）<br>
+                        2. Xylifresh（降溫優先）<br>
+                        3. 與吸濕排汗纖維組合</p>
+                    </div>
+                    <div class="fiber-card">
+                        <h4>🏆 我要高端品質</h4>
+                        <p><strong>組合方案：</strong><br>
+                        1. Coolplus 升級版（SKINTECT/FRESHPLUS）<br>
+                        2. 異型纖維（細度化 + 異型斷面）<br>
+                        3. 高支高密組合</p>
+                    </div>
+                    <div class="fiber-card">
+                        <h4>💰 我要成本優化</h4>
+                        <p><strong>經濟方案：</strong><br>
+                        1. Coolplus 標準版<br>
+                        2. 與棉/其他纖維混紡<br>
+                        3. 單紗異型設計</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>📚 品管教材系列 | 機能性纖維知識完全指南 | 最後更新：2026-06-24</p>
+            <p>參考資料：聚陽集團紡織知識庫 | 270+文件完整整理</p>
+            <div class="nav-links">
+                <a href="../INDEX.html" style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white;">← 返回總頁</a>
+                <a href="物理測試標準完全解讀.html">物理測試 →</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

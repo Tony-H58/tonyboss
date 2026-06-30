@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紡織品管教材中心 - 完整指南</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 50px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            font-size: 2.8em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        header p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .content {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            background: white;
+            padding: 25px 40px;
+            border-radius: 12px 12px 0 0;
+            font-size: 1.8em;
+            color: #667eea;
+            font-weight: bold;
+            border-bottom: 3px solid #667eea;
+        }
+        .section-subtitle {
+            background: white;
+            padding: 15px 40px;
+            color: #666;
+            font-size: 0.95em;
+            border-bottom: 1px solid #eee;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        .card-icon {
+            font-size: 3em;
+            padding: 20px;
+            text-align: center;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-content {
+            padding: 20px;
+            background: white;
+        }
+        .card-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .card-desc {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .card-features {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        .card-features li {
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+        .card-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .card-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .basic { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); }
+        .operation { background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%); }
+        .customer { background: linear-gradient(135deg, #FF9800 0%, #E65100 100%); }
+
+        footer {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .quick-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .quick-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .quick-link-small {
+            display: inline-block;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .quick-link-small:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        @media (max-width: 768px) {
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 頭部 -->
+        <header>
+            <h1>📚 紡織品管教材中心</h1>
+            <p>聚陽集團品質管理完整指南</p>
+            <p style="font-size: 0.95em; color: #999;">包含基礎知識、品管操作、國際客戶標準 — 8份完整教材</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">完整教材</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">188</div>
+                    <div class="stat-label">KB 內容</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">應用價值</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 搜索與篩選 -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCards('all')">全部</button>
+            <button class="filter-btn" onclick="filterCards('basic')">基礎知識</button>
+            <button class="filter-btn" onclick="filterCards('operation')">品管操作</button>
+            <button class="filter-btn" onclick="filterCards('customer')">客戶標準</button>
+        </div>
+
+        <!-- 基礎知識 -->
+        <div class="content">
+            <div class="section-title">🎓 基礎知識（3份）</div>
+            <div class="section-subtitle">掌握紡織品管的核心理論和標準</div>
+            <div class="grid">
+                <!-- 四點制 -->
+                <a href="./00_基礎知識/四點制與十點制評分系統.html" class="card" data-category="basic">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <div class="card-title">四點制與十點制評分系統</div>
+                        <div class="card-desc">掌握國際品管評分標準，從ASTM D5430到GU 10點制</div>
+                        <ul class="card-features">
+                            <li>四點制扣分規則</li>
+                            <li>十點制等級評分</li>
+                            <li>對應關係對標</li>
+                        </ul>
+                        <button class="card-button basic">進入教材</button>
+                    </div>
+                </a>
+
+                <!-- 機能性纖維 -->
+                <a href="./00_基礎知識/機能性纖維知識完全指南.html" class="card" data-category="basic">
+                    <div class="card-icon">🧵</div>
+                    <div class="card-content">
+                        <div class="card-title">機能性纖維知識完全指南</div>
+                        <div class="card-desc">深度認識20+國內外主流功能性纖維品牌</div>
+                        <ul class="card-features">
+                            <li>Coolplus/Coolmax詳解</li>
+                            <li>吸濕排汗機能</li>
+                            <li>溫度調節技術</li>
+                        </ul>
+                        <button class="card-button basic">進入教材</button>
+                    </div>
+                </a>
+
+                <!-- 物理測試 -->
+                <a href="./00_基礎知識/物理測試標準完全解讀.html" class="card" data-category="basic">
+                    <div class="card-icon">🔬</div>
+                    <div class="card-content">
+                        <div class="card-title">物理測試標準完全解讀</div>
+                        <div class="card-desc">掌握色牢度、縮率、強度等國際測試方法</div>
+                        <ul class="card-features">
+                            <li>色澤測試標準</li>
+                            <li>縮率計算方法</li>
+                            <li>防水透濕測試</li>
+                        </ul>
+                        <button class="card-button basic">進入教材</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 品管操作 -->
+        <div class="content">
+            <div class="section-title">🔧 品管操作（3份）</div>
+            <div class="section-subtitle">日常檢驗、診斷與改善的實踐指南</div>
+            <div class="grid">
+                <!-- 缺陷識別 -->
+                <a href="./01_瑕疵識別/缺陷識別速查表.html" class="card" data-category="operation">
+                    <div class="card-icon">🔍</div>
+                    <div class="card-content">
+                        <div class="card-title">缺陷識別速查表</div>
+                        <div class="card-desc">24種常見缺陷快速判定，含樹狀分類圖</div>
+                        <ul class="card-features">
+                            <li>4大缺陷分類</li>
+                            <li>24種缺陷詳解</li>
+                            <li>嚴重度評估</li>
+                        </ul>
+                        <button class="card-button operation">進入教材</button>
+                    </div>
+                </a>
+
+                <!-- 檢驗流程 -->
+                <a href="./04_檢驗清單/檢驗流程完整指南.html" class="card" data-category="operation">
+                    <div class="card-icon">✓</div>
+                    <div class="card-content">
+                        <div class="card-title">檢驗流程完整指南</div>
+                        <div class="card-desc">從進料到出貨的全流程品管標準與流程圖</div>
+                        <ul class="card-features">
+                            <li>4大檢驗工序</li>
+                            <li>過程檢驗頻率</li>
+                            <li>成品分級標準</li>
+                        </ul>
+                        <button class="card-button operation">進入教材</button>
+                    </div>
+                </a>
+
+                <!-- 染色診斷 -->
+                <a href="./02_染整工藝/染色診斷與解決方案.html" class="card" data-category="operation">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-content">
+                        <div class="card-title">染色診斷與解決方案</div>
+                        <div class="card-desc">13大染色疵點診斷與工藝參數調整指南</div>
+                        <ul class="card-features">
+                            <li>色斑/泳移診斷</li>
+                            <li>根本原因分析</li>
+                            <li>工藝參數速查</li>
+                        </ul>
+                        <button class="card-button operation">進入教材</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 客戶標準 -->
+        <div class="content">
+            <div class="section-title">🌍 國際客戶標準（2份）</div>
+            <div class="section-subtitle">GU、GAP等7大國際客戶的品質要求對標</div>
+            <div class="grid">
+                <!-- GU驗布 -->
+                <a href="./03_客戶標準/GU驗布規程完全指南.html" class="card" data-category="customer">
+                    <div class="card-icon">🇯🇵</div>
+                    <div class="card-content">
+                        <div class="card-title">GU驗布規程完全指南</div>
+                        <div class="card-desc">日本UNIQLO零缺陷標準，含10點制評分與等級分佈圖</div>
+                        <ul class="card-features">
+                            <li>10點制詳細評分</li>
+                            <li>四大驗布流程</li>
+                            <li>邊部特殊規則</li>
+                        </ul>
+                        <button class="card-button customer">進入教材</button>
+                    </div>
+                </a>
+
+                <!-- 國際規範 -->
+                <a href="./03_客戶標準/國際客戶規範對標.html" class="card" data-category="customer">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-content">
+                        <div class="card-title">國際客戶規範對標指南</div>
+                        <div class="card-desc">7大客戶（GU/GAP/H&M/JCP/TGT）品質標準全面對比</div>
+                        <ul class="card-features">
+                            <li>7大客戶對標表</li>
+                            <li>色澤精度比較</li>
+                            <li>快速查詢指南</li>
+                        </ul>
+                        <button class="card-button customer">進入教材</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 頁腳 -->
+        <footer>
+            <h3>📖 如何使用本教材中心？</h3>
+            <p>點擊上方任意教材卡片進入詳細內容。每份教材都包含：</p>
+            <p style="margin-top: 15px; color: #999;">
+                ✓ 詳細的文字說明 &nbsp; | &nbsp;
+                ✓ SVG圖表與視覺化 &nbsp; | &nbsp;
+                ✓ 實用的速查表 &nbsp; | &nbsp;
+                ✓ 快速決策指南
+            </p>
+
+            <div class="quick-links">
+                <a href="./00_基礎知識/四點制與十點制評分系統.html" class="quick-link-small">📊 四點制</a>
+                <a href="./00_基礎知識/機能性纖維知識完全指南.html" class="quick-link-small">🧵 機能纖維</a>
+                <a href="./00_基礎知識/物理測試標準完全解讀.html" class="quick-link-small">🔬 物理測試</a>
+                <a href="./01_瑕疵識別/缺陷識別速查表.html" class="quick-link-small">🔍 缺陷識別</a>
+                <a href="./04_檢驗清單/檢驗流程完整指南.html" class="quick-link-small">✓ 檢驗流程</a>
+                <a href="./02_染整工藝/染色診斷與解決方案.html" class="quick-link-small">🎨 染色診斷</a>
+                <a href="./03_客戶標準/GU驗布規程完全指南.html" class="quick-link-small">🇯🇵 GU驗布</a>
+                <a href="./03_客戶標準/國際客戶規範對標.html" class="quick-link-small">🌐 國際規範</a>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 0.9em; color: #999;">
+                紡織品管教材中心 | 聚陽集團品質體系 | 更新於 2026-06-24
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function filterCards(category) {
+            // 更新按鈕狀態
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 篩選卡片
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
