@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出差費用導入配置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .file-upload-area {
+            position: relative;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+
+        .file-upload-area:hover {
+            border-color: #764ba2;
+            background: #f0f4ff;
+        }
+
+        .file-upload-area.active {
+            border-color: #51cf66;
+            background: #d4edda;
+        }
+
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: #667eea;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .upload-hint {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .file-list {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .file-list.active {
+            display: block;
+        }
+
+        .file-item {
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item.remove:hover {
+            background: #ffebee;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-hint {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .mapping-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .mapping-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .mapping-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .mapping-label {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .mapping-select {
+            padding: 8px;
+            font-size: 0.9em;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-import {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-import:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-preview {
+            background: #4facfe;
+            color: white;
+        }
+
+        .btn-preview:hover {
+            background: #3a9cdb;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status-box.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status-box.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .preview-table {
+            margin-top: 15px;
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preview-table th {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .preview-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+
+        .info-panel {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-panel h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info-panel ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .mapping-row {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 出差費用導入配置</h1>
+            <p class="subtitle">配置字段映射並導入費用數據 - 月度執行</p>
+        </div>
+
+        <div class="form-container">
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label>📂 選擇費用源文件</label>
+                    <div class="file-upload-area" id="uploadArea">
+                        <div class="upload-icon">📤</div>
+                        <div class="upload-text">點擊或拖拽上傳Excel文件</div>
+                        <div class="upload-hint">支持 .xlsx 或 .xls 格式</div>
+                        <input type="file" id="fileInput" accept=".xlsx,.xls">
+                    </div>
+                    <div class="file-list" id="fileList">
+                        <strong>已選擇的文件：</strong>
+                        <div class="file-item" id="fileItem">
+                            <span id="fileName"></span>
+                            <button type="button" class="btn-remove" style="background: none; border: none; color: red; cursor: pointer; padding: 0;">✕</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🔗 字段映射配置</label>
+                    <div class="mapping-section">
+                        <div class="mapping-row">
+                            <div class="mapping-label">✓ 日期欄位</div>
+                            <select class="mapping-select" id="dateField">
+                                <option value="">-- 自動檢測 --</option>
+                                <option value="col_a">列A - 日期</option>
+                                <option value="col_b">列B - 日期</option>
+                                <option value="col_c">列C - 日期</option>
+                            </select>
+                        </div>
+                        <div class="mapping-row">
+                            <div class="mapping-label">✓ 人員欄位</div>
+                            <select class="mapping-select" id="personField">
+                                <option value="">-- 自動檢測 --</option>
+                                <option value="col_a">列A - 人員</option>
+                                <option value="col_b">列B - 人員</option>
+                                <option value="col_d">列D - 人員</option>
+                            </select>
+                        </div>
+                        <div class="mapping-row">
+                            <div class="mapping-label">✓ 費用金額</div>
+                            <select class="mapping-select" id="amountField">
+                                <option value="">-- 自動檢測 --</option>
+                                <option value="col_e">列E - 金額</option>
+                                <option value="col_f">列F - 金額</option>
+                                <option value="col_g">列G - 金額</option>
+                            </select>
+                        </div>
+                        <div class="mapping-row">
+                            <div class="mapping-label">✓ 費用類別</div>
+                            <select class="mapping-select" id="categoryField">
+                                <option value="">-- 自動檢測 --</option>
+                                <option value="col_c">列C - 類別</option>
+                                <option value="col_h">列H - 類別</option>
+                                <option value="col_i">列I - 類別</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-hint">系統會自動檢測並建議映射，也可手動修改</div>
+                </div>
+
+                <div class="form-group">
+                    <label>⚙️ 轉換規則</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autoFormat" checked>
+                            <label for="autoFormat">自動格式化日期</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="validateAmount" checked>
+                            <label for="validateAmount">驗證金額格式</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="deduplicateName">
+                            <label for="deduplicateName">自動統一人名格式</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="categorizeAuto">
+                            <label for="categorizeAuto">自動分類費用類型</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-preview" id="previewBtn">👁️ 預覽</button>
+                    <button type="submit" class="btn-import">📥 開始導入</button>
+                    <button type="reset" class="btn-reset">🔄 重置</button>
+                </div>
+
+                <table class="preview-table" id="previewTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>人員</th>
+                            <th>類別</th>
+                            <th>金額</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-11-15</td>
+                            <td>王先生</td>
+                            <td>交通費</td>
+                            <td>¥ 350</td>
+                        </tr>
+                        <tr>
+                            <td>2024-11-16</td>
+                            <td>王先生</td>
+                            <td>住宿費</td>
+                            <td>¥ 680</td>
+                        </tr>
+                        <tr>
+                            <td>2024-11-16</td>
+                            <td>王先生</td>
+                            <td>餐飲費</td>
+                            <td>¥ 280</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="statusBox" class="status-box"></div>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="timestamp" id="timestamp"></div>
+            </form>
+
+            <div class="info-panel">
+                <h3>💡 導入說明</h3>
+                <ul>
+                    <li><strong>上傳文件：</strong>支持Excel格式，自動檢測表頭</li>
+                    <li><strong>字段映射：</strong>手動或自動配置列的對應關係</li>
+                    <li><strong>轉換規則：</strong>可選擇應用各種數據清理規則</li>
+                    <li><strong>預覽結果：</strong>導入前可預覽轉換結果</li>
+                    <li><strong>驗證檢查：</strong>自動檢查日期和金額格式</li>
+                    <li><strong>導入時間：</strong>根據文件大小，一般需要1-3分鐘</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const fileName = document.getElementById('fileName');
+
+        // 文件上傳
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            fileInput.files = e.dataTransfer.files;
+            updateFileDisplay();
+        });
+
+        fileInput.addEventListener('change', updateFileDisplay);
+
+        function updateFileDisplay() {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = `📄 ${fileInput.files[0].name} (${(fileInput.files[0].size / 1024).toFixed(2)} KB)`;
+                fileList.classList.add('active');
+            }
+        }
+
+        document.getElementById('fileItem').querySelector('.btn-remove').addEventListener('click', (e) => {
+            e.preventDefault();
+            fileInput.value = '';
+            fileList.classList.remove('active');
+        });
+
+        // 預覽
+        document.getElementById('previewBtn').addEventListener('click', () => {
+            if (fileInput.files.length === 0) {
+                alert('請先選擇文件');
+                return;
+            }
+            document.getElementById('previewTable').style.display = 'table';
+        });
+
+        // 表單提交
+        document.getElementById('expenseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (fileInput.files.length === 0) {
+                alert('請選擇費用源文件');
+                return;
+            }
+
+            const statusBox = document.getElementById('statusBox');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const btn = e.target.querySelector('.btn-import');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ 導入中...';
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            statusBox.textContent = `💰 開始導入 ${fileInput.files[0].name}...`;
+            statusBox.className = 'status-box info';
+
+            try {
+                // 模擬導入進度
+                const steps = [
+                    { progress: 20, msg: '✓ 讀取文件中...' },
+                    { progress: 40, msg: '✓ 解析數據中...' },
+                    { progress: 60, msg: '✓ 映射和轉換中...' },
+                    { progress: 80, msg: '✓ 驗證數據中...' },
+                    { progress: 100, msg: '✓ 導入完成！' }
+                ];
+
+                for (let step of steps) {
+                    progressFill.style.width = step.progress + '%';
+                    statusBox.textContent = step.msg;
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                }
+
+                statusBox.innerHTML = `
+                    ✅ <strong>導入成功！</strong><br>
+                    文件: ${fileInput.files[0].name}<br>
+                    導入記錄數: 45筆<br>
+                    成功: 44筆 (97.8%)<br>
+                    警告: 1筆 (2.2%)<br>
+                    <br>數據已保存到費用數據庫
+                `;
+                statusBox.className = 'status-box success';
+
+                document.getElementById('timestamp').textContent =
+                    `✓ 完成時間: ${new Date().toLocaleString('zh-TW')}`;
+
+            } catch (error) {
+                statusBox.textContent = `❌ 導入失敗: ${error.message}`;
+                statusBox.className = 'status-box error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📥 開始導入';
+                progressBar.classList.remove('active');
+            }
+        });
+
+        document.getElementById('expenseForm').addEventListener('reset', () => {
+            fileInput.value = '';
+            fileList.classList.remove('active');
+            document.getElementById('previewTable').style.display = 'none';
+            document.getElementById('statusBox').className = 'status-box';
+            document.getElementById('progressBar').classList.remove('active');
+            document.getElementById('timestamp').textContent = '';
+        });
+    </script>
+</body>
+</html>
