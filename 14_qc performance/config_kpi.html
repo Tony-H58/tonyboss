@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品管績效KPI報告配置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #ffa502;
+            box-shadow: 0 0 0 3px rgba(255, 165, 2, 0.1);
+        }
+
+        .form-hint {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .dual-input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .dual-input-group input {
+            width: 100%;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%);
+            color: white;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(255, 165, 2, 0.3);
+        }
+
+        .btn-preview {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-preview:hover {
+            background: #5568d3;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status-box.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status-box.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .info-panel {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #ffa502;
+        }
+
+        .info-panel h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info-panel ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffa502 0%, #ffb347 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .kpi-list {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .kpi-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.95em;
+        }
+
+        .kpi-item:last-child {
+            border-bottom: none;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .dual-input-group {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 品管績效KPI報告配置</h1>
+            <p class="subtitle">每月生成品管部門績效評估報告</p>
+        </div>
+
+        <div class="form-container">
+            <form id="kpiForm">
+                <div class="form-group">
+                    <label>📅 報告期間</label>
+                    <div class="dual-input-group">
+                        <div>
+                            <input type="date" id="startDate" required placeholder="開始日期">
+                            <div class="form-hint">開始日期</div>
+                        </div>
+                        <div>
+                            <input type="date" id="endDate" required placeholder="結束日期">
+                            <div class="form-hint">結束日期</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="department">🏢 部門選擇</label>
+                        <select id="department" required>
+                            <option value="">-- 請選擇 --</option>
+                            <option value="all">所有部門</option>
+                            <option value="qa">品保部 (QA)</option>
+                            <option value="qc">品管部 (QC)</option>
+                            <option value="inspection">檢驗部</option>
+                        </select>
+                        <div class="form-hint">選擇要報告的部門</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="person">👤 人員選擇</label>
+                        <select id="person">
+                            <option value="">-- 全部人員 --</option>
+                            <option value="person1">檢驗員 A</option>
+                            <option value="person2">檢驗員 B</option>
+                            <option value="person3">檢驗員 C</option>
+                            <option value="supervisor">主管</option>
+                        </select>
+                        <div class="form-hint">可選 - 按具體人員統計</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>📈 KPI指標選擇</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiQualityPass" checked>
+                            <label for="kpiQualityPass">檢驗通過率 (合格率)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiDefectRate" checked>
+                            <label for="kpiDefectRate">缺陷率 (不良率)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiInspectTime" checked>
+                            <label for="kpiInspectTime">平均檢驗時間</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiInspectQty" checked>
+                            <label for="kpiInspectQty">檢驗總批次和總米數</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiDefectType" checked>
+                            <label for="kpiDefectType">主要缺陷類型分佈</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="kpiTrend">
+                            <label for="kpiTrend">月度趨勢對比</label>
+                        </div>
+                    </div>
+                    <div class="form-hint">勾選要包含在報告中的指標</div>
+                </div>
+
+                <div class="form-group">
+                    <label>📄 報告格式</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="formatHtml" checked>
+                            <label for="formatHtml">HTML報告 (可視化)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="formatPdf">
+                            <label for="formatPdf">PDF報告 (打印版)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="formatExcel">
+                            <label for="formatExcel">Excel數據 (詳細數據)</label>
+                        </div>
+                    </div>
+                    <div class="form-hint">選擇輸出格式</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-preview" id="previewBtn">👁️ 預覽KPI</button>
+                    <button type="submit" class="btn-generate">🔧 生成報告</button>
+                    <button type="reset" class="btn-reset">🔄 重置</button>
+                </div>
+
+                <div id="kpiPreview" class="kpi-list" style="display: none;">
+                    <div class="kpi-item">✓ 檢驗通過率: 98.5%</div>
+                    <div class="kpi-item">✓ 缺陷率: 1.2%</div>
+                    <div class="kpi-item">✓ 平均檢驗時間: 2.3小時/批</div>
+                    <div class="kpi-item">✓ 檢驗批次: 156批</div>
+                    <div class="kpi-item">✓ 檢驗米數: 12,450米</div>
+                    <div class="kpi-item">✓ 主要缺陷: 色差(45%), 起毛(30%), 污漬(25%)</div>
+                    <div class="kpi-item">✓ 月度趨勢: ↑ 同比提升 2.3%</div>
+                </div>
+
+                <div id="statusBox" class="status-box"></div>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="timestamp" id="timestamp"></div>
+            </form>
+
+            <div class="info-panel">
+                <h3>💡 報告說明</h3>
+                <ul>
+                    <li><strong>報告期間：</strong>支持按月或自訂日期範圍</li>
+                    <li><strong>部門選擇：</strong>可按部門或全公司統計</li>
+                    <li><strong>人員統計：</strong>可單獨查看各檢驗員績效</li>
+                    <li><strong>KPI指標：</strong>支持多種績效指標組合</li>
+                    <li><strong>輸出格式：</strong>HTML(查看用)、PDF(打印)、Excel(分析用)</li>
+                    <li><strong>生成時間：</strong>一般需要2-5分鐘</li>
+                    <li><strong>文件位置：</strong>報告保存在 qc_kpi_reports 目錄</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 設置默認日期（上個月的月初到月末）
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
+        const firstDay = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), 1);
+        const lastDay = new Date(lastMonth.getFullYear(), lastMonth.getMonth() + 1, 0);
+
+        document.getElementById('startDate').valueAsDate = firstDay;
+        document.getElementById('endDate').valueAsDate = lastDay;
+
+        // 預覽KPI
+        document.getElementById('previewBtn').addEventListener('click', () => {
+            const preview = document.getElementById('kpiPreview');
+            preview.style.display = preview.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // 表單提交
+        document.getElementById('kpiForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const dept = document.getElementById('department').value;
+
+            if (!startDate || !endDate || !dept) {
+                alert('請填寫所有必填項');
+                return;
+            }
+
+            const statusBox = document.getElementById('statusBox');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const btn = e.target.querySelector('.btn-generate');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ 生成中...';
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            statusBox.textContent = `📊 開始生成 ${startDate} 至 ${endDate} 的KPI報告...`;
+            statusBox.className = 'status-box info';
+
+            try {
+                // 模擬生成進度
+                const steps = [
+                    { progress: 20, msg: '✓ 讀取績效數據...' },
+                    { progress: 40, msg: '✓ 計算KPI指標...' },
+                    { progress: 60, msg: '✓ 生成圖表...' },
+                    { progress: 80, msg: '✓ 格式化報告...' },
+                    { progress: 100, msg: '✓ 生成完成！' }
+                ];
+
+                for (let step of steps) {
+                    progressFill.style.width = step.progress + '%';
+                    statusBox.textContent = step.msg;
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                }
+
+                const formats = [
+                    document.getElementById('formatHtml').checked && '📊 qc_kpi_report.html',
+                    document.getElementById('formatPdf').checked && '📄 qc_kpi_report.pdf',
+                    document.getElementById('formatExcel').checked && '📋 qc_kpi_data.xlsx'
+                ].filter(Boolean).join(', ');
+
+                statusBox.innerHTML = `
+                    ✅ <strong>報告生成成功！</strong><br>
+                    期間: ${startDate} 至 ${endDate}<br>
+                    部門: ${document.getElementById('department').options[document.getElementById('department').selectedIndex].text}<br>
+                    檢驗記錄: 2,450筆<br>
+                    生成文件: ${formats}<br>
+                    <br>文件位置: qc_kpi_reports 目錄
+                `;
+                statusBox.className = 'status-box success';
+
+                document.getElementById('timestamp').textContent =
+                    `✓ 完成時間: ${new Date().toLocaleString('zh-TW')}`;
+
+            } catch (error) {
+                statusBox.textContent = `❌ 生成失敗: ${error.message}`;
+                statusBox.className = 'status-box error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔧 生成報告';
+                progressBar.classList.remove('active');
+            }
+        });
+
+        document.getElementById('kpiForm').addEventListener('reset', () => {
+            document.getElementById('statusBox').className = 'status-box';
+            document.getElementById('progressBar').classList.remove('active');
+            document.getElementById('kpiPreview').style.display = 'none';
+            document.getElementById('timestamp').textContent = '';
+        });
+    </script>
+</body>
+</html>

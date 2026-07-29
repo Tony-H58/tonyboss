@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>驗布系統 - 檢驗管理平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar-item {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            transition: opacity 0.3s;
+        }
+
+        .navbar-item:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .welcome-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .welcome-section p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            color: #333;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .feature-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .feature-link:hover {
+            transform: translateX(5px);
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .quick-actions {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05em;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .action-btn.secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .info-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .navbar h1 {
+                justify-content: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🏭 驗布系統 - 檢驗管理平台</h1>
+        <div class="navbar-right">
+            <span id="currentTime"></span>
+            <a href="#" class="navbar-item">👤 用戶</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h2>歡迎使用驗布系統</h2>
+            <p>這是一個完整的織布檢驗管理系統，支持檢驗記錄輸入、數據查詢、統計分析和報表生成。</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">8,450</span>
+                    <span class="stat-label">本月檢驗批次</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">125,800</span>
+                    <span class="stat-label">本月檢驗米數</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">98.6%</span>
+                    <span class="stat-label">檢驗合格率</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1.2%</span>
+                    <span class="stat-label">平均缺陷率</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">⚡ 快速操作</h2>
+        <div class="quick-actions">
+            <div class="action-grid">
+                <button class="action-btn" onclick="openModule('input')">📝 新增檢驗記錄</button>
+                <button class="action-btn" onclick="openModule('search')">🔍 查詢檢驗數據</button>
+                <button class="action-btn" onclick="openModule('report')">📊 生成統計報表</button>
+                <button class="action-btn secondary" onclick="openModule('export')">💾 數據導出</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">🎯 主要功能模塊</h2>
+        <div class="feature-grid">
+            <div class="feature-card" onclick="openModule('input')">
+                <span class="feature-icon">📝</span>
+                <div class="feature-title">檢驗記錄輸入</div>
+                <div class="feature-desc">輸入新的檢驗記錄，支持批量導入和自動計算。</div>
+                <a href="#input" class="feature-link">進入模塊 →</a>
+            </div>
+
+            <div class="feature-card" onclick="openModule('search')">
+                <span class="feature-icon">🔍</span>
+                <div class="feature-title">數據查詢檢索</div>
+                <div class="feature-desc">按批次、日期、產線等條件快速查詢檢驗數據。</div>
+                <a href="#search" class="feature-link">進入模塊 →</a>
+            </div>
+
+            <div class="feature-card" onclick="openModule('analysis')">
+                <span class="feature-icon">📊</span>
+                <div class="feature-title">統計分析</div>
+                <div class="feature-desc">生成各類統計圖表，分析品質趨勢和瑕疵分佈。</div>
+                <a href="#analysis" class="feature-link">進入模塊 →</a>
+            </div>
+
+            <div class="feature-card" onclick="openModule('report')">
+                <span class="feature-icon">📄</span>
+                <div class="feature-title">報表生成</div>
+                <div class="feature-desc">自動生成日報、週報、月報等各類檢驗報告。</div>
+                <a href="#report" class="feature-link">進入模塊 →</a>
+            </div>
+
+            <div class="feature-card" onclick="openModule('quality')">
+                <span class="feature-icon">✓</span>
+                <div class="feature-title">品質管理</div>
+                <div class="feature-desc">瑕疵分類管理、不良原因分析、改進追蹤。</div>
+                <a href="#quality" class="feature-link">進入模塊 →</a>
+            </div>
+
+            <div class="feature-card" onclick="openModule('setting')">
+                <span class="feature-icon">⚙️</span>
+                <div class="feature-title">系統設置</div>
+                <div class="feature-desc">配置檢驗標準、用戶權限、系統參數等。</div>
+                <a href="#setting" class="feature-link">進入模塊 →</a>
+            </div>
+        </div>
+
+        <div class="info-boxes">
+            <div class="info-box">
+                <h3>📌 使用指南</h3>
+                <ul>
+                    <li>首先在「檢驗記錄輸入」模塊輸入檢驗數據</li>
+                    <li>使用「數據查詢」功能快速定位記錄</li>
+                    <li>在「統計分析」模塊查看數據趨勢</li>
+                    <li>使用「報表生成」生成正式報告</li>
+                    <li>定期在「品質管理」模塊進行改進跟進</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 常用快捷鍵</h3>
+                <ul>
+                    <li><strong>Ctrl + N</strong> - 新增檢驗記錄</li>
+                    <li><strong>Ctrl + F</strong> - 打開查詢面板</li>
+                    <li><strong>Ctrl + E</strong> - 導出數據</li>
+                    <li><strong>Ctrl + P</strong> - 打印報表</li>
+                    <li><strong>Ctrl + S</strong> - 保存數據</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>⚠️ 重要提醒</h3>
+                <ul>
+                    <li>每日檢驗記錄請在當天下班前提交</li>
+                    <li>缺陷記錄需要附帶清晰照片或備註</li>
+                    <li>每週五下午自動生成週報</li>
+                    <li>月末會進行數據備份，請勿刪除</li>
+                    <li>有問題請聯繫系統管理員</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>驗布系統 v2.0 | © 2024-2025 | 最後更新: <span id="lastUpdate">2024-11-28</span></p>
+    </div>
+
+    <script>
+        // 更新時間
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString('zh-TW', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 打開模塊
+        function openModule(module) {
+            const modules = {
+                'input': '檢驗記錄輸入',
+                'search': '數據查詢檢索',
+                'analysis': '統計分析',
+                'report': '報表生成',
+                'quality': '品質管理',
+                'export': '數據導出',
+                'setting': '系統設置'
+            };
+
+            const moduleName = modules[module] || module;
+            alert(`正在打開: ${moduleName}\n\n(完整模塊功能正在開發中...)`);
+        }
+
+        // 鍵盤快捷鍵
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey) {
+                switch(e.key.toLowerCase()) {
+                    case 'n':
+                        e.preventDefault();
+                        openModule('input');
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        openModule('search');
+                        break;
+                    case 'e':
+                        e.preventDefault();
+                        openModule('export');
+                        break;
+                    case 'p':
+                        e.preventDefault();
+                        window.print();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

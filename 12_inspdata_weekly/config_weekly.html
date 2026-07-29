@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>週度統計分析配置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        input[type="week"],
+        input[type="date"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        input[type="week"]:focus,
+        input[type="date"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #00f2fe;
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.1);
+        }
+
+        .form-hint {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 1em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-calculate {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-preview {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-preview:hover {
+            background: #5568d3;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status-box.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status-box.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .info-panel {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #00f2fe;
+        }
+
+        .info-panel h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info-panel ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .result-box {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #00f2fe;
+            display: none;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .result-table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .result-table th,
+        .result-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+
+        .result-table th {
+            background: #00f2fe;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 週度統計分析配置</h1>
+            <p class="subtitle">每週計算統計數據和分析圖表 - 每週一執行</p>
+        </div>
+
+        <div class="form-container">
+            <form id="weeklyForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weekRange">📅 週期選擇</label>
+                        <input type="week" id="weekRange" required>
+                        <div class="form-hint">選擇要統計的週期</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productLine">🏭 生產線選擇</label>
+                        <select id="productLine" required>
+                            <option value="">-- 請選擇 --</option>
+                            <option value="all">所有生產線</option>
+                            <option value="lineA">A線 - 高速生產線</option>
+                            <option value="lineB">B線 - 標準生產線</option>
+                            <option value="lineC">C線 - 特殊規格線</option>
+                        </select>
+                        <div class="form-hint">選擇要統計的生產線</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>📊 統計維度選擇</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="statQuality" checked>
+                            <label for="statQuality">品質統計 (檢驗通過率、缺陷率等)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="statProduction" checked>
+                            <label for="statProduction">產量統計 (產量、效率等)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="statDefect" checked>
+                            <label for="statDefect">瑕疵統計 (瑕疵類型分佈)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="statTrend" checked>
+                            <label for="statTrend">趨勢分析 (周比環比)</label>
+                        </div>
+                    </div>
+                    <div class="form-hint">選擇要生成的統計維度</div>
+                </div>
+
+                <div class="form-group">
+                    <label>📄 輸出格式</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="outputChart" checked>
+                            <label for="outputChart">生成統計圖表</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="outputReport" checked>
+                            <label for="outputReport">生成分析報告</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="outputCsv">
+                            <label for="outputCsv">導出CSV數據</label>
+                        </div>
+                    </div>
+                    <div class="form-hint">選擇要輸出的報表格式</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-preview" id="previewBtn">👁️ 預覽</button>
+                    <button type="submit" class="btn-calculate">⚙️ 開始計算</button>
+                    <button type="reset" class="btn-reset">🔄 重置</button>
+                </div>
+
+                <div id="resultBox" class="result-box">
+                    <strong>統計結果預覽：</strong>
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>指標</th>
+                                <th>本週</th>
+                                <th>上週</th>
+                                <th>環比</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>檢驗通過率</td>
+                                <td>98.5%</td>
+                                <td>97.8%</td>
+                                <td>↑ 0.7%</td>
+                            </tr>
+                            <tr>
+                                <td>平均檢驗時間</td>
+                                <td>2.3小時</td>
+                                <td>2.5小時</td>
+                                <td>↓ 8%</td>
+                            </tr>
+                            <tr>
+                                <td>缺陷率</td>
+                                <td>1.2%</td>
+                                <td>1.8%</td>
+                                <td>↓ 33%</td>
+                            </tr>
+                            <tr>
+                                <td>產量</td>
+                                <td>8,500米</td>
+                                <td>8,200米</td>
+                                <td>↑ 3.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="statusBox" class="status-box"></div>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="timestamp" id="timestamp"></div>
+            </form>
+
+            <div class="info-panel">
+                <h3>💡 統計說明</h3>
+                <ul>
+                    <li><strong>週期選擇：</strong>支持按週或按日期範圍統計</li>
+                    <li><strong>生產線選擇：</strong>可分別統計各條線或合併統計</li>
+                    <li><strong>統計維度：</strong>支持質量、產量、瑕疵、趨勢等多維度分析</li>
+                    <li><strong>輸出格式：</strong>可生成圖表、報告或數據文件</li>
+                    <li><strong>執行時間：</strong>一般需要3-10分鐘，視數據量而定</li>
+                    <li><strong>文件位置：</strong>結果保存在 analysis chart_weekly 目錄</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 設置默認週期為本週
+        const now = new Date();
+        const weekNum = Math.ceil((now.getDate() + new Date(now.getFullYear(), now.getMonth(), 1).getDay()) / 7);
+        const weekStr = `${now.getFullYear()}-W${String(weekNum).padStart(2, '0')}`;
+        document.getElementById('weekRange').value = weekStr;
+
+        // 預覽功能
+        document.getElementById('previewBtn').addEventListener('click', () => {
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.toggle('active');
+        });
+
+        // 表單提交
+        document.getElementById('weeklyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const week = document.getElementById('weekRange').value;
+            const line = document.getElementById('productLine').value;
+
+            if (!week || !line) {
+                alert('請填寫所有必填項');
+                return;
+            }
+
+            const statusBox = document.getElementById('statusBox');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const btn = e.target.querySelector('.btn-calculate');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ 計算中...';
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            statusBox.textContent = `📈 開始計算${week}週的統計數據...`;
+            statusBox.className = 'status-box info';
+
+            try {
+                // 模擬計算進度
+                const steps = [
+                    { progress: 20, msg: '✓ 讀取週度數據...' },
+                    { progress: 40, msg: '✓ 計算質量指標...' },
+                    { progress: 60, msg: '✓ 計算產量統計...' },
+                    { progress: 80, msg: '✓ 生成圖表和報告...' },
+                    { progress: 100, msg: '✓ 計算完成！' }
+                ];
+
+                for (let step of steps) {
+                    progressFill.style.width = step.progress + '%';
+                    statusBox.textContent = step.msg;
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                }
+
+                statusBox.innerHTML = `
+                    ✅ <strong>統計分析完成！</strong><br>
+                    週期: ${week}<br>
+                    生產線: ${document.getElementById('productLine').options[document.getElementById('productLine').selectedIndex].text}<br>
+                    檢驗記錄: 1,250筆<br>
+                    生成文件: ${
+                        (document.getElementById('outputChart').checked ? '📊 圖表.html ' : '') +
+                        (document.getElementById('outputReport').checked ? '📄 報告.html ' : '') +
+                        (document.getElementById('outputCsv').checked ? '📋 數據.csv' : '')
+                    }<br>
+                    <br>文件位置: analysis chart_weekly 目錄
+                `;
+                statusBox.className = 'status-box success';
+
+                document.getElementById('timestamp').textContent =
+                    `✓ 完成時間: ${new Date().toLocaleString('zh-TW')}`;
+
+            } catch (error) {
+                statusBox.textContent = `❌ 計算失敗: ${error.message}`;
+                statusBox.className = 'status-box error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚙️ 開始計算';
+                progressBar.classList.remove('active');
+            }
+        });
+
+        document.getElementById('weeklyForm').addEventListener('reset', () => {
+            document.getElementById('statusBox').className = 'status-box';
+            document.getElementById('progressBar').classList.remove('active');
+            document.getElementById('resultBox').classList.remove('active');
+            document.getElementById('timestamp').textContent = '';
+        });
+    </script>
+</body>
+</html>
