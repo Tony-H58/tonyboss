@@ -40,3 +40,6 @@ venv/
 tmp/
 temp/
 *.bak
+
+# Installers
+*.exe
