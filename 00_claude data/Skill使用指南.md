@@ -313,15 +313,12 @@
 
 ---
 
-## ⚠️ 已知的路徑不一致
+## 📁 路徑
 
-| 位置 | 路徑 |
-|------|------|
-| 所有 ps1 / py 腳本 | `E:\88. Claude\` |
-| `.claude\settings.local.json` | `C:\88. Claude\` |
-| `.claude_sync\projects\` | `C--88--Claude` |
+一律以 `E:\88. Claude\` 為準（所有 ps1 / py 腳本、`.claude\settings.local.json` 皆已統一）。
 
-腳本以 `E:\` 為準。`settings.local.json` 的同步指令仍指向 `C:\`，搬移資料夾後未更新，需要時再修正。
+**例外**：`.claude_sync\projects\C--88--Claude\` 這個資料夾名保留 `C--` 前綴，
+因為它是資料夾還在 `C:\88. Claude` 時期同步下來的歷史記錄，改名反而會失去對應關係。
 
 ---
 
