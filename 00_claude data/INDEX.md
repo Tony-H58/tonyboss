@@ -1,6 +1,6 @@
 # 📚 00_claude data 資訊導航
 
-**最後更新**: 2026-06-24  
+**最後更新**: 2026-07-29  
 **管理者**: Tony Huang
 
 ---
@@ -21,13 +21,13 @@
 ---
 
 ### 📋 **Claude Skills 總表.md**
-官方 Claude Code Skill 參考，包含：
-- 所有可用 Skill 清單
-- Skill 功能說明
+Skill 總覽（⭐ 自訂 + 內建），包含：
+- 4 個本專案自訂 Skill 的觸發詞與涵蓋範圍
+- Claude Code 內建 Skill 清單與功能說明
 - 使用觸發條件
 
-**用途**: 了解 Claude 平台支援的全部 Skill  
-**更新頻率**: 按 Claude 更新  
+**用途**: 查詢某件事該用哪個 Skill  
+**更新頻率**: 新增/修改 Skill 時，或 Claude 更新時  
 **相關系統**: 通用
 
 ---
@@ -52,7 +52,7 @@
 
 **用途**: 處理發票與費用報銷時參考  
 **更新頻率**: 每季  
-**相關系統**: 21_electronic invoice, 22_qc expense
+**相關系統**: 31_electronic invoice, 21_qc expense chart, 22_import qc expense
 
 ---
 
@@ -62,10 +62,20 @@
 E:\88. Claude\00_claude data\
 ├── INDEX.md                           ← 本檔案（導航入口）
 ├── Skill使用指南.md                    ← ⭐ 核心工作流程指南
-├── Claude Skills 總表.md              ← 官方 Skill 參考
+├── Claude Skills 總表.md              ← Skill 總覽（自訂 + 內建）
 ├── 11_inspdata_monthly 筆記.md        ← 月度導入說明
 ├── 發票整理筆記.md                     ← 發票與費用管理
-└── .obsidian/                         ← Obsidian 配置（可選）
+└── tony筆記本\                        ← 個人筆記
+```
+
+### ⭐ 自訂 Skill 定義
+
+```
+E:\88. Claude\.claude\skills\
+├── weekly-report\SKILL.md      ← 週報完整流程
+├── monthly-import\SKILL.md     ← 月報完整流程
+├── qc-analysis\SKILL.md        ← 品質分析與 QC 績效
+└── invoice-transfer\SKILL.md   ← 平台發票辨識轉入
 ```
 
 ---
@@ -78,14 +88,15 @@ E:\88. Claude\00_claude data\
 3. 按流程步驟執行
 
 ### 常見任務
-| 任務 | 查看文檔 | 系統資料夾 |
-|------|--------|---------|
-| 週報/月報自動化 | Skill使用指南.md | 03_download rawdata |
-| 月度驗布導入 | 11_inspdata_monthly 筆記.md | 11_inspdata_monthly |
-| 發票管理 | 發票整理筆記.md | 21_electronic invoice |
-| 出差費用 | 發票整理筆記.md | 22_qc expense |
-| 品管儀表板 | Skill使用指南.md | 15_dashboard |
-| 品質分析 | Skill使用指南.md | 13_比對前後驗布記錄 |
+| 任務 | 查看文檔 | 系統資料夾 | Skill |
+|------|--------|---------|-------|
+| 週報自動化 | Skill使用指南.md | 03 → 12 | weekly-report |
+| 月度驗布導入 | 11_inspdata_monthly 筆記.md | 03 → 11 | monthly-import |
+| 發票管理 | 發票整理筆記.md | 31_electronic invoice | invoice-transfer |
+| 出差費用 | 發票整理筆記.md | 22_import qc expense | — |
+| 品管儀表板 | Skill使用指南.md | 15_dashboard | — |
+| 品質分析 | Skill使用指南.md | 13_compare style inspquality | qc-analysis |
+| QC 績效 | Skill使用指南.md | 14_qc performance | qc-analysis |
 
 ---
 
@@ -114,17 +125,22 @@ E:\88. Claude\00_claude data\
 ### 整體系統地圖
 ```
 E:\88. Claude\
-├── 00_claude data/          ← 你在這裡 📍
-├── 02_reminder/             ← 郵件與提醒
-├── 03_download rawdata/     ← 週報月報下載
-├── 11_inspdata_monthly/     ← 月度驗布導入
-├── 12_inspdata_weekly/      ← 週度驗布導入
-├── 13_比對前後驗布記錄/     ← 品質分析
-├── 14_qc performance/       ← 績效評估
-├── 15_dashboard/            ← 儀表板
-├── 21_electronic invoice/   ← 發票管理
-├── 22_qc expense/           ← 費用管理
-└── 23_fabric inspsystem/    ← 布料檢驗系統
+├── .claude/skills/               ← ⭐ 自訂 Skill 定義
+├── 00_claude data/               ← 你在這裡 📍
+├── 00_html file/                 ← HTML 產出
+├── 02_reminder/                  ← 郵件與提醒、排程
+├── 03_download rawdata/          ← 週報月報下載轉換
+├── 11_inspdata_monthly/          ← 月度驗布導入
+├── 12_inspdata_weekly/           ← 週度驗布導入
+├── 13_compare style inspquality/ ← 前後端比對分析
+├── 14_qc performance/            ← QC 績效評估
+├── 15_dashboard/                 ← 品管儀表板
+├── 21_qc expense chart/          ← 出差報銷單
+├── 22_import qc expense/         ← 差旅費導入
+├── 23_textile knowledge/         ← 紡織知識
+├── 24_fabric inspsystem/         ← 布料檢驗系統（FastAPI）
+├── 31_electronic invoice/        ← 平台發票管理
+└── 32_business trip report/      ← 訪廠簡報
 ```
 
 ### 外部參考
@@ -150,5 +166,5 @@ E:\88. Claude\
 
 ---
 
-**最後更新**: 2026-06-24 by Claude Code
+**最後更新**: 2026-07-29 by Claude Code
 
