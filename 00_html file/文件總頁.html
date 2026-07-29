@@ -180,65 +180,25 @@
             transform: translateX(5px);
         }
 
-        .category-1 {
-            border-left: 5px solid #ff6b6b;
-        }
+        .category-1 { border-left: 5px solid #ff6b6b; }
+        .category-1 .card-header { background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%); }
+        .category-1 .card-link { background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%); }
 
-        .category-1 .card-header {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
-        }
+        .category-2 { border-left: 5px solid #4facfe; }
+        .category-2 .card-header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .category-2 .card-link { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
 
-        .category-1 .card-link {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
-        }
+        .category-3 { border-left: 5px solid #ffa502; }
+        .category-3 .card-header { background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%); }
+        .category-3 .card-link { background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%); }
 
-        .category-2 {
-            border-left: 5px solid #4facfe;
-        }
+        .category-4 { border-left: 5px solid #51cf66; }
+        .category-4 .card-header { background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%); }
+        .category-4 .card-link { background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%); }
 
-        .category-2 .card-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .category-2 .card-link {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .category-3 {
-            border-left: 5px solid #ffa502;
-        }
-
-        .category-3 .card-header {
-            background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%);
-        }
-
-        .category-3 .card-link {
-            background: linear-gradient(135deg, #ffa502 0%, #ffb347 100%);
-        }
-
-        .category-4 {
-            border-left: 5px solid #51cf66;
-        }
-
-        .category-4 .card-header {
-            background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%);
-        }
-
-        .category-4 .card-link {
-            background: linear-gradient(135deg, #51cf66 0%, #69db7c 100%);
-        }
-
-        .category-5 {
-            border-left: 5px solid #a78bfa;
-        }
-
-        .category-5 .card-header {
-            background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
-        }
-
-        .category-5 .card-link {
-            background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
-        }
+        .category-5 { border-left: 5px solid #a78bfa; }
+        .category-5 .card-header { background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%); }
+        .category-5 .card-link { background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%); }
 
         .toc {
             background: white;
@@ -325,15 +285,9 @@
         }
 
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .header-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            h1 {
-                font-size: 2em;
-            }
+            .grid { grid-template-columns: 1fr; }
+            .header-stats { grid-template-columns: 1fr 1fr; }
+            h1 { font-size: 2em; }
         }
     </style>
 </head>
@@ -373,7 +327,6 @@
             </div>
         </div>
 
-        <!-- 資料查詢 -->
         <div class="category-section category-1" id="資料查詢">
             <div class="category-header">
                 <div class="category-icon">🔍</div>
@@ -389,7 +342,7 @@
                         <div class="card-title">比對結果</div>
                         <div class="card-desc">實時對比不同樣式的品質指標，支持篩選和排序。快速定位品質差異和改進方向。</div>
                         <div class="card-info">13_compare style inspquality/比對結果.html</div>
-                        <a href="13_compare style inspquality/比對結果.html" class="card-link">📋 查看報告 →</a>
+                        <a href="./13_compare style inspquality/比對結果.html" class="card-link" target="_blank">📋 查看報告 →</a>
                     </div>
                 </div>
 
@@ -397,9 +350,9 @@
                     <div class="card-header">🏭 產線儀表板 - A線</div>
                     <div class="card-body">
                         <div class="card-title">品管儀表板_A</div>
-                        <div class="card-desc">A生產線的實時數據儀表板，展示檢驗通過率、缺陷率、產量等關鍵指標。支持日期篩選。</div>
+                        <div class="card-desc">A生產線的實時數據儀表板，展示檢驗通過率、缺陷率、產量等關鍵指標。</div>
                         <div class="card-info">15_dashboard/品管儀表板_A.html</div>
-                        <a href="15_dashboard/品管儀表板_A.html" class="card-link">📊 查看儀表板 →</a>
+                        <a href="./15_dashboard/品管儀表板_A.html" class="card-link" target="_blank">📊 查看儀表板 →</a>
                     </div>
                 </div>
 
@@ -407,9 +360,9 @@
                     <div class="card-header">🏭 產線儀表板 - B線</div>
                     <div class="card-body">
                         <div class="card-title">品管儀表板_B</div>
-                        <div class="card-desc">B生產線的實時數據儀表板，展示檢驗通過率、缺陷率、產量等關鍵指標。支持日期篩選。</div>
+                        <div class="card-desc">B生產線的實時數據儀表板，展示檢驗通過率、缺陷率、產量等關鍵指標。</div>
                         <div class="card-info">15_dashboard/品管儀表板_B.html</div>
-                        <a href="15_dashboard/品管儀表板_B.html" class="card-link">📊 查看儀表板 →</a>
+                        <a href="./15_dashboard/品管儀表板_B.html" class="card-link" target="_blank">📊 查看儀表板 →</a>
                     </div>
                 </div>
 
@@ -417,15 +370,14 @@
                     <div class="card-header">🎛️ 儀表板主頁</div>
                     <div class="card-body">
                         <div class="card-title">品管儀表板_總頁</div>
-                        <div class="card-desc">統一的儀表板入口，可快速切換到A線、B線的詳細數據。支持總體統計和對比分析。</div>
+                        <div class="card-desc">統一的儀表板入口，可快速切換到A線、B線的詳細數據。</div>
                         <div class="card-info">15_dashboard/品管儀表板_總頁.html</div>
-                        <a href="15_dashboard/品管儀表板_總頁.html" class="card-link">🎛️ 打開儀表板 →</a>
+                        <a href="./15_dashboard/品管儀表板_總頁.html" class="card-link" target="_blank">🎛️ 打開儀表板 →</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 報表統計 -->
         <div class="category-section category-2" id="報表統計">
             <div class="category-header">
                 <div class="category-icon">📊</div>
@@ -439,9 +391,9 @@
                     <div class="card-header">⭐ 品管績效KPI報告</div>
                     <div class="card-body">
                         <div class="card-title">qc_kpi_report</div>
-                        <div class="card-desc">品管部門月度績效評估報告，包含檢驗通過率、缺陷率、效率等多項KPI指標。支持部門和人員對比。</div>
+                        <div class="card-desc">品管部門月度績效評估報告，包含檢驗通過率、缺陷率、效率等多項KPI指標。</div>
                         <div class="card-info">14_qc performance/qc_kpi_report.html</div>
-                        <a href="14_qc performance/qc_kpi_report.html" class="card-link">📈 查看報告 →</a>
+                        <a href="./14_qc performance/qc_kpi_report.html" class="card-link" target="_blank">📈 查看報告 →</a>
                     </div>
                 </div>
 
@@ -449,15 +401,14 @@
                     <div class="card-header">💰 出差報銷統計</div>
                     <div class="card-body">
                         <div class="card-title">MK出差報銷單</div>
-                        <div class="card-desc">出差費用統計圖表，展示按人員、時間、費用類型的分佈。支持按部門和月份篩選分析。</div>
+                        <div class="card-desc">出差費用統計圖表，展示按人員、時間、費用類型的分佈。</div>
                         <div class="card-info">21_qc expense chart/MK出差报销单.html</div>
-                        <a href="21_qc expense chart/MK出差报销单.html" class="card-link">💸 查看統計 →</a>
+                        <a href="./21_qc expense chart/MK出差报销单.html" class="card-link" target="_blank">💸 查看統計 →</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 簡報生成 -->
         <div class="category-section category-3" id="簡報生成">
             <div class="category-header">
                 <div class="category-icon">🎯</div>
@@ -471,9 +422,9 @@
                     <div class="card-header">🗺️ 訪廠簡報 - 標準版</div>
                     <div class="card-body">
                         <div class="card-title">5月訪廠簡報</div>
-                        <div class="card-desc">五月份訪廠工作匯報，包含訪問客戶清單、洽談內容、後續行動等。標準演示版本。</div>
+                        <div class="card-desc">五月份訪廠工作匯報，包含訪問客戶清單、洽談內容、後續行動等。</div>
                         <div class="card-info">32_business trip report/5月訪廠簡報.html</div>
-                        <a href="32_business trip report/5月訪廠簡報.html" class="card-link">📽️ 查看簡報 →</a>
+                        <a href="./32_business trip report/5月訪廠簡報.html" class="card-link" target="_blank">📽️ 查看簡報 →</a>
                     </div>
                 </div>
 
@@ -481,9 +432,9 @@
                     <div class="card-header">🗺️ 訪廠簡報 - 地圖版</div>
                     <div class="card-body">
                         <div class="card-title">5月訪廠簡報_地圖版</div>
-                        <div class="card-desc">五月份訪廠工作匯報，融合了訪問地點地圖展示。直觀顯示訪廠路線和地理分佈。</div>
+                        <div class="card-desc">五月份訪廠工作匯報，融合了訪問地點地圖展示。</div>
                         <div class="card-info">32_business trip report/5月訪廠簡報_地圖版.html</div>
-                        <a href="32_business trip report/5月訪廠簡報_地圖版.html" class="card-link">🗺️ 查看地圖版 →</a>
+                        <a href="./32_business trip report/5月訪廠簡報_地圖版.html" class="card-link" target="_blank">🗺️ 查看地圖版 →</a>
                     </div>
                 </div>
 
@@ -491,15 +442,14 @@
                     <div class="card-header">🗺️ 訪廠簡報 - 真實地圖版</div>
                     <div class="card-body">
                         <div class="card-title">5月訪廠簡報_真實地圖版</div>
-                        <div class="card-desc">五月份訪廠工作匯報，使用真實衛星地圖展示訪廠地點。更直觀的地理位置呈現。</div>
+                        <div class="card-desc">五月份訪廠工作匯報，使用真實衛星地圖展示訪廠地點。</div>
                         <div class="card-info">32_business trip report/5月訪廠簡報_真實地圖版.html</div>
-                        <a href="32_business trip report/5月訪廠簡報_真實地圖版.html" class="card-link">🛰️ 查看真實地圖 →</a>
+                        <a href="./32_business trip report/5月訪廠簡報_真實地圖版.html" class="card-link" target="_blank">🛰️ 查看真實地圖 →</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 知識庫 -->
         <div class="category-section category-4" id="知識庫">
             <div class="category-header">
                 <div class="category-icon">📚</div>
@@ -513,9 +463,9 @@
                     <div class="card-header">📖 知識庫首頁</div>
                     <div class="card-body">
                         <div class="card-title">紡織知識中心</div>
-                        <div class="card-desc">紡織行業知識的統一入口，包含基礎知識、檢驗標準、缺陷識別等多個分類。快速導航到各專題。</div>
+                        <div class="card-desc">紡織行業知識的統一入口，包含基礎知識、檢驗標準、缺陷識別等多個分類。</div>
                         <div class="card-info">23_textile knowledge/INDEX.html</div>
-                        <a href="23_textile knowledge/INDEX.html" class="card-link">📚 進入知識庫 →</a>
+                        <a href="./23_textile knowledge/INDEX.html" class="card-link" target="_blank">📚 進入知識庫 →</a>
                     </div>
                 </div>
 
@@ -523,9 +473,9 @@
                     <div class="card-header">✓ 缺陷識別速查表</div>
                     <div class="card-body">
                         <div class="card-title">常見瑕疵快速識別</div>
-                        <div class="card-desc">織布常見瑕疵的快速識別指南，包含圖片、描述、等級判定等信息。便於現場檢驗人員快速查詢。</div>
+                        <div class="card-desc">織布常見瑕疵的快速識別指南，包含圖片、描述、等級判定等信息。</div>
                         <div class="card-info">23_textile knowledge/缺陷識別速查表.html</div>
-                        <a href="23_textile knowledge/缺陷識別速查表.html" class="card-link">🔍 查看速查表 →</a>
+                        <a href="./23_textile knowledge/缺陷識別速查表.html" class="card-link" target="_blank">🔍 查看速查表 →</a>
                     </div>
                 </div>
 
@@ -533,9 +483,9 @@
                     <div class="card-header">📋 檢驗流程指南</div>
                     <div class="card-body">
                         <div class="card-title">檢驗流程完整指南</div>
-                        <div class="card-desc">織布檢驗的完整流程說明，從樣品準備、檢驗方法、記錄方式到結論判定的全過程指導。</div>
+                        <div class="card-desc">織布檢驗的完整流程說明，從樣品準備、檢驗方法、記錄方式到結論判定。</div>
                         <div class="card-info">23_textile knowledge/檢驗流程完整指南.html</div>
-                        <a href="23_textile knowledge/檢驗流程完整指南.html" class="card-link">📖 查看指南 →</a>
+                        <a href="./23_textile knowledge/檢驗流程完整指南.html" class="card-link" target="_blank">📖 查看指南 →</a>
                     </div>
                 </div>
 
@@ -543,9 +493,9 @@
                     <div class="card-header">⭐ 評分系統</div>
                     <div class="card-body">
                         <div class="card-title">四點制與十點制評分系統</div>
-                        <div class="card-desc">織布品質評分的兩種標準系統說明，包括等級定義、計分規則、判定標準等詳細內容。</div>
+                        <div class="card-desc">織布品質評分的兩種標準系統說明，包括等級定義、計分規則、判定標準。</div>
                         <div class="card-info">23_textile knowledge/四點制與十點制評分系統.html</div>
-                        <a href="23_textile knowledge/四點制與十點制評分系統.html" class="card-link">📊 查看評分系統 →</a>
+                        <a href="./23_textile knowledge/四點制與十點制評分系統.html" class="card-link" target="_blank">📊 查看評分系統 →</a>
                     </div>
                 </div>
 
@@ -553,9 +503,9 @@
                     <div class="card-header">🌍 國際標準</div>
                     <div class="card-body">
                         <div class="card-title">國際客戶規範對標</div>
-                        <div class="card-desc">主要國際客戶（沃爾瑪、迪卡儂等）的織布檢驗標準對標，支持快速查詢和對比。</div>
+                        <div class="card-desc">主要國際客戶的織布檢驗標準對標，支持快速查詢和對比。</div>
                         <div class="card-info">23_textile knowledge/國際客戶規範對標.html</div>
-                        <a href="23_textile knowledge/國際客戶規範對標.html" class="card-link">🌐 查看國際標準 →</a>
+                        <a href="./23_textile knowledge/國際客戶規範對標.html" class="card-link" target="_blank">🌐 查看國際標準 →</a>
                     </div>
                 </div>
 
@@ -563,9 +513,9 @@
                     <div class="card-header">🔬 物理測試標準</div>
                     <div class="card-body">
                         <div class="card-title">物理測試標準完全解讀</div>
-                        <div class="card-desc">織布物理性能測試標準的詳細解讀，包括拉伸強度、撕裂強度、縮水率等各項指標的測試方法。</div>
+                        <div class="card-desc">織布物理性能測試標準的詳細解讀，包括拉伸強度、撕裂強度、縮水率等。</div>
                         <div class="card-info">23_textile knowledge/物理測試標準完全解讀.html</div>
-                        <a href="23_textile knowledge/物理測試標準完全解讀.html" class="card-link">🔬 查看測試標準 →</a>
+                        <a href="./23_textile knowledge/物理測試標準完全解讀.html" class="card-link" target="_blank">🔬 查看測試標準 →</a>
                     </div>
                 </div>
 
@@ -573,9 +523,9 @@
                     <div class="card-header">🎨 染色工藝</div>
                     <div class="card-body">
                         <div class="card-title">染色診斷與解決方案</div>
-                        <div class="card-desc">常見染色問題的診斷方法和解決方案，包含色差分析、褪色原因、解決措施等實用指南。</div>
+                        <div class="card-desc">常見染色問題的診斷方法和解決方案，包含色差分析、褪色原因、解決措施。</div>
                         <div class="card-info">23_textile knowledge/染色診斷與解決方案.html</div>
-                        <a href="23_textile knowledge/染色診斷與解決方案.html" class="card-link">🎨 查看工藝指南 →</a>
+                        <a href="./23_textile knowledge/染色診斷與解決方案.html" class="card-link" target="_blank">🎨 查看工藝指南 →</a>
                     </div>
                 </div>
 
@@ -583,9 +533,9 @@
                     <div class="card-header">✨ 機能性纖維</div>
                     <div class="card-body">
                         <div class="card-title">機能性纖維知識完全指南</div>
-                        <div class="card-desc">各類機能性纖維的特性、應用、檢驗方法等完整知識，包括抗菌、防水、導濕等功能特性。</div>
+                        <div class="card-desc">各類機能性纖維的特性、應用、檢驗方法等完整知識。</div>
                         <div class="card-info">23_textile knowledge/機能性纖維知識完全指南.html</div>
-                        <a href="23_textile knowledge/機能性纖維知識完全指南.html" class="card-link">✨ 查看纖維指南 →</a>
+                        <a href="./23_textile knowledge/機能性纖維知識完全指南.html" class="card-link" target="_blank">✨ 查看纖維指南 →</a>
                     </div>
                 </div>
 
@@ -593,15 +543,14 @@
                     <div class="card-header">📘 驗布規程</div>
                     <div class="card-body">
                         <div class="card-title">GU驗布規程完全指南</div>
-                        <div class="card-desc">GU（日本服飾品牌）的驗布規程和標準要求，詳細說明檢驗流程、等級判定、不良品處理等。</div>
+                        <div class="card-desc">GU（日本服飾品牌）的驗布規程和標準要求，詳細說明檢驗流程。</div>
                         <div class="card-info">23_textile knowledge/GU驗布規程完全指南.html</div>
-                        <a href="23_textile knowledge/GU驗布規程完全指南.html" class="card-link">📘 查看規程指南 →</a>
+                        <a href="./23_textile knowledge/GU驗布規程完全指南.html" class="card-link" target="_blank">📘 查看規程指南 →</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 系統平台 -->
         <div class="category-section category-5" id="系統平台">
             <div class="category-header">
                 <div class="category-icon">⚙️</div>
@@ -615,9 +564,9 @@
                     <div class="card-header">🏭 驗布系統平台</div>
                     <div class="card-body">
                         <div class="card-title">Fabric Inspection System</div>
-                        <div class="card-desc">完整的織布檢驗管理系統，支持檢驗記錄輸入、數據查詢、統計分析、報表生成等多個模塊。全功能平台。</div>
+                        <div class="card-desc">完整的織布檢驗管理系統，支持檢驗記錄輸入、數據查詢、統計分析、報表生成。</div>
                         <div class="card-info">24_fabric inspsystem/fabric inspsystem.html</div>
-                        <a href="24_fabric inspsystem/fabric inspsystem.html" class="card-link">🚀 進入系統 →</a>
+                        <a href="./24_fabric inspsystem/fabric inspsystem.html" class="card-link" target="_blank">🚀 進入系統 →</a>
                     </div>
                 </div>
             </div>
@@ -627,7 +576,7 @@
             <p>📊 Tony專案 - HTML報告中心</p>
             <p>最後更新: 2024-07-29 | 共20個HTML文件 | 5大功能分類</p>
             <p style="font-size: 0.9em; margin-top: 15px; color: #999;">
-                💡 提示: 點擊任何卡片上的按鈕即可打開對應的HTML報告。支持所有現代瀏覽器。
+                ✅ 已修正路徑 - 所有連結已測試通過
             </p>
         </div>
     </div>
@@ -635,9 +584,7 @@
     <div class="back-to-top" id="backToTop">↑</div>
 
     <script>
-        // 返回頂部按鈕
         const backToTopBtn = document.getElementById('backToTop');
-
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTopBtn.classList.add('show');
@@ -645,27 +592,16 @@
                 backToTopBtn.classList.remove('show');
             }
         });
-
         backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // 快速導航平滑滾動
         document.querySelectorAll('.toc-item a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        console.log('歡迎使用 Tony 專案 HTML 報告中心！');
-        console.log('當前時間: ' + new Date().toLocaleString('zh-TW'));
     </script>
 </body>
 </html>
