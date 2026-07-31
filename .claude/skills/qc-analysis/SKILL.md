@@ -36,8 +36,13 @@ python 比對.py
 
 | 檔案 | 說明 |
 |------|------|
-| `13_compare style inspquality\00_analysis data.xlsx` | 比對明細資料 |
-| `13_compare style inspquality\compare_result.html` | 比對結果報告（腳本會自動開瀏覽器） |
+| `13_compare style inspquality\00_analysis data.xlsx` | 比對明細資料（主檔） |
+| `13_compare style inspquality\compare_result.html` | 比對結果報告（主檔，腳本會自動開瀏覽器） |
+| `00_html file\13_compare style inspquality\compare_result.html` | 副本——**僅在使用者明確說「儲存」時**才複製，需加 `--save` |
+
+```powershell
+python 比對.py "<款號或採購單號>" "<月份>" --save
+```
 
 ### 比對欄位
 
@@ -67,10 +72,14 @@ python qc_kpi_final.py
 ### 產出
 
 ```
-E:\88. Claude\14_qc performance\qc_kpi_report.html
+E:\88. Claude\14_qc performance\qc_kpi_report.html   ← 主檔
 ```
 
-腳本另外會做一份備份檔。
+副本備份在 `00_html file\14_qc performance\qc_kpi_report.html`——**僅在使用者明確說「儲存」時**才複製，需加 `--save`：
+
+```powershell
+python qc_kpi_final.py "26-1~26-6" --save
+```
 
 ### 計分邏輯
 
@@ -101,3 +110,4 @@ E:\88. Claude\14_qc performance\qc_kpi_report.html
 - `比對.py` 會呼叫 `webbrowser` 自動開啟結果，在無 GUI 環境（如遠端 session）會失敗，
   但 HTML 檔仍會正常產生。
 - 輸出檔每次執行都會**覆蓋**，需要保留就先另存。
+- 兩支腳本預設只寫主檔；只有使用者說「儲存」才加 `--save` 一併複製副本到 `00_html file\`。

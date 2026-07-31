@@ -1,10 +1,25 @@
 # Claude Skills 使用指南
 
-**最後更新**: 2026-07-29  
+**最後更新**: 2026-07-31  
 **維護者**: Tony Huang
 
 > 本指南只列**實際存在**的 skill 與**實際存在**的腳本。
 > 自訂 skill 定義在 `E:\88. Claude\.claude\skills\<名稱>\SKILL.md`。
+
+---
+
+## ⚠️ 全域規則：儲存行為
+
+執行任何 skill 或工作時，**預設只寫入/更新主檔**（工作的主要輸出檔案，如記錄檔、QF 檔、報告檔）。
+
+**副檔、備份檔、進度筆記、其他文件筆記本**（如 `發票整理筆記.md`、`11_inspdata_monthly 筆記.md`、
+`tony筆記本` 等）**不主動更新**——只有使用者在對話中明確說「**儲存**」時，才連同這些檔案一起寫入/更新。
+
+適用於所有自訂 skill（weekly-report、monthly-import、qc-analysis、invoice-transfer）與一般操作。
+
+**範例（qc-analysis）**：`比對.py`／`qc_kpi_final.py` 預設只寫主檔 HTML
+（`compare_result.html`、`qc_kpi_report.html`），複製到 `00_html file\` 的副本
+是主檔 HTML 的備份，只有加 `--save` 參數（使用者說「儲存」時才加）才會複製。
 
 ---
 
@@ -257,13 +272,13 @@
    ↓
 2. 解壓 xl/media/ 取圖 → 批量辨識 → 計算未稅
    ↓
-3. 一次性寫入發票整理記錄
+3. 一次性寫入發票整理記錄（主檔）
    ↓
 4. 二次讀圖驗證，有差異修正到正確
    ↓
 5. 套格式 → 清暫存 → 全工作表完成才搬到 completed rawdata
    ↓
-6. 更新 發票整理筆記.md 進度表
+6. （使用者說「儲存」時才執行）更新 發票整理筆記.md 進度表
 ```
 
 ---
