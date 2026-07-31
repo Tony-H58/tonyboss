@@ -17,6 +17,10 @@
 
 適用於所有自訂 skill（weekly-report、monthly-import、qc-analysis、invoice-transfer）與一般操作。
 
+**範例（qc-analysis）**：`比對.py`／`qc_kpi_final.py` 預設只寫主檔 HTML
+（`compare_result.html`、`qc_kpi_report.html`），複製到 `00_html file\` 的副本
+是主檔 HTML 的備份，只有加 `--save` 參數（使用者說「儲存」時才加）才會複製。
+
 ---
 
 ## 📋 目錄

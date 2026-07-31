@@ -384,7 +384,7 @@ def generate_html(kpi_df):
 
     return html
 
-def main(year_month=None):
+def main(year_month=None, save_backup=False):
     print("="*60)
     print("QC Performance KPI Analysis System")
     print("="*60)
@@ -424,20 +424,27 @@ def main(year_month=None):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    # Copy to 00_html file/14_qc performance
-    try:
-        import shutil
-        backup_dir = r"E:\88. Claude\00_html file\14_qc performance"
-        os.makedirs(backup_dir, exist_ok=True)
-        backup_path = os.path.join(backup_dir, 'qc_kpi_report.html')
-        shutil.copy2(output_file, backup_path)
-        print(f"\nOK - Report saved:")
-        print(f"  {output_file}")
-        print(f"  {backup_path}")
-    except Exception as e:
-        print(f"Copy failed: {e}")
+    print(f"\nOK - Report saved:")
+    print(f"  {output_file}")
+
+    # Copy to 00_html file/14_qc performance (backup copy — only when explicitly requested)
+    if save_backup:
+        try:
+            import shutil
+            backup_dir = r"E:\88. Claude\00_html file\14_qc performance"
+            os.makedirs(backup_dir, exist_ok=True)
+            backup_path = os.path.join(backup_dir, 'qc_kpi_report.html')
+            shutil.copy2(output_file, backup_path)
+            print(f"  {backup_path}")
+        except Exception as e:
+            print(f"Copy failed: {e}")
+    else:
+        print("  (skipped backup copy to 00_html file — pass --save to copy)")
 
 if __name__ == '__main__':
     import sys
-    year_month = sys.argv[1] if len(sys.argv) > 1 else None
-    main(year_month)
+    args = sys.argv[1:]
+    save_backup = '--save' in args
+    args = [a for a in args if a != '--save']
+    year_month = args[0] if args else None
+    main(year_month, save_backup=save_backup)

@@ -126,9 +126,13 @@ print("品管 vs 工廠比對工具")
 print("="*50 + "\n")
 
 # 输入条件 - 支持命令行参数或交互式输入
-if len(sys.argv) > 2:
-    query = sys.argv[1]
-    month_input = sys.argv[2]
+cli_args = sys.argv[1:]
+save_backup = '--save' in cli_args
+cli_args = [a for a in cli_args if a != '--save']
+
+if len(cli_args) >= 2:
+    query = cli_args[0]
+    month_input = cli_args[1]
 else:
     query = input("款號或採購單號 (如 MS6FK213R_FA26 或 TMKF-26-04485): ").strip()
     month_input = input("月份 (如 5月): ").strip()
@@ -271,16 +275,19 @@ with open(html_path, 'w', encoding='utf-8') as f:
 
 print(f"已生成: {html_path}\n")
 
-# 自動複製到 00_html file/13_compare style inspquality/
-try:
-    import shutil
-    backup_dir = r"E:\88. Claude\00_html file\13_compare style inspquality"
-    os.makedirs(backup_dir, exist_ok=True)
-    backup_path = os.path.join(backup_dir, "compare_result.html")
-    shutil.copy2(html_path, backup_path)
-    print(f"✓ 已複製到: {backup_path}\n")
-except Exception as e:
-    print(f"⚠ 複製失敗: {e}\n")
+# 複製到 00_html file/13_compare style inspquality/（副本，僅在使用者說「儲存」時才複製）
+if save_backup:
+    try:
+        import shutil
+        backup_dir = r"E:\88. Claude\00_html file\13_compare style inspquality"
+        os.makedirs(backup_dir, exist_ok=True)
+        backup_path = os.path.join(backup_dir, "compare_result.html")
+        shutil.copy2(html_path, backup_path)
+        print(f"✓ 已複製到: {backup_path}\n")
+    except Exception as e:
+        print(f"⚠ 複製失敗: {e}\n")
+else:
+    print("（未加 --save，跳過複製到 00_html file 副本；主檔已寫入）\n")
 
 webbrowser.open(f'file:///{html_path}')
 
