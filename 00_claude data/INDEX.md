@@ -68,14 +68,19 @@ E:\88. Claude\00_claude data\
 └── tony筆記本\                        ← 個人筆記
 ```
 
-### ⭐ 自訂 Skill 定義
+### ⭐ 自訂 Skill 定義（9 個）
 
 ```
 E:\88. Claude\.claude\skills\
-├── weekly-report\SKILL.md      ← 週報完整流程
-├── monthly-import\SKILL.md     ← 月報完整流程
-├── qc-analysis\SKILL.md        ← 品質分析與 QC 績效
-└── invoice-transfer\SKILL.md   ← 平台發票辨識轉入
+├── weekly-report\SKILL.md           ← 週報完整流程
+├── monthly-import\SKILL.md          ← 月報完整流程
+├── qc-analysis\SKILL.md             ← 品質分析與 QC 績效
+├── invoice-transfer\SKILL.md        ← 平台發票辨識轉入
+├── dashboard-qc\SKILL.md            ← 品管儀表板查看與管理 ⭐ 新增
+├── download-checker\SKILL.md        ← 週報月報下載監控 ⭐ 新增
+├── fabric-inspection-system\SKILL.md ← 布料檢驗 Web 系統 ⭐ 新增
+├── thumbnail-html-embed\SKILL.md    ← HTML 縮圖最佳實踐 ⭐ 新增
+└── qc-expense-management\SKILL.md   ← QC 費用與報銷管理 ⭐ 新增
 ```
 
 ---
