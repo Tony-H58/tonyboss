@@ -279,9 +279,204 @@ async function createThumbnails(sourceDir, outputDir, width = 600, height = 450)
 createThumbnails('./original', './thumbnails');
 ```
 
+## 十一、常見問題排除
+
+| 問題 | 原因 | 解決方案 |
+|------|------|---------|
+| 縮圖不顯示 | 路徑錯誤 | 檢查 `src` 是否相對於 HTML 檔位置 |
+| 縮圖模糊 | 原始圖過小 | 使用 ≥ 600px 寬的圖片 |
+| 縮圖被裁切 | `object-fit: cover` 導致 | 改用 `contain` 或調整容器比例 |
+| 載入緩慢 | 檔案過大 | 壓縮至 50-150KB |
+| 手機版排版亂 | CSS 不響應式 | 添加 `@media` 查詢 |
+| WebP 不支援 | 舊瀏覽器 | 使用 `<picture>` 提供後備 |
+| 色彩不符 | 色彩空間不對 | 確保 sRGB，避免 CMYK |
+| 比例不一致 | 原始圖長寬比不同 | 統一至 4:3 或 16:9 |
+
+## 十二、快速故障排除流程
+
+### 縮圖不顯示？
+
+```html
+<!-- 開發者工具診斷 (F12) -->
+
+1. 檢查 Network 分頁
+   → 右鍵檢查元素
+   → 查看 src 屬性的完整路徑
+
+2. 檢查 Console 分頁
+   → 是否有 404 或跨域錯誤？
+
+3. 驗證檔案存在
+   → 在檔案管理器中導航到該路徑
+   → 確認檔案確實存在
+
+4. 測試相對路徑
+   → HTML: E:\project\index.html
+   → 圖片: E:\project\images\thumb.jpg
+   → src="images/thumb.jpg" ✅
+   → src="/images/thumb.jpg" ❌ (絕對路徑)
+```
+
+### 載入緩慢？
+
+```
+1. 打開瀏覽器開發者工具 (F12)
+   → Performance 分頁
+   → 點「錄製」→ 重載頁面 → 停止
+
+2. 查看圖片載入時間
+   → 若某張圖超過 2 秒
+   → 該圖需壓縮
+
+3. 使用線上工具檢查
+   → https://tinypng.com
+   → https://squoosh.app
+   → 目標：將 300KB 壓至 80KB
+```
+
+## 十三、實際應用範例
+
+### 範例 1：電商產品格子
+
+```html
+<div class="product-grid">
+  <article class="product-card">
+    <div class="image-container">
+      <picture>
+        <source srcset="product-thumb.webp" type="image/webp" />
+        <img src="product-thumb.jpg" alt="產品名稱" loading="lazy" />
+      </picture>
+    </div>
+    <h3>產品名稱</h3>
+    <p class="price">$99.99</p>
+    <button>加入購物車</button>
+  </article>
+</div>
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .image-container {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+```
+
+### 範例 2：部落格文章卡片
+
+```html
+<article class="blog-card">
+  <div class="thumbnail">
+    <img src="blog-thumb-400w.jpg" 
+         srcset="blog-thumb-600w.jpg 600w, 
+                 blog-thumb-900w.jpg 900w"
+         sizes="(max-width: 600px) 100vw, 50vw"
+         alt="文章預覽圖" />
+    <span class="date-badge">2026/08/05</span>
+  </div>
+  
+  <div class="content">
+    <h2>文章標題</h2>
+    <p>文章摘要...</p>
+    <a href="/article" class="read-more">閱讀更多 →</a>
+  </div>
+</article>
+
+<style>
+  .blog-card {
+    display: flex;
+    gap: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  
+  .thumbnail {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .date-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .blog-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+</style>
+```
+
+## 十四、效能檢查清單
+
+部署前檢查以下項目：
+
+- [ ] **圖片大小** — 每個縮圖 < 150KB
+- [ ] **解析度** — 寬度至少 600px（2x 高 DPI）
+- [ ] **格式** — 優先 WebP，備用 JPG / PNG
+- [ ] **Alt 文字** — 所有圖片都有描述性 `alt` 屬性
+- [ ] **響應式測試** — 在手機、平板、電腦上測試
+- [ ] **載入速度** — LCP（最大內容繪製）< 2.5 秒
+- [ ] **跨瀏覽器** — Chrome、Firefox、Safari、Edge 都支援
+- [ ] **無障礙** — 螢幕閱讀器能正確讀取圖片描述
+- [ ] **SEO** — 圖片命名清晰（不用 `image1.jpg`）
+- [ ] **色彩** — 在淺色 / 深色主題中都清晰可見
+
+## 十五、線上工具速查表
+
+| 工作 | 推薦工具 | URL |
+|------|---------|-----|
+| 圖片壓縮 | TinyPNG | https://tinypng.com |
+| 進階優化 | Squoosh | https://squoosh.app |
+| Base64 轉換 | Base64 Image | https://www.base64-image.de/ |
+| Lighthouse 測試 | Chrome DevTools | F12 → Lighthouse |
+| 色彩檢查 | WebAIM | https://webaim.org/resources/contrastchecker/ |
+
 ---
 
 需要快速實作縮圖嵌入？告訴我：
 - 使用場景（格子、卡片、單張等）
 - 圖片來源格式
 - 目標平台（Web、行動、電子報）
+- 特殊需求（動畫、濾鏡等）

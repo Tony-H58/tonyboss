@@ -360,7 +360,122 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File auto_check_and_import.ps
 -Match "\.(xlsx?|csv)$"
 ```
 
-## 十、相關文件與 Skill
+## 十、常見陷阱與最佳實踐
+
+### ❌ 常見錯誤
+
+| 錯誤 | 原因 | 後果 | 預防方法 |
+|------|------|------|---------|
+| 檔案名稱格式錯誤 | 不符 `*_yymmdd-yymmdd.*` | 文件被忽略 | 確認導出檔名遵循規則 |
+| 手動刪除 lock 檔過多次 | 防止重複處理的機制被繞過 | 可能重複導入 | 讓系統自動清理 lock |
+| rawdata 目錄權限不足 | Windows 權限設定 | 腳本無法讀寫檔 | 給用戶帳號「完全控制」權限 |
+| 日誌檔案越來越大 | 沒有定期清理 | 佔用磁碟空間 | 每季手動刪除舊日誌 |
+| 排程同時執行重複任務 | 多個排程在同時間觸發 | 資料混亂或衝突 | 錯開排程時間（間隔 10 分鐘） |
+
+### ✅ 最佳實踐
+
+**1. 定期檢查日誌**
+
+```powershell
+# 每週檢查一次（建議週一早上）
+Get-Content "E:\88. Claude\02_reminder\process_pending_log.txt" -Tail 100 | 
+  Select-String -Pattern "ERROR|Failed|Warning" -Context 2
+```
+
+**2. 備份重要檔案**
+
+```powershell
+# 每月備份一次日誌
+Copy-Item "E:\88. Claude\02_reminder\process_pending_log.txt" `
+          "E:\Backup\process_pending_log_$(Get-Date -Format 'yyyyMM').txt"
+```
+
+**3. 排程執行驗證**
+
+每季驗證排程是否正確執行：
+
+```powershell
+# 查看最近 7 天的排程執行紀錄
+Get-WinEvent -FilterHashtable @{
+    LogName = 'Microsoft-Windows-TaskScheduler/Operational'
+    StartTime = (Get-Date).AddDays(-7)
+} | Select-Object TimeCreated, Message | Format-Table -AutoSize
+```
+
+**4. 檔案命名規範**
+
+確保 rawdata 檔案名稱遵循格式：
+
+```
+✅ 正確格式
+├─ insprecord_QF_260801-260807.xlsx
+├─ weekly_data_260729-260804.xlsx
+└─ month_report_260601-260630.xlsx
+
+❌ 錯誤格式
+├─ data_08_weekly.xlsx  （無日期範圍）
+├─ Imported_260801-260807.xlsx  （已標記為導入）
+└─ 旧_260801-260807.xlsx  （特殊字符）
+```
+
+## 十一、進階監控
+
+### 即時監控自動處理
+
+若要監看自動處理的實時狀態，使用 PowerShell 尾追日誌：
+
+```powershell
+Get-Content "E:\88. Claude\02_reminder\process_pending_log.txt" -Wait
+```
+
+按 `Ctrl+C` 停止監控。
+
+### 設定自訂通知（進階）
+
+當檢查失敗時發送郵件通知：
+
+```powershell
+# 編輯 check_weekly_download.ps1 的末尾
+if ($result -eq "Failed") {
+    Send-MailMessage -From "system@company.com" `
+                     -To "admin@company.com" `
+                     -Subject "⚠️ 週報下載檢查失敗" `
+                     -Body "檢查時間：$(Get-Date)`n詳見日誌"
+}
+```
+
+## 十二、效能監控
+
+### 排程執行時間統計
+
+檢查排程平均耗時：
+
+```powershell
+# 查詢最近 30 天的任務完成時間
+$logs = Get-WinEvent -FilterHashtable @{
+    LogName = 'Microsoft-Windows-TaskScheduler/Operational'
+    StartTime = (Get-Date).AddDays(-30)
+} | Where-Object { $_.Message -like '*ProcessPendingRawdata*' }
+
+$logs | ForEach-Object {
+    $start = [DateTime]::Parse($_.TimeCreated)
+    # 計算每次執行時間...
+}
+```
+
+## 十三、快速參考表
+
+| 工作 | 命令 | 結果 |
+|------|------|------|
+| 立即檢查週報 | `.\check_weekly_download.ps1` | [OK] 或 [提醒] |
+| 立即檢查月報 | `.\check_monthly_download.ps1` | [OK] 或 [提醒] |
+| 手動觸發待處理 | `.\process_pending_rawdata.ps1` | 自動處理或 [OK] |
+| 查看日誌末尾 50 行 | `Get-Content process_pending_log.txt -Tail 50` | 日誌內容 |
+| 搜尋錯誤 | `Select-String "ERROR" process_pending_log.txt` | 錯誤訊息列表 |
+| 設定排程 | `.\setup_schedules.ps1` (需管理員) | 4 個排程建立 |
+| 查看所有排程 | `Get-ScheduledTask -TaskName "*Download*"` | 排程列表 |
+
+## 十四、相關文件與 Skill
 
 - `weekly-report` — 完整週報流程（含下載轉換）
 - `monthly-import` — 完整月報流程（含下載轉換）
