@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品管週報統計</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软正黑体", "Microsoft YaHei", Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1f4e78;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #1f4e78;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .section-title {
+            background-color: #4472C4;
+            color: white;
+            padding: 12px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        thead {
+            background-color: #4472C4;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #bfbfbf;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px 8px;
+            border: 1px solid #bfbfbf;
+            text-align: center;
+        }
+
+        td:nth-child(1),
+        td:nth-child(2) {
+            text-align: left;
+            padding-left: 12px;
+        }
+
+        tr.summary {
+            background-color: #D9E1F2;
+            font-weight: bold;
+        }
+
+        tr.region-CHN {
+            background-color: #FFFF99;
+        }
+
+        tr.region-TWN {
+            background-color: #C6EFCE;
+        }
+
+        tr.region-VIN {
+            background-color: #FFC7CE;
+        }
+
+        tr.region-IND {
+            background-color: #FFC7CE;
+        }
+
+        tr.top-case {
+            background-color: #F0F0F0;
+            font-size: 11px;
+        }
+
+        tr.top-case td {
+            padding: 8px 6px;
+            color: #555;
+        }
+
+        .top-case-label {
+            font-weight: bold;
+            color: #1f4e78;
+            padding-left: 30px;
+        }
+
+        .percentage {
+            color: #c00000;
+            font-weight: bold;
+        }
+
+        .high-value {
+            background-color: #fff2cc;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>品管週報統計</h1>
+            <p>2026/7/23~2026/7/29</p>
+        </div>
+
+        <!-- QC Table -->
+        <div class="section-title">品管 (QC)</div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>供應地</th>
+                        <th>供應商</th>
+                        <th>收料碼數</th>
+                        <th>抽驗碼數</th>
+                        <th>C%</th>
+                        <th>平均扣點</th>
+                        <th>2026 C%</th>
+                        <th>2026 扣點</th>
+                        <th>驗布筆數</th>
+                        <th>C20 筆數</th>
+                        <th>主要客戶</th>
+                        <th>主要布種</th>
+                        <th>主要瑕疵</th>
+                        <th>處理進度追蹤</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TOTAL -->
+                    <tr class="summary">
+                        <td colspan="1"></td>
+                        <td>總計</td>
+                        <td>1,743,860</td>
+                        <td>213,808</td>
+                        <td class="percentage">6.6%</td>
+                        <td>9.4</td>
+                        <td class="percentage">7.7%</td>
+                        <td>10.5</td>
+                        <td>347</td>
+                        <td>38</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- CHN Region -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td></td>
+                        <td>1,421,117</td>
+                        <td>170,954</td>
+                        <td class="percentage">5.6%</td>
+                        <td>9.3</td>
+                        <td class="percentage">7.0%</td>
+                        <td>10.4</td>
+                        <td>273</td>
+                        <td>21</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- HUA FENG -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>HUA FENG</td>
+                        <td>49,939</td>
+                        <td>7,350</td>
+                        <td class="percentage high-value">39.8%</td>
+                        <td>8.6</td>
+                        <td class="percentage">8.4%</td>
+                        <td>5.8</td>
+                        <td>9</td>
+                        <td>6</td>
+                        <td>UAM</td>
+                        <td>Plain Weave: 100.0%</td>
+                        <td>染折/折痕、油/髒/色汙、接疋</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>UAM</td>
+                        <td>7,350</td>
+                        <td class="percentage">39.8%</td>
+                        <td>8.6</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Plain Weave</td>
+                        <td>染折/折痕、油/髒/色汙、接疋</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- ARCH TEXTILES -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>ARCH TEXTILES</td>
+                        <td>25,367</td>
+                        <td>3,007</td>
+                        <td class="percentage high-value">26.5%</td>
+                        <td>13.8</td>
+                        <td class="percentage">7.4%</td>
+                        <td>14.4</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>DKS</td>
+                        <td>Tricot: 43.0%</td>
+                        <td>橫檔/橫條、針痕/直條、擦傷/刮傷/勾紗、油/髒/色汙、破洞、接疋、克重過輕、布邊不良</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>DKS</td>
+                        <td>3,007</td>
+                        <td class="percentage">26.5%</td>
+                        <td>13.8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tricot</td>
+                        <td>橫檔/橫條、針痕/直條、擦傷/刮傷/勾紗、油/髒/色汙、破洞</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- YAN TEXTILE -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>YAN TEXTILE</td>
+                        <td>9,544</td>
+                        <td>1,975</td>
+                        <td class="percentage high-value">16.7%</td>
+                        <td>19.2</td>
+                        <td class="percentage">16.7%</td>
+                        <td>17.9</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>A&F</td>
+                        <td>Jersey: 100.0%</td>
+                        <td>棉粒/結頭/粗節、斷紗(斷經/斷緯)、擦傷/刮傷/勾紗、油/髒/色汙、破洞、幅寬不足</td>
+                        <td>同意出貨</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>A&F</td>
+                        <td>1,975</td>
+                        <td class="percentage">16.7%</td>
+                        <td>19.2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>棉粒/結頭/粗節、斷紗(斷經/斷緯)、擦傷/刮傷/勾紗、油/髒/色汙、破洞</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 永新印染 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>永新印染</td>
+                        <td>6,980</td>
+                        <td>837</td>
+                        <td class="percentage high-value">12.5%</td>
+                        <td>15.7</td>
+                        <td class="percentage">20.5%</td>
+                        <td>16.1</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>KOH</td>
+                        <td>Double Knit: 100.0%</td>
+                        <td>油/髒/色汙、接疋、克重過輕</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>KOH</td>
+                        <td>837</td>
+                        <td class="percentage">12.5%</td>
+                        <td>15.7</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Double Knit</td>
+                        <td>油/髒/色汙、接疋、克重過輕</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 紹興知圖 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>紹興知圖</td>
+                        <td>47,967</td>
+                        <td>5,399</td>
+                        <td class="percentage">11.7%</td>
+                        <td>10.6</td>
+                        <td></td>
+                        <td>2.2</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>TGT</td>
+                        <td>Flannel: 33.9%</td>
+                        <td>棉粒/結頭/粗節、擦傷/刮傷/勾紗、油/髒/色汙、接疋、印花瑕疵</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>TGT</td>
+                        <td>5,399</td>
+                        <td class="percentage">11.7%</td>
+                        <td>10.6</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Flannel</td>
+                        <td>棉粒/結頭/粗節、擦傷/刮傷/勾紗、油/髒/色汙、接疋、印花瑕疵</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 兆升針織 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>兆升針織</td>
+                        <td>77,509</td>
+                        <td>10,110</td>
+                        <td class="percentage">10.1%</td>
+                        <td>6.3</td>
+                        <td class="percentage">21.2%</td>
+                        <td>6.7</td>
+                        <td>16</td>
+                        <td>4</td>
+                        <td>DKS</td>
+                        <td>Tricot: 51.8%</td>
+                        <td>染折/折痕、接疋</td>
+                        <td>同意出貨</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>DKS</td>
+                        <td>10,110</td>
+                        <td class="percentage">10.1%</td>
+                        <td>6.3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tricot</td>
+                        <td>染折/折痕、接疋</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 宏樺森 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>宏樺森</td>
+                        <td>39,796</td>
+                        <td>4,699</td>
+                        <td class="percentage">7.5%</td>
+                        <td>7.7</td>
+                        <td class="percentage">5.8%</td>
+                        <td>15.1</td>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 江陰申利 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>江陰申利</td>
+                        <td>25,201</td>
+                        <td>2,998</td>
+                        <td class="percentage">7.2%</td>
+                        <td>9.2</td>
+                        <td class="percentage">12.7%</td>
+                        <td>19.5</td>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 蘇州東利 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>蘇州東利</td>
+                        <td>29,986</td>
+                        <td>3,150</td>
+                        <td class="percentage">6.2%</td>
+                        <td>7.1</td>
+                        <td></td>
+                        <td></td>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 亞東 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>亞東</td>
+                        <td>21,480</td>
+                        <td>2,325</td>
+                        <td class="percentage">5.6%</td>
+                        <td>11.9</td>
+                        <td class="percentage">2.3%</td>
+                        <td>7.8</td>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 澳洋呢絨 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>澳洋呢絨</td>
+                        <td>86,259</td>
+                        <td>9,641</td>
+                        <td class="percentage">4.3%</td>
+                        <td>14.6</td>
+                        <td class="percentage">4.1%</td>
+                        <td>9.5</td>
+                        <td>8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 聚益 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>聚益</td>
+                        <td>146,755</td>
+                        <td>16,878</td>
+                        <td class="percentage">4.1%</td>
+                        <td>5.2</td>
+                        <td class="percentage">3.3%</td>
+                        <td>8.6</td>
+                        <td>18</td>
+                        <td>2</td>
+                        <td>KOH</td>
+                        <td>Poplin: 30.7%</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、染折/折痕、油/髒/色汙、漸進色差</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>KOH</td>
+                        <td>16,878</td>
+                        <td class="percentage">4.1%</td>
+                        <td>5.2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Poplin</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、染折/折痕、油/髒/色汙、漸進色差</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 井澤 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>井澤</td>
+                        <td>114,724</td>
+                        <td>12,065</td>
+                        <td class="percentage">3.7%</td>
+                        <td>3.8</td>
+                        <td class="percentage">3.8%</td>
+                        <td>5.7</td>
+                        <td>36</td>
+                        <td>1</td>
+                        <td>DKS</td>
+                        <td>Plain Weave: 100.0%</td>
+                        <td>染折/折痕</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>DKS</td>
+                        <td>12,065</td>
+                        <td class="percentage">3.7%</td>
+                        <td>3.8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Plain Weave</td>
+                        <td>染折/折痕</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 鼎暉興業 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>鼎暉興業</td>
+                        <td>61,599</td>
+                        <td>6,586</td>
+                        <td class="percentage">3.3%</td>
+                        <td>10.0</td>
+                        <td></td>
+                        <td>6.7</td>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 江蘇華盛 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>江蘇華盛</td>
+                        <td>29,690</td>
+                        <td>4,136</td>
+                        <td class="percentage">3.1%</td>
+                        <td>13.4</td>
+                        <td class="percentage">2.5%</td>
+                        <td>11.6</td>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- TWN Region -->
+                    <tr class="region-TWN">
+                        <td>TWN</td>
+                        <td></td>
+                        <td>57,283</td>
+                        <td>10,006</td>
+                        <td class="percentage">12.2%</td>
+                        <td>4.6</td>
+                        <td class="percentage">2.4%</td>
+                        <td>5.2</td>
+                        <td>17</td>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 裕源紡織 -->
+                    <tr class="region-TWN">
+                        <td>TWN</td>
+                        <td>裕源紡織</td>
+                        <td>11,542</td>
+                        <td>1,217</td>
+                        <td class="percentage high-value">100.0%</td>
+                        <td>1.4</td>
+                        <td></td>
+                        <td>5.1</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>ATH</td>
+                        <td>Double Knit: 100.0%</td>
+                        <td>斷紗(斷經/斷緯)、油/髒/色汙、接疋、幅寬不足</td>
+                        <td>簽核中</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>ATH</td>
+                        <td>1,217</td>
+                        <td class="percentage">100.0%</td>
+                        <td>1.4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Double Knit</td>
+                        <td>斷紗(斷經/斷緯)、油/髒/色汙、接疋、幅寬不足</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- VIN Region -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td></td>
+                        <td>181,728</td>
+                        <td>22,627</td>
+                        <td class="percentage">14.2%</td>
+                        <td>10.0</td>
+                        <td class="percentage">16.3%</td>
+                        <td>12.8</td>
+                        <td>40</td>
+                        <td>15</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- SAMIL(VIN) -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>SAMIL(VIN)</td>
+                        <td>52,664</td>
+                        <td>8,678</td>
+                        <td class="percentage high-value">30.6%</td>
+                        <td>17.4</td>
+                        <td class="percentage">10.8%</td>
+                        <td>15.0</td>
+                        <td>23</td>
+                        <td>13</td>
+                        <td>TGT</td>
+                        <td>Jersey: 100.0%</td>
+                        <td>斷紗(斷經/斷緯)、破洞、接疋、幅寬不足</td>
+                        <td>同意出貨</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>TGT</td>
+                        <td>8,678</td>
+                        <td class="percentage">30.6%</td>
+                        <td>17.4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>斷紗(斷經/斷緯)、破洞、接疋、幅寬不足</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 得力(VIN) -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>得力(VIN)</td>
+                        <td>13,344</td>
+                        <td>2,427</td>
+                        <td class="percentage">6.2%</td>
+                        <td>9.2</td>
+                        <td class="percentage">23.3%</td>
+                        <td>7.2</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>TGT</td>
+                        <td>Poplin: 23.1%</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、染折/折痕、擦傷/刮傷/勾紗、油/髒/色汙、布面不平整</td>
+                        <td>打下，安排覆驗</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>TGT</td>
+                        <td>2,427</td>
+                        <td class="percentage">6.2%</td>
+                        <td>9.2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Poplin</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、染折/折痕、擦傷/刮傷/勾紗、油/髒/色汙、布面不平整</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- NAMTEX -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>NAMTEX</td>
+                        <td>110,545</td>
+                        <td>10,179</td>
+                        <td class="percentage">4.0%</td>
+                        <td>4.7</td>
+                        <td class="percentage">9.2%</td>
+                        <td>5.0</td>
+                        <td>10</td>
+                        <td>1</td>
+                        <td>ONY</td>
+                        <td>Jersey: 42.4%</td>
+                        <td>斷紗(斷經/斷緯)、破洞、接疋、幅寬不足</td>
+                        <td>簽核中</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>ONY</td>
+                        <td>10,179</td>
+                        <td class="percentage">4.0%</td>
+                        <td>4.7</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>斷紗(斷經/斷緯)、破洞、接疋、幅寬不足</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FTY Table -->
+        <div class="section-title">工廠 (FTY)</div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>供應地</th>
+                        <th>供應商</th>
+                        <th>收料碼數</th>
+                        <th>抽驗碼數</th>
+                        <th>C%</th>
+                        <th>平均扣點</th>
+                        <th>2026 C%</th>
+                        <th>2026 扣點</th>
+                        <th>驗布筆數</th>
+                        <th>C20 筆數</th>
+                        <th>主要客戶</th>
+                        <th>主要布種</th>
+                        <th>主要瑕疵</th>
+                        <th>處理進度追蹤</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TOTAL -->
+                    <tr class="summary">
+                        <td colspan="1"></td>
+                        <td>總計</td>
+                        <td>6,063,507</td>
+                        <td>560,735</td>
+                        <td class="percentage">1.9%</td>
+                        <td>9.7</td>
+                        <td class="percentage">2.0%</td>
+                        <td>9.3</td>
+                        <td>1,123</td>
+                        <td>38</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- CHN Region -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>昆山芃展</td>
+                        <td>26,628</td>
+                        <td>3,017</td>
+                        <td class="percentage high-value">14.3%</td>
+                        <td>24.9</td>
+                        <td class="percentage">0.3%</td>
+                        <td>6.5</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>KOH</td>
+                        <td>Jersey: 36.8%</td>
+                        <td>棉粒/結頭/粗節、橫檔/橫條、染折/折痕、油/髒/色汙、印花瑕疵</td>
+                        <td>顏色: FLOTING BLOOMS，C級%: 36.9%，平均扣點: 45.4</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>KOH</td>
+                        <td>3,017</td>
+                        <td class="percentage">14.3%</td>
+                        <td>24.9</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>棉粒/結頭/粗節、橫檔/橫條、染折/折痕、油/髒/色汙、印花瑕疵</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 江蘇漢帛 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>江蘇漢帛</td>
+                        <td>164,789</td>
+                        <td>18,571</td>
+                        <td class="percentage high-value">11.7%</td>
+                        <td>21.1</td>
+                        <td class="percentage">10.3%</td>
+                        <td>16.7</td>
+                        <td>44</td>
+                        <td>4</td>
+                        <td>BNN</td>
+                        <td>Double Knit: 79.9%</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、針痕/直條、油/髒/色汙、破洞</td>
+                        <td>顏色: SHELTERED EARTH，C級%: 79.9%，平均扣點: 70.2</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>BNN</td>
+                        <td>18,571</td>
+                        <td class="percentage">11.7%</td>
+                        <td>21.1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Double Knit</td>
+                        <td>斷紗(斷經/斷緯)、橫檔/橫條、針痕/直條、油/髒/色汙、破洞</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- FORUS -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>FORUS</td>
+                        <td>13,220</td>
+                        <td>1,408</td>
+                        <td class="percentage">6.3%</td>
+                        <td>32.8</td>
+                        <td class="percentage">1.3%</td>
+                        <td>11.7</td>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 頡鴻紡織 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>頡鴻紡織</td>
+                        <td>139,892</td>
+                        <td>16,957</td>
+                        <td class="percentage high-value">5.7%</td>
+                        <td>13.8</td>
+                        <td class="percentage">1.3%</td>
+                        <td>6.5</td>
+                        <td>24</td>
+                        <td>4</td>
+                        <td>DKS</td>
+                        <td>Fleece: 100.0%</td>
+                        <td>橫檔/橫條、針痕/直條、破洞、接疋</td>
+                        <td>顏色: TRUE NAVY，C級%: 100.0%，平均扣點: 396.5</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>DKS</td>
+                        <td>16,957</td>
+                        <td class="percentage">5.7%</td>
+                        <td>13.8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Fleece</td>
+                        <td>橫檔/橫條、針痕/直條、破洞、接疋</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 國華實業 -->
+                    <tr class="region-CHN">
+                        <td>CHN</td>
+                        <td>國華實業</td>
+                        <td>177,225</td>
+                        <td>13,600</td>
+                        <td class="percentage high-value">5.6%</td>
+                        <td>14.9</td>
+                        <td class="percentage">3.2%</td>
+                        <td>14.1</td>
+                        <td>28</td>
+                        <td>3</td>
+                        <td>GU</td>
+                        <td>Tricot: 100.0%</td>
+                        <td>粗細紗、斷紗(斷經/斷緯)、破洞、邊中色差</td>
+                        <td>顏色: 08 DARK GRAY，C級%: 100.0%，平均扣點: 31.5</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>GU</td>
+                        <td>13,600</td>
+                        <td class="percentage">5.6%</td>
+                        <td>14.9</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tricot</td>
+                        <td>粗細紗、斷紗(斷經/斷緯)、破洞、邊中色差</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- TWN Region -->
+                    <tr class="region-TWN">
+                        <td>TWN</td>
+                        <td>達和國際</td>
+                        <td>1,829</td>
+                        <td>148</td>
+                        <td class="percentage high-value">21.6%</td>
+                        <td>24.3</td>
+                        <td class="percentage">3.8%</td>
+                        <td>10.3</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>DKS</td>
+                        <td>Jacquard: 100.0%</td>
+                        <td>破洞、接疋</td>
+                        <td>顏色: CHOCOLATE PLUM TCX，C級%: 100.0%，平均扣點: 50.0</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>DKS</td>
+                        <td>148</td>
+                        <td class="percentage">21.6%</td>
+                        <td>24.3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jacquard</td>
+                        <td>破洞、接疋</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- 綿春纖維 -->
+                    <tr class="region-TWN">
+                        <td>TWN</td>
+                        <td>綿春纖維</td>
+                        <td>1,885</td>
+                        <td>1,186</td>
+                        <td class="percentage">4.3%</td>
+                        <td>16.7</td>
+                        <td class="percentage">1.4%</td>
+                        <td>6.0</td>
+                        <td>6</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- IND Region -->
+                    <tr class="region-IND">
+                        <td>IND</td>
+                        <td>力鵬企業</td>
+                        <td>2,112</td>
+                        <td>203</td>
+                        <td class="percentage high-value">25.1%</td>
+                        <td>10.3</td>
+                        <td class="percentage">1.2%</td>
+                        <td>8.2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>TGT</td>
+                        <td>Poplin: 100.0%</td>
+                        <td>印花瑕疵</td>
+                        <td>顏色: AOP309_01，C級%: 100.0%，平均扣點: 37.3</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>TGT</td>
+                        <td>203</td>
+                        <td class="percentage">25.1%</td>
+                        <td>10.3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Poplin</td>
+                        <td>印花瑕疵</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- H WEAR -->
+                    <tr class="region-IND">
+                        <td>IND</td>
+                        <td>H WEAR</td>
+                        <td>23,533</td>
+                        <td>3,368</td>
+                        <td class="percentage high-value">19.2%</td>
+                        <td>11.1</td>
+                        <td class="percentage">1.2%</td>
+                        <td>11.4</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>ONY</td>
+                        <td>Satin: 62.2%</td>
+                        <td>棉粒/結頭/粗節、粗細紗、斷紗(斷經/斷緯)、染折/折痕、手感不符</td>
+                        <td>顏色: BLACK JACK，C級%: 62.2%，平均扣點: 11.0</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>ONY</td>
+                        <td>3,368</td>
+                        <td class="percentage">19.2%</td>
+                        <td>11.1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Satin</td>
+                        <td>棉粒/結頭/粗節、粗細紗、斷紗(斷經/斷緯)、染折/折痕、手感不符</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- VIN Region -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>越南璟宏</td>
+                        <td>4,622</td>
+                        <td>873</td>
+                        <td class="percentage high-value">100.0%</td>
+                        <td>81.1</td>
+                        <td></td>
+                        <td></td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>CATAPULT</td>
+                        <td>Jersey: 100.0%</td>
+                        <td>橫檔/橫條</td>
+                        <td>顏色: BLACK，C級%: 100.0%，平均扣點: 81.9</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>CATAPULT</td>
+                        <td>873</td>
+                        <td class="percentage">100.0%</td>
+                        <td>81.1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>橫檔/橫條</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- DH TEXTILE -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>DH TEXTILE</td>
+                        <td>5,916</td>
+                        <td>660</td>
+                        <td class="percentage high-value">61.5%</td>
+                        <td>57.0</td>
+                        <td></td>
+                        <td></td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>BNN</td>
+                        <td>Jersey: 100.0%</td>
+                        <td>針痕/直條、油/髒/色汙</td>
+                        <td>顏色: BLACK，C級%: 100.0%，平均扣點: 89.8</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>BNN</td>
+                        <td>660</td>
+                        <td class="percentage">61.5%</td>
+                        <td>57.0</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Jersey</td>
+                        <td>針痕/直條、油/髒/色汙</td>
+                        <td></td>
+                    </tr>
+
+                    <!-- HUA FENG -->
+                    <tr class="region-VIN">
+                        <td>VIN</td>
+                        <td>HUA FENG</td>
+                        <td>9,235</td>
+                        <td>1,946</td>
+                        <td class="percentage high-value">16.7%</td>
+                        <td>51.5</td>
+                        <td class="percentage">8.6%</td>
+                        <td>3.2</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>ATH</td>
+                        <td>Velour: 62.1%</td>
+                        <td>織布瑕疵(漏針)、橫檔/橫條、染折/折痕、油/髒/色汙、破洞</td>
+                        <td>顏色: HALO，C級%: 62.1%，平均扣點: 183.2</td>
+                    </tr>
+                    <tr class="top-case">
+                        <td></td>
+                        <td class="top-case-label">客戶</td>
+                        <td>ATH</td>
+                        <td>1,946</td>
+                        <td class="percentage">16.7%</td>
+                        <td>51.5</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Velour</td>
+                        <td>織布瑕疵(漏針)、橫檔/橫條、染折/折痕、油/髒/色汙、破洞</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center; color: #999; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p>© 2026 品管週報統計 | 自動化報告生成系統</p>
+        </div>
+    </div>
+</body>
+</html>
