@@ -60,6 +60,24 @@ try {
     Write-Host "❌ 失敗：$($_.Exception.Message)" -ForegroundColor Red
 }
 
+# 4. 待處理 rawdata 檢查排程 (每天 11:00 和 16:00)
+$script4 = "E:\88. Claude\02_reminder\process_pending_rawdata.ps1"
+$trigger4a = New-ScheduledTaskTrigger -Daily -At 11:00
+$trigger4b = New-ScheduledTaskTrigger -Daily -At 16:00
+$action4 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$script4`""
+
+try {
+    if (Get-ScheduledTask -TaskPath $taskPath -TaskName "ProcessPendingRawdata" -ErrorAction SilentlyContinue) {
+        Unregister-ScheduledTask -TaskPath $taskPath -TaskName "ProcessPendingRawdata" -Confirm:$false
+    }
+    Register-ScheduledTask -TaskPath $taskPath -TaskName "ProcessPendingRawdata" `
+        -Action $action4 -Trigger @($trigger4a, $trigger4b) -Settings $settings `
+        -Description "每天 11:00 和 16:00 檢查並處理待轉換的 rawdata" | Out-Null
+    Write-Host "✅ 已建立排程：ProcessPendingRawdata" -ForegroundColor Green
+} catch {
+    Write-Host "❌ 失敗：$($_.Exception.Message)" -ForegroundColor Red
+}
+
 Write-Host "`n📋 排程建立完成。" -ForegroundColor Green
 Write-Host "已建立排程列表：" -ForegroundColor Cyan
 Get-ScheduledTask -TaskPath $taskPath | Select-Object TaskName, State | Format-Table -AutoSize
