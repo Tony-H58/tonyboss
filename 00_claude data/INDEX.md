@@ -1,7 +1,7 @@
 # 📚 00_claude data 資訊導航
 
-**最後更新**: 2026-07-29  
-**管理者**: Tony Huang
+**最後更新**: 2026-08-17  
+**管理者**: Tony Huang / Claude Code
 
 ---
 
@@ -72,10 +72,13 @@ E:\88. Claude\00_claude data\
 
 ```
 E:\88. Claude\.claude\skills\
-├── weekly-report\SKILL.md      ← 週報完整流程
-├── monthly-import\SKILL.md     ← 月報完整流程
-├── qc-analysis\SKILL.md        ← 品質分析與 QC 績效
-└── invoice-transfer\SKILL.md   ← 平台發票辨識轉入
+├── download-tasks\SKILL.md        ← 下載任務管理 (2026-08-17 新增)
+├── image-to-html\SKILL.md         ← 圖片處理轉 HTML (2026-08-17 新增)
+├── data-converter\SKILL.md        ← 數據格式轉換 (2026-08-17 新增)
+├── weekly-report\SKILL.md         ← 週報完整流程
+├── monthly-import\SKILL.md        ← 月報完整流程
+├── qc-analysis\SKILL.md           ← 品質分析與 QC 績效
+└── invoice-transfer\SKILL.md      ← 平台發票辨識轉入
 ```
 
 ---
@@ -90,6 +93,9 @@ E:\88. Claude\.claude\skills\
 ### 常見任務
 | 任務 | 查看文檔 | 系統資料夾 | Skill |
 |------|--------|---------|-------|
+| **下載報表/rawdata** | Claude Skills 總表.md | 03_download rawdata | download-tasks ⭐ 新 |
+| **圖片處理/相冊** | Claude Skills 總表.md | 00_html file | image-to-html ⭐ 新 |
+| **數據格式轉換** | Claude Skills 總表.md | 全項目 | data-converter ⭐ 新 |
 | 週報自動化 | Skill使用指南.md | 03 → 12 | weekly-report |
 | 月度驗布導入 | 11_inspdata_monthly 筆記.md | 03 → 11 | monthly-import |
 | 發票管理 | 發票整理筆記.md | 31_electronic invoice | invoice-transfer |
@@ -166,5 +172,5 @@ E:\88. Claude\
 
 ---
 
-**最後更新**: 2026-07-29 by Claude Code
+**最後更新**: 2026-08-17 by Claude Code
 
