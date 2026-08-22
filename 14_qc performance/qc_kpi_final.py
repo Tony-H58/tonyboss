@@ -32,8 +32,13 @@ QC_SAMPLE_QTY = 26         # Col 27 (0-indexed) - Sample qty
 QC_C_GRADE_PCT = 32        # Col 33 (0-indexed) - C級%
 QC_DEFECT_PER_HUNDRED = 34  # Col 35 (0-indexed) - 百碼瑕疵點數
 
-def load_data(year_month='26-1~26-6'):
-    """Load data from monthly insprecord_QF folder based on year_month period"""
+def load_data(year_month='26-1~26-6', use_json=True):
+    """Load data from monthly insprecord_QF folder based on year_month period
+
+    Args:
+        year_month: period like "26-1~26-6" (optional)
+        use_json: prefer JSON over Excel (default True)
+    """
     print(f"Loading insprecord_QF data for period: {year_month}...")
 
     # Parse year_month format: "26-1~26-6"
@@ -47,34 +52,57 @@ def load_data(year_month='26-1~26-6'):
     start_yymmdd = f"{start_yy}0{start_mm}02"  # "260102"
     end_yymmdd = f"{end_yy}0{end_mm}31"  # "260631" (use 31 as max possible)
 
-    # Find all matching files in MONTHLY_QF_DIR
     import glob
-    pattern = os.path.join(MONTHLY_QF_DIR, 'insprecord_QF_*.xlsx')
-    matching_files = sorted(glob.glob(pattern))
+    import json
 
-    if not matching_files:
-        raise FileNotFoundError(f"No insprecord_QF files found in {MONTHLY_QF_DIR}")
-
-    # Filter files that overlap with the requested period
-    # File format: insprecord_QF_YYMMDD-YYMMDD.xlsx
     dfs = []
-    for filepath in matching_files:
-        filename = os.path.basename(filepath)
-        # Extract date range from filename
-        date_part = filename.replace('insprecord_QF_', '').replace('.xlsx', '')
-        file_start, file_end = date_part.split('-')
+    file_format = None
 
-        # Check if file overlaps with requested period
-        if file_end >= start_yymmdd and file_start <= end_yymmdd:
-            print(f"  Loading: {filename}")
-            df = pd.read_excel(filepath, sheet_name=0)
-            dfs.append(df)
+    # Try JSON first (if enabled)
+    if use_json:
+        pattern = os.path.join(MONTHLY_QF_DIR, 'insprecord_QF_*.json')
+        json_files = sorted(glob.glob(pattern))
+
+        if json_files:
+            file_format = 'json'
+            for filepath in json_files:
+                filename = os.path.basename(filepath)
+                date_part = filename.replace('insprecord_QF_', '').replace('.json', '')
+                try:
+                    file_start, file_end = date_part.split('-')
+                    if file_end >= start_yymmdd and file_start <= end_yymmdd:
+                        print(f"  Loading JSON: {filename}")
+                        with open(filepath, 'r', encoding='utf-8') as f:
+                            data = json.load(f)
+                        df = pd.DataFrame(data['data'])
+                        dfs.append(df)
+                except:
+                    pass
+
+    # Fallback to Excel if no JSON found
+    if not dfs:
+        pattern = os.path.join(MONTHLY_QF_DIR, 'insprecord_QF_*.xlsx')
+        matching_files = sorted(glob.glob(pattern))
+
+        if not matching_files:
+            raise FileNotFoundError(f"No insprecord_QF files found in {MONTHLY_QF_DIR}")
+
+        file_format = 'excel'
+        for filepath in matching_files:
+            filename = os.path.basename(filepath)
+            date_part = filename.replace('insprecord_QF_', '').replace('.xlsx', '')
+            file_start, file_end = date_part.split('-')
+
+            if file_end >= start_yymmdd and file_start <= end_yymmdd:
+                print(f"  Loading Excel: {filename}")
+                df = pd.read_excel(filepath, sheet_name=0)
+                dfs.append(df)
 
     if not dfs:
         raise FileNotFoundError(f"No files found matching period {year_month}")
 
     all_df = pd.concat(dfs, ignore_index=True)
-    print(f"  Total rows: {len(all_df)}")
+    print(f"  Format: {file_format} | Total rows: {len(all_df)}")
 
     return all_df
 
