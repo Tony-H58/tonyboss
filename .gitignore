@@ -43,3 +43,10 @@ temp/
 
 # Installers
 *.exe
+
+# 簽核工具產出
+33_approval signer/build/
+33_approval signer/dist/
+33_approval signer/*.spec
+33_approval signer/簽核紀錄.csv
+__pycache__/
