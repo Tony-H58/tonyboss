@@ -17,7 +17,7 @@ python app.py --demo
 ```
 
 ## 打包成 exe（在有 Python 的 Windows 電腦）
-雙擊 `build.bat`，產生 `dist\簽核工具.exe`。使用者電腦不需裝 Python。
+雙擊 `build.bat`，產生 `dist\簽核工具.exe`，並自動複製到 `E:\88. Claude\88_temp\品管系統驗報簽核`。使用者電腦不需裝 Python。
 `config.ini` 放在 exe 同一資料夾，填入 `base_url`。
 
 ## 安全設計
